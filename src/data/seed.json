@@ -1,0 +1,232 @@
+{
+  "itinerary": {
+    "philly-out": { "cityViewId": "philly-out", "days": [
+      { "date": "2026-06-13", "items": [
+        { "id": "phl-out-1", "name": "Depart Philadelphia", "time": "14:00", "duration": "1h", "location": "PHL Airport", "notes": "Check bags, get through security early", "links": [] },
+        { "id": "phl-out-2", "name": "Flight to Prague via Frankfurt", "time": "17:00", "duration": "9h", "location": "PHL → FRA → PRG", "notes": "Overnight flight, arrive PRG June 14 morning", "links": [] }
+      ]}
+    ]},
+    "prague": { "cityViewId": "prague", "days": [
+      { "date": "2026-06-14", "items": [
+        { "id": "prg-1", "name": "Arrive Václav Havel Airport", "time": "10:00", "duration": "1h", "location": "PRG Airport", "notes": "Take bus or taxi to accommodation", "links": [] },
+        { "id": "prg-2", "name": "Check in and rest", "time": "12:00", "duration": "2h", "location": "Hotel", "notes": "Recover from overnight flight", "links": [] },
+        { "id": "prg-3", "name": "Old Town Square and Astronomical Clock", "time": "15:00", "duration": "2h", "location": "Stare Mesto", "notes": "Clock shows at top of each hour", "links": [] }
+      ]},
+      { "date": "2026-06-15", "items": [
+        { "id": "prg-4", "name": "Prague Castle", "time": "09:00", "duration": "3h", "location": "Hradcany", "notes": "Buy tickets online. St. Vitus Cathedral inside.", "links": [] },
+        { "id": "prg-5", "name": "Charles Bridge", "time": "13:00", "duration": "1h", "location": "Charles Bridge", "notes": "Busy midday, less crowded early morning or evening", "links": [] },
+        { "id": "prg-6", "name": "Josefov Jewish Quarter", "time": "15:00", "duration": "2h", "location": "Josefov", "notes": "6 synagogues and Old Jewish Cemetery", "links": [] }
+      ]},
+      { "date": "2026-06-16", "items": [
+        { "id": "prg-7", "name": "Vinohrady neighborhood walk", "time": "10:00", "duration": "2h", "location": "Vinohrady", "notes": "Peaceful residential area, beautiful architecture", "links": [] },
+        { "id": "prg-8", "name": "Vltava River cruise", "time": "14:00", "duration": "1.5h", "location": "Vltava River", "notes": "Great views of the city", "links": [] }
+      ]},
+      { "date": "2026-06-17", "items": [
+        { "id": "prg-9", "name": "Day trip: Kutna Hora Bone Church", "time": "08:30", "duration": "6h", "location": "Kutna Hora", "notes": "Sedlec Ossuary - decorations made from 40,000 human bones", "links": [] }
+      ]},
+      { "date": "2026-06-18", "items": [
+        { "id": "prg-10", "name": "Morning free", "time": "09:00", "duration": "3h", "location": "Prague", "notes": "Pick up souvenirs", "links": [] },
+        { "id": "prg-11", "name": "Train to Vienna (Railjet)", "time": "13:00", "duration": "4h", "location": "Praha hl.n. to Wien Hbf", "notes": "Book in advance. Scenic route.", "links": [] }
+      ]}
+    ]},
+    "vienna": { "cityViewId": "vienna", "days": [
+      { "date": "2026-06-18", "items": [
+        { "id": "vie-1", "name": "Arrive Vienna Hauptbahnhof", "time": "17:00", "duration": "1h", "location": "Wien Hbf", "notes": "U-Bahn to accommodation", "links": [] },
+        { "id": "vie-2", "name": "Evening walk along the Ringstrasse", "time": "19:00", "duration": "1.5h", "location": "Ringstrasse", "notes": "Opera House, Parliament, Burgtheater all on this boulevard", "links": [] }
+      ]},
+      { "date": "2026-06-19", "items": [
+        { "id": "vie-3", "name": "Schonbrunn Palace and Gardens", "time": "09:00", "duration": "3h", "location": "Schonbrunn", "notes": "Book Grand Tour tickets online", "links": [] },
+        { "id": "vie-4", "name": "Naschmarkt lunch", "time": "13:00", "duration": "1.5h", "location": "Naschmarkt", "notes": "Vienna's famous open-air market", "links": [] },
+        { "id": "vie-5", "name": "Kunsthistorisches Museum", "time": "15:00", "duration": "2.5h", "location": "Maria-Theresien-Platz", "notes": "One of the world's great art museums", "links": [] }
+      ]},
+      { "date": "2026-06-20", "items": [
+        { "id": "vie-6", "name": "Belvedere Palace", "time": "10:00", "duration": "2.5h", "location": "Belvedere", "notes": "Klimt's The Kiss is here", "links": [] },
+        { "id": "vie-7", "name": "Coffee at Cafe Central", "time": "13:30", "duration": "1h", "location": "Herrengasse 14", "notes": "Classic Viennese coffeehouse, order Melange", "links": [] },
+        { "id": "vie-8", "name": "St. Stephen's Cathedral", "time": "15:00", "duration": "1h", "location": "Stephansplatz", "notes": "Climb the south tower for views", "links": [] }
+      ]},
+      { "date": "2026-06-21", "items": [
+        { "id": "vie-9", "name": "Prater and Giant Ferris Wheel", "time": "09:30", "duration": "2h", "location": "Prater", "notes": "Historic amusement park, famous Riesenrad", "links": [] },
+        { "id": "vie-10", "name": "Train to Budapest (Railjet)", "time": "13:30", "duration": "2.5h", "location": "Wien Hbf to Budapest-Keleti", "notes": "Book ahead. Scenic Danube views.", "links": [] }
+      ]}
+    ]},
+    "budapest": { "cityViewId": "budapest", "days": [
+      { "date": "2026-06-21", "items": [
+        { "id": "bud-1", "name": "Arrive Budapest-Keleti", "time": "16:00", "duration": "1h", "location": "Budapest-Keleti", "notes": "Metro or taxi to accommodation", "links": [] },
+        { "id": "bud-2", "name": "Szechenyi Chain Bridge at sunset", "time": "19:00", "duration": "1h", "location": "Chain Bridge", "notes": "Iconic view of Buda Castle across the Danube", "links": [] }
+      ]},
+      { "date": "2026-06-22", "items": [
+        { "id": "bud-3", "name": "Buda Castle and Castle Hill", "time": "09:00", "duration": "3h", "location": "Buda Castle", "notes": "Funicular up from Clark Adam ter. Hungarian National Gallery inside.", "links": [] },
+        { "id": "bud-4", "name": "Fisherman's Bastion", "time": "12:00", "duration": "1h", "location": "Fisherman's Bastion", "notes": "Fairy-tale towers with panoramic Pest views", "links": [] },
+        { "id": "bud-5", "name": "Szechenyi Thermal Bath", "time": "15:00", "duration": "3h", "location": "Szechenyi", "notes": "Bring swimsuit. Outdoor pools are iconic.", "links": [] }
+      ]},
+      { "date": "2026-06-23", "items": [
+        { "id": "bud-6", "name": "Hungarian Parliament Building tour", "time": "10:00", "duration": "1.5h", "location": "Kossuth Lajos ter", "notes": "Must book tickets online in advance", "links": [] },
+        { "id": "bud-7", "name": "Great Market Hall", "time": "12:00", "duration": "1.5h", "location": "Fovam ter", "notes": "Paprika, salami, folk embroidery. Get langos upstairs.", "links": [] },
+        { "id": "bud-8", "name": "Szimpla Kert ruin bar", "time": "20:00", "duration": "2h", "location": "Kazinczy utca 14", "notes": "Iconic ruin bar in the Jewish Quarter", "links": [] }
+      ]},
+      { "date": "2026-06-24", "items": [
+        { "id": "bud-9", "name": "Hero's Square and City Park", "time": "09:00", "duration": "1.5h", "location": "Hosok tere", "notes": "Millennium Monument with statues of Hungarian leaders", "links": [] },
+        { "id": "bud-10", "name": "Pack and check out", "time": "11:00", "duration": "1h", "location": "Accommodation", "notes": "", "links": [] },
+        { "id": "bud-11", "name": "Airport and flight home", "time": "14:00", "duration": "12h", "location": "BUD to PHL", "notes": "Allow 3 hours for airport", "links": [] }
+      ]}
+    ]},
+    "philly-in": { "cityViewId": "philly-in", "days": [
+      { "date": "2026-06-25", "items": [
+        { "id": "phl-in-1", "name": "Arrive Philadelphia", "time": "18:00", "duration": "1h", "location": "PHL Airport", "notes": "Customs, baggage claim, Uber home", "links": [] }
+      ]}
+    ]}
+  },
+  "activities": {
+    "philly": { "cityId": "philly", "items": [
+      { "id": "act-phl-1", "name": "Reading Terminal Market", "location": "12th and Arch St", "timeEstimate": "1.5h", "cost": "Free entry", "priority": 5, "notes": "Best cheesesteaks, Amish pretzels, DiNic's roast pork", "link": "" },
+      { "id": "act-phl-2", "name": "Philadelphia Museum of Art", "location": "2600 Benjamin Franklin Pkwy", "timeEstimate": "3h", "cost": "$25", "priority": 4, "notes": "Run the Rocky steps", "link": "" },
+      { "id": "act-phl-3", "name": "Independence Hall", "location": "Chestnut St", "timeEstimate": "1.5h", "cost": "Free", "priority": 5, "notes": "Where the Declaration of Independence was signed", "link": "" }
+    ]},
+    "prague": { "cityId": "prague", "items": [
+      { "id": "act-prg-1", "name": "Prague Castle", "location": "Hradcany", "timeEstimate": "3h", "cost": "350 CZK", "priority": 5, "notes": "Largest ancient castle in the world. St. Vitus Cathedral inside.", "link": "" },
+      { "id": "act-prg-2", "name": "Old Town Square", "location": "Staromestske namesti", "timeEstimate": "1.5h", "cost": "Free", "priority": 5, "notes": "Astronomical Clock performs at top of each hour 9am-9pm", "link": "" },
+      { "id": "act-prg-3", "name": "Charles Bridge", "location": "Karluv most", "timeEstimate": "45m", "cost": "Free", "priority": 5, "notes": "30 Baroque statues. Best at dawn or dusk.", "link": "" },
+      { "id": "act-prg-4", "name": "Josefov Jewish Quarter", "location": "Josefov", "timeEstimate": "2.5h", "cost": "500 CZK", "priority": 4, "notes": "6 synagogues, Old Jewish Cemetery. Haunting and beautiful.", "link": "" },
+      { "id": "act-prg-5", "name": "Beer at a local pub", "location": "Various", "timeEstimate": "2h", "cost": "50-80 CZK per pint", "priority": 5, "notes": "Pilsner Urquell or Kozel. Best beer in the world at best prices.", "link": "" },
+      { "id": "act-prg-6", "name": "Sedlec Ossuary Bone Church", "location": "Kutna Hora day trip", "timeEstimate": "4h total", "cost": "160 CZK plus train", "priority": 4, "notes": "Decorations made from 40,000 human bones. Unique.", "link": "" }
+    ]},
+    "vienna": { "cityId": "vienna", "items": [
+      { "id": "act-vie-1", "name": "Schonbrunn Palace", "location": "Schonbrunner Schlossstr. 47", "timeEstimate": "3h", "cost": "26 EUR Grand Tour", "priority": 5, "notes": "Summer residence of Habsburg emperors. Maze in garden.", "link": "" },
+      { "id": "act-vie-2", "name": "Kunsthistorisches Museum", "location": "Maria-Theresien-Platz", "timeEstimate": "3h", "cost": "21 EUR", "priority": 5, "notes": "World-class art museum. Vermeer, Raphael, Velazquez.", "link": "" },
+      { "id": "act-vie-3", "name": "Belvedere Palace", "location": "Prinz-Eugen-Str. 27", "timeEstimate": "2.5h", "cost": "16 EUR", "priority": 5, "notes": "Klimt's The Kiss. Stunning baroque gardens.", "link": "" },
+      { "id": "act-vie-4", "name": "Cafe Central", "location": "Herrengasse 14", "timeEstimate": "1h", "cost": "10-15 EUR", "priority": 4, "notes": "Historic coffeehouse. Order Melange and Apfelstrudel.", "link": "" },
+      { "id": "act-vie-5", "name": "Vienna State Opera Standing Room", "location": "Opernring 2", "timeEstimate": "3h", "cost": "5 EUR standing", "priority": 4, "notes": "Standing room tickets sold 80 min before curtain.", "link": "" }
+    ]},
+    "budapest": { "cityId": "budapest", "items": [
+      { "id": "act-bud-1", "name": "Szechenyi Thermal Bath", "location": "Allatkerti krt. 9-11", "timeEstimate": "3h", "cost": "7000 HUF", "priority": 5, "notes": "Bring swimsuit. Outdoor pools open year-round. Iconic yellow building.", "link": "" },
+      { "id": "act-bud-2", "name": "Buda Castle and Castle Hill", "location": "Szent Gyorgy ter 2", "timeEstimate": "3h", "cost": "Free to walk", "priority": 5, "notes": "Funicular from Clark Adam ter. Hungarian National Gallery inside.", "link": "" },
+      { "id": "act-bud-3", "name": "Hungarian Parliament Building", "location": "Kossuth Lajos ter 1-3", "timeEstimate": "1.5h", "cost": "8000 HUF", "priority": 5, "notes": "Must book online. Crown of St. Stephen on display.", "link": "" },
+      { "id": "act-bud-4", "name": "Fisherman's Bastion", "location": "Szentharomsag ter 5", "timeEstimate": "1h", "cost": "Free", "priority": 5, "notes": "Fairy-tale towers. Best panoramic view of Pest.", "link": "" },
+      { "id": "act-bud-5", "name": "Great Market Hall", "location": "Fovam ter 1-3", "timeEstimate": "1.5h", "cost": "Free entry", "priority": 4, "notes": "3 floors. Ground floor: paprika, salami. Upper floor: langos, folk crafts.", "link": "" },
+      { "id": "act-bud-6", "name": "Szimpla Kert ruin bar", "location": "Kazinczy u. 14", "timeEstimate": "2h", "cost": "1500-3000 HUF drinks", "priority": 4, "notes": "Original Budapest ruin bar. Jewish Quarter. Quirky decor.", "link": "" }
+    ]}
+  },
+  "phrases": {
+    "philly": { "cityId": "philly", "categories": [
+      { "name": "Basic", "words": [
+        { "english": "How are you?", "local": "How you doin'?", "phonetic": "How ya doo-in" },
+        { "english": "Excuse me", "local": "Yo", "phonetic": "Yo" },
+        { "english": "Goodbye", "local": "Later", "phonetic": "Lay-der" }
+      ], "info": [
+        { "title": "Cheesesteaks", "body": "At Pat's and Geno's: know your order before stepping up. Say 'wit' for onions, 'witout' for none. Provolone or whiz (Cheez Whiz)." },
+        { "title": "Wawa", "body": "Wawa is a convenience store that Philadelphians are obsessed with. Get a hoagie or coffee. Never mock Wawa to a local." }
+      ]}
+    ]},
+    "prague": { "cityId": "prague", "categories": [
+      { "name": "Basic", "words": [
+        { "english": "Hello", "local": "Ahoj / Dobry den", "phonetic": "Ah-hoy / Dob-ree den" },
+        { "english": "Thank you", "local": "Dekuji", "phonetic": "Dyeh-koo-yee" },
+        { "english": "Please / You're welcome", "local": "Prosim", "phonetic": "Pro-seem" },
+        { "english": "Yes / No", "local": "Ano / Ne", "phonetic": "Ah-no / Neh" },
+        { "english": "Excuse me / Sorry", "local": "Prominte", "phonetic": "Pro-min-teh" },
+        { "english": "Goodbye", "local": "Na shledanou", "phonetic": "Nah-skle-dah-no" },
+        { "english": "I don't understand", "local": "Nerozumim", "phonetic": "Neh-ro-zoo-meem" }
+      ], "info": [
+        { "title": "Tipping", "body": "Round up the bill or tip 10%. Say 'zaplatten prosim' to ask for the bill." },
+        { "title": "Currency", "body": "Czech Koruna (CZK). Most places accept cards but carry some cash. Use ATMs, not tourist exchange offices." }
+      ]},
+      { "name": "Food", "words": [
+        { "english": "Beer", "local": "Pivo", "phonetic": "Pee-vo" },
+        { "english": "Wine", "local": "Vino", "phonetic": "Vee-no" },
+        { "english": "Water", "local": "Voda", "phonetic": "Vo-da" },
+        { "english": "The bill please", "local": "Ucet prosim", "phonetic": "Oo-chet pro-seem" },
+        { "english": "Cheers!", "local": "Na zdravi!", "phonetic": "Nah-zdra-vee" }
+      ], "info": [
+        { "title": "Must Try", "body": "Svickova (marinated beef with creamy sauce and bread dumplings), Goulash, Pilsner Urquell or Kozel beer." }
+      ]},
+      { "name": "Travel", "words": [
+        { "english": "Where is...?", "local": "Kde je...?", "phonetic": "Kdeh yeh" },
+        { "english": "Metro / Tram", "local": "Metro / Tramvaj", "phonetic": "Met-ro / Tram-vai" },
+        { "english": "Ticket", "local": "Jizdenka", "phonetic": "Yeez-den-kah" },
+        { "english": "Left / Right / Straight", "local": "Vlevo / Vpravo / Rovne", "phonetic": "Vleh-vo / Vpra-vo / Rov-nyeh" }
+      ], "info": [
+        { "title": "Transit", "body": "Buy a 24h or 3-day pass. Validate single tickets on the yellow machines. Inspectors check — always have a valid ticket." }
+      ]},
+      { "name": "Getting Help", "words": [
+        { "english": "Help!", "local": "Pomoc!", "phonetic": "Po-mots" },
+        { "english": "Police", "local": "Policie", "phonetic": "Po-leets-ee-eh" },
+        { "english": "Hospital", "local": "Nemocnice", "phonetic": "Neh-mots-nee-tseh" },
+        { "english": "I need a doctor", "local": "Potrebuji lekare", "phonetic": "Po-treh-boo-yee leh-kar-zheh" }
+      ], "info": []}
+    ]},
+    "vienna": { "cityId": "vienna", "categories": [
+      { "name": "Basic", "words": [
+        { "english": "Hello (formal)", "local": "Guten Tag", "phonetic": "Goo-ten tahk" },
+        { "english": "Hello (informal)", "local": "Servus / Gruss Gott", "phonetic": "Zehr-voos / Grüss Gott" },
+        { "english": "Thank you", "local": "Danke", "phonetic": "Dan-keh" },
+        { "english": "Please / You're welcome", "local": "Bitte", "phonetic": "Bit-teh" },
+        { "english": "Yes / No", "local": "Ja / Nein", "phonetic": "Yah / Nine" },
+        { "english": "Excuse me / Sorry", "local": "Entschuldigung", "phonetic": "Ent-shool-dee-goong" },
+        { "english": "Goodbye", "local": "Auf Wiedersehen", "phonetic": "Owf-vee-der-zayn" }
+      ], "info": [
+        { "title": "Coffeehouse Culture", "body": "Order a Melange (like cappuccino), Grosser Brauner (espresso with cream), or Einspanner (espresso in a glass with whipped cream). Sit as long as you like." },
+        { "title": "Tipping", "body": "Round up or tip 10%. Tell the server the total rather than leaving cash on the table." }
+      ]},
+      { "name": "Food", "words": [
+        { "english": "Beer", "local": "Bier", "phonetic": "Beer" },
+        { "english": "Wine", "local": "Wein", "phonetic": "Vine" },
+        { "english": "Water", "local": "Wasser", "phonetic": "Vah-ser" },
+        { "english": "The bill please", "local": "Die Rechnung bitte", "phonetic": "Dee Rech-noong bit-teh" },
+        { "english": "Cheers!", "local": "Prost!", "phonetic": "Prohst" }
+      ], "info": [
+        { "title": "Must Try", "body": "Wiener Schnitzel, Apfelstrudel, Sachertorte (at Hotel Sacher), Tafelspitz (boiled beef), Kasekrainer (cheese sausage from a Wurstelstand)." }
+      ]},
+      { "name": "Travel", "words": [
+        { "english": "Where is...?", "local": "Wo ist...?", "phonetic": "Vo ist" },
+        { "english": "U-Bahn (subway)", "local": "U-Bahn", "phonetic": "Oo-bahn" },
+        { "english": "Ticket", "local": "Fahrkarte", "phonetic": "Far-kar-teh" },
+        { "english": "Left / Right / Straight", "local": "Links / Rechts / Geradeaus", "phonetic": "Links / Rechts / Geh-rah-deh-owss" }
+      ], "info": [
+        { "title": "Transit", "body": "Vienna's U-Bahn is excellent. Get a 72-hour Vienna City Card for transit and museum discounts. Trams are great for sightseeing." }
+      ]},
+      { "name": "Getting Help", "words": [
+        { "english": "Help!", "local": "Hilfe!", "phonetic": "Hil-feh" },
+        { "english": "Police", "local": "Polizei", "phonetic": "Po-lee-tsai" },
+        { "english": "Hospital", "local": "Krankenhaus", "phonetic": "Kran-ken-howss" },
+        { "english": "I need a doctor", "local": "Ich brauche einen Arzt", "phonetic": "Ikh brow-kheh eye-nen artst" }
+      ], "info": []}
+    ]},
+    "budapest": { "cityId": "budapest", "categories": [
+      { "name": "Basic", "words": [
+        { "english": "Hello", "local": "Szia / Jo napot", "phonetic": "See-ya / Yo nah-pot" },
+        { "english": "Thank you", "local": "Koszonom", "phonetic": "Kuh-suh-nuhm" },
+        { "english": "Please", "local": "Kerem", "phonetic": "Kay-rem" },
+        { "english": "Yes / No", "local": "Igen / Nem", "phonetic": "Ee-gen / Nem" },
+        { "english": "Excuse me", "local": "Elnezest", "phonetic": "El-nay-zaysht" },
+        { "english": "Goodbye", "local": "Viszontlatasra", "phonetic": "Vis-sont-lah-tahsh-rah" },
+        { "english": "I don't understand", "local": "Nem ertem", "phonetic": "Nem air-tem" }
+      ], "info": [
+        { "title": "Language Note", "body": "Hungarian (Magyar) is unrelated to any Western European language. Locals appreciate any attempt. Most young people in tourist areas speak English." },
+        { "title": "Tipping", "body": "10-15% is expected in restaurants. Say the total including tip when paying. Rounding up is fine for smaller bills." }
+      ]},
+      { "name": "Food", "words": [
+        { "english": "Beer", "local": "Sor", "phonetic": "Shur" },
+        { "english": "Wine", "local": "Bor", "phonetic": "Bor" },
+        { "english": "Water", "local": "Viz", "phonetic": "Veez" },
+        { "english": "The bill please", "local": "Kerem a szamlat", "phonetic": "Kay-rem ah sahm-laht" },
+        { "english": "Cheers!", "local": "Egeszsegere!", "phonetic": "Egg-ay-shay-ged-reh" }
+      ], "info": [
+        { "title": "Must Try", "body": "Goulash (gulyas - a soup here, not a stew), Langos (fried dough with sour cream and cheese), Kurtoskalacs (chimney cake), Tokaji wine, Palinka (fruit brandy)." }
+      ]},
+      { "name": "Travel", "words": [
+        { "english": "Where is...?", "local": "Hol van...?", "phonetic": "Hol von" },
+        { "english": "Metro", "local": "Metro", "phonetic": "Met-ro" },
+        { "english": "Ticket", "local": "Jegy", "phonetic": "Yedge" },
+        { "english": "Left / Right / Straight", "local": "Balra / Jobbra / Egyenesen", "phonetic": "Bol-roh / Yob-roh / Edj-en-esh-en" }
+      ], "info": [
+        { "title": "Transit", "body": "Budapest has 4 metro lines. Line 1 (yellow) is the oldest on the continent. Buy a 24h or 72h pass. Always validate — inspectors check frequently." }
+      ]},
+      { "name": "Getting Help", "words": [
+        { "english": "Help!", "local": "Segitseg!", "phonetic": "Sheh-geet-shayg" },
+        { "english": "Police", "local": "Rendorseg", "phonetic": "Ren-dur-shayg" },
+        { "english": "Hospital", "local": "Korhaz", "phonetic": "Kor-hahz" },
+        { "english": "I need a doctor", "local": "Orvosra van szuksegem", "phonetic": "Or-vosh-rah von sük-shay-gem" }
+      ], "info": []}
+    ]}
+  }
+}
