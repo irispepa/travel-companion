@@ -1,0 +1,21 @@
+{
+  "planPath": "docs/superpowers/plans/2026-05-05-travel-companion.md",
+  "tasks": [
+    {"id": 1, "subject": "Task 1: Project Scaffold", "status": "pending"},
+    {"id": 2, "subject": "Task 2: Global Styles & Design Tokens", "status": "pending", "blockedBy": [1]},
+    {"id": 3, "subject": "Task 3: Database Schema & Client", "status": "pending", "blockedBy": [1]},
+    {"id": 4, "subject": "Task 4: Repositories", "status": "pending", "blockedBy": [3]},
+    {"id": 5, "subject": "Task 5: City Config & Seed Data", "status": "pending", "blockedBy": [4]},
+    {"id": 6, "subject": "Task 6: Custom Hooks", "status": "pending", "blockedBy": [4, 5]},
+    {"id": 7, "subject": "Task 7: Router & App Shell", "status": "pending", "blockedBy": [2, 6]},
+    {"id": 8, "subject": "Task 8: City Selector & Dashboard", "status": "pending", "blockedBy": [7]},
+    {"id": 9, "subject": "Task 9: Currency Calculator", "status": "pending", "blockedBy": [6, 8]},
+    {"id": 10, "subject": "Task 10: Itinerary Section", "status": "pending", "blockedBy": [7, 6]},
+    {"id": 11, "subject": "Task 11: What to Do Section", "status": "pending", "blockedBy": [7, 6]},
+    {"id": 12, "subject": "Task 12: What to Say Section", "status": "pending", "blockedBy": [7, 6]},
+    {"id": 13, "subject": "Task 13: Memories Section", "status": "pending", "blockedBy": [7, 6]},
+    {"id": 14, "subject": "Task 14: PWA & Offline Polish", "status": "pending", "blockedBy": [10, 11, 12, 13, 9]},
+    {"id": 15, "subject": "Task 15: End-to-End Smoke Test & Seed Prep", "status": "pending", "blockedBy": [14]}
+  ],
+  "lastUpdated": "2026-05-05"
+}
