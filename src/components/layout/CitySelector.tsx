@@ -5,9 +5,9 @@ const CITY_META: Record<string, {
   color: string; label: string; date: string; rotate: number; sub: string;
   start?: string; end?: string;
 }> = {
-  prague:    { color: '#c8442a', label: 'PRAHA', date: '3 · VI',  rotate: -6,  sub: 'June 3 – 6',   start: '2026-06-03', end: '2026-06-06' },
-  vienna:    { color: '#d39327', label: 'WIEN',  date: '6 · VI',  rotate: 4,   sub: 'June 6 – 9',   start: '2026-06-06', end: '2026-06-09' },
-  budapest:  { color: '#5a6b3b', label: 'BUDA',  date: '9 · VI',  rotate: -5,  sub: 'June 9 – 12',  start: '2026-06-09', end: '2026-06-12' },
+  prague:    { color: '#c8442a', label: 'PRAHA', date: '3 · VI',  rotate: -6,  sub: 'June 3 – 5',   start: '2026-06-03', end: '2026-06-05' },
+  vienna:    { color: '#d39327', label: 'WIEN',  date: '6 · VI',  rotate: 4,   sub: 'June 6 – 8',   start: '2026-06-06', end: '2026-06-08' },
+  budapest:  { color: '#5a6b3b', label: 'BUDA',  date: '9 · VI',  rotate: -5,  sub: 'June 9 – 11',  start: '2026-06-09', end: '2026-06-11' },
   'philly-out': { color: '#1f3a5f', label: 'PHL', date: 'JUN 2',  rotate: 7,   sub: 'June 2 · departure' },
   'philly-in':  { color: '#1f3a5f', label: 'PHL', date: 'JUN 12', rotate: -9,  sub: 'June 12 · home' },
 }
@@ -74,7 +74,7 @@ export function CitySelector() {
           letterSpacing: '0.18em',
           color: 'var(--color-ink-soft)',
         }}>
-          IRIS &amp; NIKO · 2026
+          IRIS &amp; NIKO · SUMMER 2026
         </div>
         <div style={{
           fontFamily: 'var(--font-mono)',
