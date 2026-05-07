@@ -44,31 +44,46 @@ export function ItinerarySection() {
 
   return (
     <AppShell cityLabel={config.label} showBack={true} onCalculator={() => setShowCalc(true)}>
-      <div style={{ padding: 'var(--space-lg) var(--space-md) var(--space-3xl)' }}>
+      <div style={{ padding: 'var(--space-lg) var(--space-md) var(--space-3xl)', background: 'var(--color-paper)' }}>
         {showMap && (
-          <div style={{ marginBottom: 'var(--space-lg)' }}>
+          <div style={{ marginBottom: 'var(--space-lg)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
             <CityMap embedUrl={config.mapEmbedUrl} cityLabel={config.label} />
           </div>
         )}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center',
+          alignItems: 'flex-end',
           marginBottom: 'var(--space-lg)',
         }}>
-          <h2 style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'var(--text-headline)',
-            fontWeight: 400,
-            color: 'var(--color-cream)',
-          }}>
-            Itinerary
-          </h2>
+          <div>
+            <p style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 9,
+              color: 'var(--color-stamp)',
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              marginBottom: 4,
+            }}>
+              {config.label}
+            </p>
+            <h2 style={{
+              fontSize: 22,
+              fontWeight: 700,
+              color: 'var(--color-ink)',
+              letterSpacing: '-0.01em',
+            }}>
+              Itinerary
+            </h2>
+          </div>
           <button
             onClick={() => setIsEditMode(e => !e)}
             style={{
-              color: 'var(--color-gold)',
-              fontSize: 'var(--text-body)',
+              color: 'var(--color-stamp)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 11,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
               minHeight: 44,
               minWidth: 44,
               display: 'flex',
@@ -80,7 +95,7 @@ export function ItinerarySection() {
           </button>
         </div>
         {!record && (
-          <p style={{ color: 'var(--color-muted)', fontSize: 'var(--text-body)' }}>Loading…</p>
+          <p style={{ color: 'var(--color-ink-faint)', fontSize: 'var(--text-body)' }}>Loading…</p>
         )}
         {record?.days.map(day => (
           <DayGroup key={day.date} day={day} isEditMode={isEditMode} currentTime={now}

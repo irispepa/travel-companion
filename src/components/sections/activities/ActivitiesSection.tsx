@@ -29,30 +29,44 @@ export function ActivitiesSection() {
 
   return (
     <AppShell cityLabel={config.label} showBack={true} onCalculator={() => setShowCalc(true)}>
-      <div style={{ padding: 'var(--space-lg) var(--space-md) var(--space-3xl)' }}>
+      <div style={{ padding: 'var(--space-lg) var(--space-md) var(--space-3xl)', background: 'var(--color-paper)' }}>
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: 'var(--space-lg)',
         }}>
-          <h2 style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'var(--text-headline)',
-            fontWeight: 400,
-            color: 'var(--color-cream)',
-          }}>
-            What to Do
-          </h2>
+          <div>
+            <p style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 9,
+              color: 'var(--color-stamp)',
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              marginBottom: 4,
+            }}>
+              {config.label}
+            </p>
+            <h2 style={{
+              fontSize: 22,
+              fontWeight: 700,
+              color: 'var(--color-ink)',
+              letterSpacing: '-0.01em',
+            }}>
+              What to Do
+            </h2>
+          </div>
           <select
             value={sortKey}
             onChange={e => setSortKey(e.target.value as SortKey)}
             aria-label="Sort activities"
             style={{
-              background: 'var(--color-bg-card)',
-              border: 'none',
-              color: 'var(--color-muted)',
-              fontSize: 'var(--text-caption)',
+              background: 'var(--color-white)',
+              border: '1px solid var(--color-rule)',
+              color: 'var(--color-ink-soft)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 10,
+              letterSpacing: '0.06em',
               borderRadius: 'var(--radius-sm)',
               padding: '6px 10px',
               WebkitAppearance: 'none',
@@ -68,7 +82,7 @@ export function ActivitiesSection() {
         </div>
         {loading && <SkeletonList rows={5} rowHeight={60} />}
         {!loading && items.length === 0 && (
-          <p style={{ color: 'var(--color-muted)', fontSize: 'var(--text-body)', textAlign: 'center', paddingTop: 'var(--space-xl)' }}>
+          <p style={{ color: 'var(--color-ink-faint)', fontSize: 'var(--text-body)', textAlign: 'center', paddingTop: 'var(--space-xl)' }}>
             Nothing here yet
           </p>
         )}

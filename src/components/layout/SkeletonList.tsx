@@ -8,7 +8,7 @@ export function SkeletonList({ rows = 4, rowHeight = 64 }: Props) {
           key={i}
           style={{
             height: rowHeight,
-            background: 'var(--color-bg-card)',
+            background: 'var(--color-rule)',
             borderRadius: 'var(--radius-md)',
             opacity: 1 - i * 0.15,
             animation: 'skeletonPulse 1.4s ease-in-out infinite',

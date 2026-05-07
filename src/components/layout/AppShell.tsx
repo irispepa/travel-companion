@@ -11,7 +11,7 @@ interface Props {
 export function AppShell({ cityLabel, showBack, onCalculator, children }: Props) {
   const navigate = useNavigate()
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--color-paper)' }}>
       <header style={{
         display: 'flex',
         alignItems: 'center',
@@ -19,8 +19,8 @@ export function AppShell({ cityLabel, showBack, onCalculator, children }: Props)
         padding: '0 var(--space-md)',
         height: 52,
         flexShrink: 0,
-        background: 'var(--color-bg)',
-        borderBottom: '1px solid var(--color-bg-card)',
+        background: 'var(--color-paper)',
+        borderBottom: '1px solid var(--color-rule)',
       }}>
         {showBack ? (
           <button
@@ -32,7 +32,7 @@ export function AppShell({ cityLabel, showBack, onCalculator, children }: Props)
               justifyContent: 'center',
               minWidth: 44,
               minHeight: 44,
-              color: 'var(--color-gold)',
+              color: 'var(--color-ink-soft)',
               fontSize: 20,
             }}
           >
@@ -42,16 +42,16 @@ export function AppShell({ cityLabel, showBack, onCalculator, children }: Props)
           <span style={{ minWidth: 44 }} />
         )}
 
-        <h1 style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 'var(--text-caption)',
-          fontWeight: 400,
-          color: 'var(--color-muted)',
-          letterSpacing: '0.16em',
+        <span style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: 10,
+          fontWeight: 500,
+          color: 'var(--color-ink-faint)',
+          letterSpacing: '0.18em',
           textTransform: 'uppercase',
         }}>
           {cityLabel}
-        </h1>
+        </span>
 
         {onCalculator ? (
           <button
@@ -63,7 +63,7 @@ export function AppShell({ cityLabel, showBack, onCalculator, children }: Props)
               justifyContent: 'center',
               minWidth: 44,
               minHeight: 44,
-              color: 'var(--color-gold)',
+              color: 'var(--color-ink-soft)',
               fontSize: 18,
             }}
           >
@@ -74,7 +74,7 @@ export function AppShell({ cityLabel, showBack, onCalculator, children }: Props)
         )}
       </header>
 
-      <main style={{ flex: 1, overflowY: 'auto', overscrollBehavior: 'contain' }}>
+      <main style={{ flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', background: 'var(--color-paper)' }}>
         {children}
       </main>
     </div>

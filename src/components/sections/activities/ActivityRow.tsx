@@ -7,10 +7,11 @@ export function ActivityRow({ item, expanded, onToggle, index = 0 }: Props) {
   const stars = item.priority > 0 ? '★'.repeat(Math.min(item.priority, 5)) : null
   return (
     <div style={{
-      background: 'var(--color-bg-card)',
+      background: 'var(--color-white)',
       borderRadius: 'var(--radius-md)',
       marginBottom: 'var(--space-sm)',
       overflow: 'hidden',
+      border: '1px solid var(--color-rule)',
       animation: 'fadeStagger 260ms var(--ease-out-expo) both',
       animationDelay: `${index * 40}ms`,
     }}>
@@ -29,9 +30,9 @@ export function ActivityRow({ item, expanded, onToggle, index = 0 }: Props) {
       >
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{
-            fontFamily: 'var(--font-serif)',
             fontSize: 'var(--text-title)',
-            color: 'var(--color-cream)',
+            fontWeight: 600,
+            color: 'var(--color-ink)',
             lineHeight: 'var(--leading-snug)',
             overflowWrap: 'break-word',
           }}>
@@ -39,9 +40,11 @@ export function ActivityRow({ item, expanded, onToggle, index = 0 }: Props) {
           </div>
           {item.location && (
             <div style={{
-              fontSize: 'var(--text-caption)',
-              color: 'var(--color-muted)',
-              marginTop: 2,
+              fontFamily: 'var(--font-mono)',
+              fontSize: 10,
+              color: 'var(--color-ink-faint)',
+              marginTop: 3,
+              letterSpacing: '0.04em',
             }}>
               {item.location}
             </div>
@@ -51,14 +54,14 @@ export function ActivityRow({ item, expanded, onToggle, index = 0 }: Props) {
           {stars && (
             <span style={{
               fontSize: 10,
-              color: 'var(--color-gold)',
+              color: 'var(--color-stamp)',
               letterSpacing: '0.05em',
             }}>
               {stars}
             </span>
           )}
           <span style={{
-            color: 'var(--color-muted)',
+            color: 'var(--color-ink-faint)',
             fontSize: 10,
             transition: `transform var(--duration-fast) var(--ease-out-expo)`,
             transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -69,9 +72,7 @@ export function ActivityRow({ item, expanded, onToggle, index = 0 }: Props) {
         </div>
       </button>
       {expanded && (
-        <div style={{
-          animation: 'fadeStagger 200ms var(--ease-out-expo) both',
-        }}>
+        <div style={{ animation: 'fadeStagger 200ms var(--ease-out-expo) both' }}>
           <ActivityDetail item={item} />
         </div>
       )}

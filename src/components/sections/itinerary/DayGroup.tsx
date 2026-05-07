@@ -23,18 +23,22 @@ function isPastItem(date: string, time: string, now: Date): boolean {
 export function DayGroup({ day, isEditMode, currentTime, onUpdate, onAdd, onMoveUp, onMoveDown }: Props) {
   return (
     <div style={{ marginBottom: 'var(--space-xl)' }}>
-      <div style={{
-        fontSize: 'var(--text-caption)',
-        letterSpacing: '0.18em',
-        textTransform: 'uppercase',
-        color: 'var(--color-gold)',
-        marginBottom: 'var(--space-sm)',
-        fontVariantNumeric: 'tabular-nums',
-      }}>
-        {new Date(day.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-sm)', marginBottom: 'var(--space-sm)' }}>
+        <div style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: 10,
+          fontWeight: 600,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'var(--color-stamp)',
+          flexShrink: 0,
+        }}>
+          {new Date(day.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+        </div>
+        <div style={{ flex: 1, height: 1, background: 'var(--color-rule)' }} />
       </div>
       {day.items.length === 0 && !isEditMode && (
-        <p style={{ fontSize: 'var(--text-body)', color: 'var(--color-muted)', padding: 'var(--space-md) 0' }}>
+        <p style={{ fontSize: 'var(--text-body)', color: 'var(--color-ink-faint)', padding: 'var(--space-md) 0' }}>
           Nothing planned yet
         </p>
       )}
@@ -51,9 +55,10 @@ export function DayGroup({ day, isEditMode, currentTime, onUpdate, onAdd, onMove
           style={{
             width: '100%',
             padding: 'var(--space-sm)',
-            background: 'var(--color-bg-card-alt)',
+            background: 'var(--color-paper-deep)',
             borderRadius: 'var(--radius-sm)',
-            color: 'var(--color-gold)',
+            border: '1px dashed var(--color-rule)',
+            color: 'var(--color-stamp)',
             fontSize: 'var(--text-body)',
             marginTop: 'var(--space-xs)',
             minHeight: 44,

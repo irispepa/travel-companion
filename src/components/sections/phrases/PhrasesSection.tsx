@@ -46,27 +46,44 @@ export function PhrasesSection() {
 
   return (
     <AppShell cityLabel={config.label} showBack={true} onCalculator={() => setShowCalc(true)}>
-      <div style={{ padding: 'var(--space-lg) var(--space-md) var(--space-3xl)' }}>
+      <div style={{ padding: 'var(--space-lg) var(--space-md) var(--space-3xl)', background: 'var(--color-paper)' }}>
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center',
+          alignItems: 'flex-end',
           marginBottom: 'var(--space-md)',
         }}>
-          <h2 style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'var(--text-headline)',
-            fontWeight: 400,
-            color: 'var(--color-cream)',
-          }}>
-            What to Say
-          </h2>
+          <div>
+            <p style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 9,
+              color: 'var(--color-stamp)',
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              marginBottom: 4,
+            }}>
+              {config.label}
+            </p>
+            <h2 style={{
+              fontSize: 22,
+              fontWeight: 700,
+              color: 'var(--color-ink)',
+              letterSpacing: '-0.01em',
+            }}>
+              What to Say
+            </h2>
+          </div>
           {translateUrl && (
             <a
               href={translateUrl}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontSize: 'var(--text-caption)', color: 'var(--color-blue)', letterSpacing: '0.03em' }}
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 10,
+                color: 'var(--color-ink-blue)',
+                letterSpacing: '0.06em',
+              }}
             >
               Translate →
             </a>
@@ -80,11 +97,11 @@ export function PhrasesSection() {
           aria-label="Search phrases"
           style={{
             width: '100%',
-            background: 'var(--color-bg-card)',
-            border: 'none',
+            background: 'var(--color-white)',
+            border: '1px solid var(--color-rule)',
             borderRadius: 'var(--radius-sm)',
             padding: '10px 14px',
-            color: 'var(--color-cream)',
+            color: 'var(--color-ink)',
             fontSize: 'var(--text-body)',
             marginBottom: 'var(--space-md)',
           }}
@@ -98,7 +115,7 @@ export function PhrasesSection() {
 
         {loading && <SkeletonList rows={6} rowHeight={72} />}
         {!loading && words.length === 0 && info.length === 0 && (
-          <p style={{ color: 'var(--color-muted)', fontSize: 'var(--text-body)', textAlign: 'center', paddingTop: 'var(--space-xl)' }}>
+          <p style={{ color: 'var(--color-ink-faint)', fontSize: 'var(--text-body)', textAlign: 'center', paddingTop: 'var(--space-xl)' }}>
             No phrases found
           </p>
         )}

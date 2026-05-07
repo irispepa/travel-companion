@@ -6,18 +6,20 @@ interface Props { item: ItineraryItem; isPast: boolean; index?: number }
 export function ItineraryCard({ item, isPast, index = 0 }: Props) {
   return (
     <div style={{
-      background: 'var(--color-bg-card)',
+      background: 'var(--color-white)',
       borderRadius: 'var(--radius-md)',
       padding: 'var(--space-md)',
       marginBottom: 'var(--space-sm)',
+      border: '1px solid var(--color-rule)',
       animation: 'fadeStagger 260ms var(--ease-out-expo) both',
       animationDelay: `${index * 40}ms`,
+      opacity: isPast ? 0.55 : 1,
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 'var(--space-xs)', gap: 'var(--space-sm)' }}>
         <span style={{
-          fontFamily: 'var(--font-serif)',
           fontSize: 'var(--text-title)',
-          color: isPast ? 'var(--color-muted)' : 'var(--color-cream)',
+          fontWeight: 600,
+          color: 'var(--color-ink)',
           lineHeight: 'var(--leading-snug)',
           overflowWrap: 'break-word',
           minWidth: 0,
@@ -27,9 +29,10 @@ export function ItineraryCard({ item, isPast, index = 0 }: Props) {
         </span>
         {item.time && (
           <span style={{
-            fontSize: 'var(--text-caption)',
-            color: isPast ? 'var(--color-muted)' : 'var(--color-gold)',
-            letterSpacing: '0.05em',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11,
+            color: isPast ? 'var(--color-ink-faint)' : 'var(--color-stamp)',
+            letterSpacing: '0.04em',
             flexShrink: 0,
             marginLeft: 'var(--space-sm)',
             fontVariantNumeric: 'tabular-nums',
@@ -40,9 +43,11 @@ export function ItineraryCard({ item, isPast, index = 0 }: Props) {
       </div>
       {(item.duration || item.location) && (
         <div style={{
-          fontSize: 'var(--text-caption)',
-          color: 'var(--color-muted)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: 10,
+          color: 'var(--color-ink-faint)',
           marginBottom: item.notes ? 'var(--space-xs)' : 0,
+          letterSpacing: '0.04em',
         }}>
           {[item.duration, item.location].filter(Boolean).join(' · ')}
         </div>
@@ -50,7 +55,7 @@ export function ItineraryCard({ item, isPast, index = 0 }: Props) {
       {item.notes && (
         <div style={{
           fontSize: 'var(--text-caption)',
-          color: 'var(--color-muted)',
+          color: 'var(--color-ink-soft)',
           lineHeight: 'var(--leading-normal)',
           marginTop: 'var(--space-xs)',
         }}>
