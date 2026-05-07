@@ -3,26 +3,21 @@ interface Props { title: string; body: string }
 export function InfoCard({ title, body }: Props) {
   return (
     <div style={{
-      background: 'var(--color-paper-deep)',
-      borderRadius: 'var(--radius-md)',
-      padding: 'var(--space-md)',
-      marginBottom: 'var(--space-sm)',
+      background: 'var(--color-white)',
       border: '1px solid var(--color-rule)',
+      borderRadius: 10,
+      padding: '12px 14px',
+      marginBottom: 8,
     }}>
       <div style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: 9,
-        color: 'var(--color-stamp)',
-        letterSpacing: '0.2em',
-        textTransform: 'uppercase',
-        marginBottom: 'var(--space-xs)',
+        fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 500,
+        letterSpacing: '-0.01em', color: 'var(--color-ink)',
       }}>
         {title}
       </div>
       <div style={{
-        fontSize: 'var(--text-body)',
-        color: 'var(--color-ink-soft)',
-        lineHeight: 'var(--leading-normal)',
+        fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-ink-soft)',
+        marginTop: 4, lineHeight: 1.5,
       }}>
         {body}
       </div>
