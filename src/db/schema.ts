@@ -2,7 +2,7 @@ export type CityViewId = 'philly-out' | 'prague' | 'vienna' | 'budapest' | 'phil
 export type CityId = 'philly' | 'prague' | 'vienna' | 'budapest'
 
 export interface ItineraryLink { label: string; url: string }
-export interface ItineraryItem { id: string; name: string; time: string; duration: string; location: string; notes: string; links: ItineraryLink[] }
+export interface ItineraryItem { id: string; name: string; time: string; duration: string; location: string; notes: string; links: ItineraryLink[]; done?: boolean; active?: boolean }
 export interface ItineraryDay { date: string; items: ItineraryItem[] }
 export interface ItineraryRecord { cityViewId: CityViewId; days: ItineraryDay[] }
 
