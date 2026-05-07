@@ -40,13 +40,47 @@ export function CalculatorOverlay({ cityViewId, onClose }: Props) {
   }
 
   return (
-    <div style={{
-      position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)',
-      display: 'flex', alignItems: 'flex-end', zIndex: 100
-    }} onClick={onClose}>
-      <div style={{ background: 'var(--color-bg)', borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0', padding: 'var(--space-lg)', width: '100%' }}
-        onClick={e => e.stopPropagation()}>
-        <h2 style={{ fontFamily: 'var(--font-serif)', marginBottom: 'var(--space-md)' }}>Currency</h2>
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'rgba(0,0,0,0.7)',
+        zIndex: 'var(--z-overlay)',
+        animation: 'backdropFadeIn var(--duration-base) var(--ease-out-expo) both',
+      }}
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="calculator-title"
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: 'var(--color-bg)',
+          borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0',
+          padding: 'var(--space-lg)',
+          paddingBottom: 'calc(var(--space-lg) + env(safe-area-inset-bottom, 0px))',
+          maxHeight: '85vh',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          animation: 'sheetSlideUp var(--duration-sheet) var(--ease-out-expo) both',
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        <h2
+          id="calculator-title"
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'var(--text-headline)',
+            fontWeight: 400,
+            marginBottom: 'var(--space-md)',
+          }}
+        >
+          Currency
+        </h2>
         <div style={{ display: 'flex', gap: 'var(--space-sm)', marginBottom: 'var(--space-md)' }}>
           <CurrencyPicker value={from} onChange={handleFromCurrencyChange} label="From" />
           <CurrencyPicker value={to} onChange={handleToCurrencyChange} label="To" />
@@ -54,7 +88,9 @@ export function CalculatorOverlay({ cityViewId, onClose }: Props) {
         <CurrencyInput from={from} to={to} rate={rate} fromValue={fromVal} toValue={toVal}
           onFromChange={handleFromChange} onToChange={handleToChange} />
         {isOffline && rateDate && (
-          <p style={{ fontSize: 11, color: 'var(--color-muted)', marginTop: 8 }}>rate from {rateDate}</p>
+          <p role="status" style={{ fontSize: 'var(--text-caption)', color: 'var(--color-muted)', marginTop: 'var(--space-sm)' }}>
+            Using cached rate from {rateDate}
+          </p>
         )}
       </div>
     </div>

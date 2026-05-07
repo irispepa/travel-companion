@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 interface Props {
   cityLabel: string
   showBack: boolean
-  onCalculator: () => void
+  onCalculator?: () => void
   children: React.ReactNode
 }
 
@@ -13,21 +13,68 @@ export function AppShell({ cityLabel, showBack, onCalculator, children }: Props)
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <header style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '12px 16px', background: 'var(--color-bg)',
-        borderBottom: '1px solid var(--color-bg-card)'
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 var(--space-md)',
+        height: 52,
+        flexShrink: 0,
+        background: 'var(--color-bg)',
+        borderBottom: '1px solid var(--color-bg-card)',
       }}>
-        {showBack
-          ? <button aria-label="back" onClick={() => navigate(-1)} style={{ fontSize: 20, color: 'var(--color-gold)' }}>←</button>
-          : <span />}
-        <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 18, color: 'var(--color-cream)', letterSpacing: 1 }}>
+        {showBack ? (
+          <button
+            aria-label="Back"
+            onClick={() => navigate(-1)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minWidth: 44,
+              minHeight: 44,
+              color: 'var(--color-gold)',
+              fontSize: 20,
+            }}
+          >
+            ←
+          </button>
+        ) : (
+          <span style={{ minWidth: 44 }} />
+        )}
+
+        <h1 style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: 'var(--text-caption)',
+          fontWeight: 400,
+          color: 'var(--color-muted)',
+          letterSpacing: '0.16em',
+          textTransform: 'uppercase',
+        }}>
           {cityLabel}
         </h1>
-        <button aria-label="calculator" onClick={onCalculator} style={{ fontSize: 20, color: 'var(--color-gold)' }}>
-          ₿
-        </button>
+
+        {onCalculator ? (
+          <button
+            aria-label="Currency calculator"
+            onClick={onCalculator}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minWidth: 44,
+              minHeight: 44,
+              color: 'var(--color-gold)',
+              fontSize: 18,
+            }}
+          >
+            ⇄
+          </button>
+        ) : (
+          <span style={{ minWidth: 44 }} />
+        )}
       </header>
-      <main style={{ flex: 1, overflowY: 'auto', padding: 'var(--space-md)' }}>
+
+      <main style={{ flex: 1, overflowY: 'auto', overscrollBehavior: 'contain' }}>
         {children}
       </main>
     </div>
