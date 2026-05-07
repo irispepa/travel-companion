@@ -18,7 +18,7 @@ export function useExchangeRate(from: string, to: string) {
         setRate(cached.rate); setRateDate(cached.fetchedAt); return
       }
       try {
-        const res = await fetch(`https://api.frankfurter.app/latest?from=${from}&to=${to}`)
+        const res = await fetch(`https://api.frankfurter.dev/v1/latest?from=${from}&to=${to}`)
         const data = await res.json()
         const r = data.rates[to]
         await setCachedRate(db, { pair, rate: r, fetchedAt: TODAY })
