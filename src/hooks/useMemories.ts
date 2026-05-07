@@ -6,9 +6,13 @@ import { getMemories, addMemory as dbAdd, deleteMemory as dbDelete } from '../db
 export function useMemories(cityId: CityId) {
   const db = useDb()
   const [entries, setEntries] = useState<MemoryEntry[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getMemories(db, cityId).then(setEntries)
+    setLoading(true)
+    getMemories(db, cityId)
+      .then(setEntries)
+      .finally(() => setLoading(false))
   }, [db, cityId])
 
   const addMemory = useCallback(async (entry: MemoryEntry) => {
@@ -21,5 +25,5 @@ export function useMemories(cityId: CityId) {
     setEntries(await getMemories(db, cityId))
   }, [db, cityId])
 
-  return { entries, addMemory, deleteMemory }
+  return { entries, addMemory, deleteMemory, loading }
 }

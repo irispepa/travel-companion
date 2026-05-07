@@ -9,10 +9,14 @@ export function useActivities(cityId: CityId) {
   const db = useDb()
   const [items, setItems] = useState<ActivityItem[]>([])
   const [sortKey, setSortKey] = useState<SortKey>('priority')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getActivities(db, cityId).then(r => setItems(r?.items ?? []))
+    setLoading(true)
+    getActivities(db, cityId)
+      .then(r => setItems(r?.items ?? []))
+      .finally(() => setLoading(false))
   }, [db, cityId])
 
-  return { items, sortKey, setSortKey }
+  return { items, sortKey, setSortKey, loading }
 }

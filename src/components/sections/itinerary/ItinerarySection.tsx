@@ -44,21 +44,53 @@ export function ItinerarySection() {
 
   return (
     <AppShell cityLabel={config.label} showBack={true} onCalculator={() => setShowCalc(true)}>
-      {showMap && <CityMap embedUrl={config.mapEmbedUrl} cityLabel={config.label} />}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '16px 0 8px' }}>
-        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 18 }}>Itinerary</h2>
-        <button onClick={() => setIsEditMode(e => !e)} style={{ color: 'var(--color-gold)', fontSize: 13 }}>
-          {isEditMode ? 'Done' : 'Edit'}
-        </button>
+      <div style={{ padding: 'var(--space-lg) var(--space-md) var(--space-3xl)' }}>
+        {showMap && (
+          <div style={{ marginBottom: 'var(--space-lg)' }}>
+            <CityMap embedUrl={config.mapEmbedUrl} cityLabel={config.label} />
+          </div>
+        )}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 'var(--space-lg)',
+        }}>
+          <h2 style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'var(--text-headline)',
+            fontWeight: 400,
+            color: 'var(--color-cream)',
+          }}>
+            Itinerary
+          </h2>
+          <button
+            onClick={() => setIsEditMode(e => !e)}
+            style={{
+              color: 'var(--color-gold)',
+              fontSize: 'var(--text-body)',
+              minHeight: 44,
+              minWidth: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+            }}
+          >
+            {isEditMode ? 'Done' : 'Edit'}
+          </button>
+        </div>
+        {!record && (
+          <p style={{ color: 'var(--color-muted)', fontSize: 'var(--text-body)' }}>Loading…</p>
+        )}
+        {record?.days.map(day => (
+          <DayGroup key={day.date} day={day} isEditMode={isEditMode} currentTime={now}
+            isPastDay={new Date(day.date + 'T23:59:59') < now}
+            onUpdate={(item) => updateItem(day.date, item)}
+            onAdd={() => addItem(day.date, { id: crypto.randomUUID(), name: '', time: '', duration: '', location: '', notes: '', links: [] })}
+            onMoveUp={(id) => handleMoveUp(day.date, id)}
+            onMoveDown={(id) => handleMoveDown(day.date, id)} />
+        ))}
       </div>
-      {record?.days.map(day => (
-        <DayGroup key={day.date} day={day} isEditMode={isEditMode} currentTime={now}
-          isPastDay={new Date(day.date + 'T23:59:59') < now}
-          onUpdate={(item) => updateItem(day.date, item)}
-          onAdd={() => addItem(day.date, { id: crypto.randomUUID(), name: '', time: '', duration: '', location: '', notes: '', links: [] })}
-          onMoveUp={(id) => handleMoveUp(day.date, id)}
-          onMoveDown={(id) => handleMoveDown(day.date, id)} />
-      ))}
       {showCalc && <CalculatorOverlay cityViewId={cityViewId!} onClose={() => setShowCalc(false)} />}
     </AppShell>
   )

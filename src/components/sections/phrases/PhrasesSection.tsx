@@ -8,6 +8,7 @@ import { CalculatorOverlay } from '../../calculator/CalculatorOverlay'
 import { CategoryTabs } from './CategoryTabs'
 import { PhraseCard } from './PhraseCard'
 import { InfoCard } from './InfoCard'
+import { SkeletonList } from '../../layout/SkeletonList'
 
 export function searchPhrases(categories: PhraseCategory[], query: string) {
   const q = query.toLowerCase()
@@ -28,7 +29,7 @@ export function searchPhrases(categories: PhraseCategory[], query: string) {
 export function PhrasesSection() {
   const { cityViewId } = useParams<{ cityViewId: CityViewId }>()
   const config = getCityView(cityViewId!)
-  const { categories } = usePhrases(config.cityId)
+  const { categories, loading } = usePhrases(config.cityId)
   const [activeCategory, setActiveCategory] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [showCalc, setShowCalc] = useState(false)
@@ -45,21 +46,65 @@ export function PhrasesSection() {
 
   return (
     <AppShell cityLabel={config.label} showBack={true} onCalculator={() => setShowCalc(true)}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '16px 0 12px' }}>
-        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 18 }}>What to Say</h2>
-        {translateUrl && (
-          <a href={translateUrl} target="_blank" rel="noopener noreferrer"
-            style={{ fontSize: 12, color: 'var(--color-blue)' }}>
-            Google Translate →
-          </a>
+      <div style={{ padding: 'var(--space-lg) var(--space-md) var(--space-3xl)' }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 'var(--space-md)',
+        }}>
+          <h2 style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'var(--text-headline)',
+            fontWeight: 400,
+            color: 'var(--color-cream)',
+          }}>
+            What to Say
+          </h2>
+          {translateUrl && (
+            <a
+              href={translateUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 'var(--text-caption)', color: 'var(--color-blue)', letterSpacing: '0.03em' }}
+            >
+              Translate →
+            </a>
+          )}
+        </div>
+
+        <input
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          placeholder="Search phrases…"
+          aria-label="Search phrases"
+          style={{
+            width: '100%',
+            background: 'var(--color-bg-card)',
+            border: 'none',
+            borderRadius: 'var(--radius-sm)',
+            padding: '10px 14px',
+            color: 'var(--color-cream)',
+            fontSize: 'var(--text-body)',
+            marginBottom: 'var(--space-md)',
+          }}
+        />
+
+        <CategoryTabs
+          categories={categories.map(c => c.name)}
+          active={activeCategory}
+          onSelect={setActiveCategory}
+        />
+
+        {loading && <SkeletonList rows={6} rowHeight={72} />}
+        {!loading && words.length === 0 && info.length === 0 && (
+          <p style={{ color: 'var(--color-muted)', fontSize: 'var(--text-body)', textAlign: 'center', paddingTop: 'var(--space-xl)' }}>
+            No phrases found
+          </p>
         )}
+        {!loading && words.map((w, idx) => <PhraseCard key={w.english} word={w} index={idx} />)}
+        {!loading && info.map(card => <InfoCard key={card.title} title={card.title} body={card.body} />)}
       </div>
-      <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
-        placeholder="Search phrases..."
-        style={{ width: '100%', background: 'var(--color-bg-card)', border: 'none', borderRadius: 'var(--radius-sm)', padding: '10px 14px', color: 'var(--color-cream)', fontSize: 14, marginBottom: 'var(--space-md)' }} />
-      <CategoryTabs categories={categories.map(c => c.name)} active={activeCategory} onSelect={setActiveCategory} />
-      {words.map((w, i) => <PhraseCard key={i} word={w} />)}
-      {info.map((card, i) => <InfoCard key={i} title={card.title} body={card.body} />)}
       {showCalc && <CalculatorOverlay cityViewId={cityViewId!} onClose={() => setShowCalc(false)} />}
     </AppShell>
   )

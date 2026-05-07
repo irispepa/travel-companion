@@ -27,53 +27,161 @@ export function AddMemorySheet({ onSave, onClose }: Props) {
     onClose()
   }
 
-  return (
-    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'flex-end', zIndex: 200 }} onClick={onClose}>
-      <div style={{ background: 'var(--color-bg)', borderRadius: '16px 16px 0 0', padding: 'var(--space-lg)', width: '100%', maxHeight: '90vh', overflowY: 'auto' }}
-        onClick={e => e.stopPropagation()}>
-        <h2 style={{ fontFamily: 'var(--font-serif)', marginBottom: 'var(--space-md)' }}>Add Memory</h2>
+  const labelStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 'var(--space-xs)',
+    color: 'var(--color-muted)',
+    fontSize: 'var(--text-caption)',
+    letterSpacing: '0.14em',
+    textTransform: 'uppercase',
+    marginBottom: 'var(--space-md)',
+  }
 
-        <div style={{ display: 'flex', gap: 8, marginBottom: 'var(--space-md)' }}>
+  const inputStyle: React.CSSProperties = {
+    background: 'var(--color-bg-card)',
+    border: 'none',
+    borderRadius: 'var(--radius-sm)',
+    padding: '10px 12px',
+    color: 'var(--color-cream)',
+    fontSize: 'var(--text-body)',
+  }
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'rgba(0,0,0,0.7)',
+        zIndex: 'var(--z-sheet)',
+        animation: 'backdropFadeIn var(--duration-base) var(--ease-out-expo) both',
+      }}
+      onClick={onClose}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="add-memory-title"
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: 'var(--color-bg)',
+          borderRadius: 'var(--radius-lg) var(--radius-lg) 0 0',
+          padding: 'var(--space-lg)',
+          paddingBottom: 'calc(var(--space-lg) + env(safe-area-inset-bottom, 0px))',
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          animation: 'sheetSlideUp var(--duration-sheet) var(--ease-out-expo) both',
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        <h2
+          id="add-memory-title"
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'var(--text-headline)',
+            fontWeight: 400,
+            marginBottom: 'var(--space-lg)',
+          }}
+        >
+          Add Memory
+        </h2>
+
+        <div style={{ display: 'flex', gap: 'var(--space-sm)', marginBottom: 'var(--space-lg)' }}>
           {AUTHORS.map(a => (
-            <button key={a} onClick={() => setAuthor(a)}
-              style={{ padding: '6px 16px', borderRadius: 20, fontSize: 13,
+            <button
+              key={a}
+              onClick={() => setAuthor(a)}
+              aria-pressed={author === a}
+              style={{
+                padding: '0 var(--space-md)',
+                height: 36,
+                borderRadius: 'var(--radius-pill)',
+                fontSize: 'var(--text-body)',
                 background: author === a ? 'var(--color-gold)' : 'var(--color-bg-card)',
-                color: author === a ? 'var(--color-bg)' : 'var(--color-cream)' }}>
+                color: author === a ? 'var(--color-bg)' : 'var(--color-cream)',
+                transition: `background var(--duration-fast) var(--ease-out-expo)`,
+              }}
+            >
               {a}
             </button>
           ))}
         </div>
 
-        <label aria-label="note" style={{ display: 'flex', flexDirection: 'column', gap: 4, color: 'var(--color-muted)', fontSize: 11, letterSpacing: 1, marginBottom: 'var(--space-md)' }}>
-          NOTE
-          <textarea value={note} onChange={e => setNote(e.target.value)}
-            style={{ background: 'var(--color-bg-card)', border: 'none', borderRadius: 'var(--radius-sm)', padding: '10px 12px', color: 'var(--color-cream)', fontSize: 14, resize: 'none', minHeight: 80 }} />
+        <label htmlFor="memory-note" style={labelStyle}>
+          Note
+          <textarea
+            id="memory-note"
+            value={note}
+            onChange={e => setNote(e.target.value)}
+            style={{ ...inputStyle, resize: 'none', minHeight: 80 }}
+          />
         </label>
 
-        <label style={{ display: 'flex', flexDirection: 'column', gap: 4, color: 'var(--color-muted)', fontSize: 11, letterSpacing: 1, marginBottom: 'var(--space-md)' }}>
-          LOCATION (optional)
-          <input value={location} onChange={e => setLocation(e.target.value)}
-            style={{ background: 'var(--color-bg-card)', border: 'none', borderRadius: 'var(--radius-sm)', padding: '8px 12px', color: 'var(--color-cream)', fontSize: 14 }} />
+        <label htmlFor="memory-location" style={labelStyle}>
+          Location
+          <input
+            id="memory-location"
+            value={location}
+            onChange={e => setLocation(e.target.value)}
+            placeholder="optional"
+            style={inputStyle}
+          />
         </label>
 
         {photos.length < 5 && (
-          <button onClick={() => fileRef.current?.click()}
-            style={{ width: '100%', padding: 'var(--space-sm)', background: 'var(--color-bg-card-alt)', borderRadius: 'var(--radius-sm)', color: 'var(--color-gold)', fontSize: 13, marginBottom: 'var(--space-md)' }}>
+          <button
+            onClick={() => fileRef.current?.click()}
+            style={{
+              width: '100%',
+              padding: 'var(--space-sm)',
+              background: 'var(--color-bg-card-alt)',
+              borderRadius: 'var(--radius-sm)',
+              color: 'var(--color-gold)',
+              fontSize: 'var(--text-body)',
+              marginBottom: 'var(--space-md)',
+              minHeight: 44,
+            }}
+          >
             + Add Photos ({photos.length}/5)
           </button>
         )}
         <input ref={fileRef} type="file" accept="image/*" multiple style={{ display: 'none' }} onChange={handleFiles} />
 
         {photos.length > 0 && (
-          <div style={{ display: 'flex', gap: 8, overflowX: 'auto', marginBottom: 'var(--space-md)' }}>
+          <div style={{
+            display: 'flex',
+            gap: 'var(--space-sm)',
+            overflowX: 'auto',
+            marginBottom: 'var(--space-md)',
+          }}>
             {photos.map((src, i) => (
-              <img key={i} src={src} alt="" style={{ height: 80, borderRadius: 'var(--radius-sm)', flexShrink: 0 }} />
+              <img
+                key={i}
+                src={src}
+                alt={`Selected photo ${i + 1}`}
+                style={{ height: 80, borderRadius: 'var(--radius-sm)', flexShrink: 0, objectFit: 'cover' }}
+              />
             ))}
           </div>
         )}
 
-        <button onClick={handleSave} aria-label="save"
-          style={{ width: '100%', padding: 'var(--space-md)', background: 'var(--color-gold)', borderRadius: 'var(--radius-md)', color: 'var(--color-bg)', fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 600 }}>
+        <button
+          onClick={handleSave}
+          style={{
+            width: '100%',
+            padding: 'var(--space-md)',
+            background: 'var(--color-gold)',
+            borderRadius: 'var(--radius-md)',
+            color: 'var(--color-bg)',
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'var(--text-title)',
+            fontWeight: 600,
+          }}
+        >
           Save Memory
         </button>
       </div>

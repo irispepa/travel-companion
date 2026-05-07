@@ -7,11 +7,12 @@ import { AppShell } from '../../layout/AppShell'
 import { CalculatorOverlay } from '../../calculator/CalculatorOverlay'
 import { MemoryEntry } from './MemoryEntry'
 import { AddMemorySheet } from './AddMemorySheet'
+import { SkeletonList } from '../../layout/SkeletonList'
 
 export function MemoriesSection() {
   const { cityViewId } = useParams<{ cityViewId: CityViewId }>()
   const config = getCityView(cityViewId!)
-  const { entries, addMemory, deleteMemory } = useMemories(config.cityId)
+  const { entries, addMemory, deleteMemory, loading } = useMemories(config.cityId)
   const [showAdd, setShowAdd] = useState(false)
   const [showCalc, setShowCalc] = useState(false)
   const [storageWarning, setStorageWarning] = useState(false)
@@ -26,25 +27,71 @@ export function MemoriesSection() {
 
   return (
     <AppShell cityLabel={config.label} showBack={true} onCalculator={() => setShowCalc(true)}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '16px 0 12px' }}>
-        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 18 }}>Memories</h2>
+      <div style={{ padding: 'var(--space-lg) var(--space-md)', paddingBottom: 88 }}>
+        <h2 style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'var(--text-headline)',
+          fontWeight: 400,
+          color: 'var(--color-cream)',
+          marginBottom: 'var(--space-lg)',
+        }}>
+          Memories
+        </h2>
+
+        {storageWarning && (
+          <div style={{
+            background: 'var(--color-bg-card-alt)',
+            borderRadius: 'var(--radius-sm)',
+            padding: 'var(--space-sm) var(--space-md)',
+            marginBottom: 'var(--space-md)',
+            fontSize: 'var(--text-caption)',
+            color: 'var(--color-gold)',
+          }}>
+            Storage is over 80% full — consider exporting photos.
+          </div>
+        )}
+
+        {loading && <SkeletonList rows={3} rowHeight={120} />}
+        {!loading && entries.length === 0 && (
+          <p style={{
+            color: 'var(--color-muted)',
+            fontSize: 'var(--text-body)',
+            textAlign: 'center',
+            paddingTop: 'var(--space-xl)',
+          }}>
+            Nothing captured yet. Add your first memory.
+          </p>
+        )}
+
+        {!loading && entries.map((entry, idx) => (
+          <MemoryEntry key={entry.id} entry={entry} onDelete={deleteMemory} index={idx} />
+        ))}
       </div>
-      {storageWarning && (
-        <div style={{ background: 'var(--color-bg-card-alt)', borderRadius: 'var(--radius-sm)', padding: '8px 12px', marginBottom: 'var(--space-md)', fontSize: 12, color: 'var(--color-gold)', borderLeft: '3px solid var(--color-gold)' }}>
-          Storage is over 80% full — consider exporting photos.
-        </div>
-      )}
-      {entries.length === 0 && (
-        <p style={{ color: 'var(--color-muted)', fontSize: 14, textAlign: 'center', marginTop: 40 }}>No memories yet — add your first!</p>
-      )}
-      {entries.map(entry => (
-        <MemoryEntry key={entry.id} entry={entry} onDelete={deleteMemory} />
-      ))}
-      <button onClick={() => setShowAdd(true)}
-        style={{ position: 'fixed', bottom: 24, right: 24, width: 56, height: 56, borderRadius: '50%', background: 'var(--color-gold)', color: 'var(--color-bg)', fontSize: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.3)', zIndex: 10 }}
-        aria-label="add memory">
+
+      <button
+        onClick={() => setShowAdd(true)}
+        aria-label="Add memory"
+        style={{
+          position: 'fixed',
+          bottom: 'var(--space-lg)',
+          right: 'var(--space-lg)',
+          width: 56,
+          height: 56,
+          borderRadius: 'var(--radius-full)',
+          background: 'var(--color-gold)',
+          color: 'var(--color-bg)',
+          fontSize: 28,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          zIndex: 'var(--z-fab)',
+          lineHeight: 1,
+        }}
+      >
         +
       </button>
+
       {showAdd && (
         <AddMemorySheet
           onSave={entry => addMemory({ ...entry, id: crypto.randomUUID(), cityId: config.cityId })}

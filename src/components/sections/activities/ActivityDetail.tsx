@@ -4,15 +4,42 @@ interface Props { item: ActivityItem }
 
 export function ActivityDetail({ item }: Props) {
   return (
-    <div style={{ padding: '8px var(--space-md) var(--space-md)', borderTop: '1px solid var(--color-bg)' }}>
-      {item.notes && <p style={{ fontSize: 13, color: 'var(--color-muted)', marginBottom: 8 }}>{item.notes}</p>}
-      <div style={{ display: 'flex', gap: 16, fontSize: 12, color: 'var(--color-gold)' }}>
-        <span>⏱ {item.timeEstimate}</span>
-        <span>💰 {item.cost}</span>
+    <div style={{
+      padding: 'var(--space-sm) var(--space-md) var(--space-md)',
+      borderTop: '1px solid var(--color-bg)',
+    }}>
+      {item.notes && (
+        <p style={{
+          fontSize: 'var(--text-body)',
+          color: 'var(--color-muted)',
+          lineHeight: 'var(--leading-normal)',
+          marginBottom: 'var(--space-sm)',
+        }}>
+          {item.notes}
+        </p>
+      )}
+      <div style={{
+        display: 'flex',
+        gap: 'var(--space-lg)',
+        fontSize: 'var(--text-caption)',
+        color: 'var(--color-gold)',
+        letterSpacing: '0.04em',
+      }}>
+        {item.timeEstimate && <span>{item.timeEstimate}</span>}
+        {item.cost && <span>{item.cost}</span>}
       </div>
       {item.link && (
-        <a href={item.link} target="_blank" rel="noopener noreferrer"
-          style={{ display: 'inline-block', marginTop: 8, fontSize: 12, color: 'var(--color-blue)' }}>
+        <a
+          href={item.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-block',
+            marginTop: 'var(--space-sm)',
+            fontSize: 'var(--text-caption)',
+            color: 'var(--color-blue)',
+          }}
+        >
           More info →
         </a>
       )}
