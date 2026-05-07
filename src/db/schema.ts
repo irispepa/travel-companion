@@ -6,7 +6,8 @@ export interface ItineraryItem { id: string; name: string; time: string; duratio
 export interface ItineraryDay { date: string; items: ItineraryItem[] }
 export interface ItineraryRecord { cityViewId: CityViewId; days: ItineraryDay[] }
 
-export interface ActivityItem { id: string; name: string; location: string; timeEstimate: string; cost: string; priority: number; notes: string; link: string }
+export type ActivityTag = 'must-do' | 'food' | 'quick' | 'day-trip'
+export interface ActivityItem { id: string; name: string; location: string; timeEstimate: string; cost: string; priority: number; notes: string; link: string; tags?: ActivityTag[]; done?: boolean; active?: boolean }
 export interface ActivitiesRecord { cityId: CityId; items: ActivityItem[] }
 
 export interface PhraseWord { english: string; local: string; phonetic?: string }
