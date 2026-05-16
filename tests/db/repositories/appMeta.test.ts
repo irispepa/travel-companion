@@ -1,20 +1,20 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { openAppDB } from '../../../src/db/client'
-import { isInitialized, setInitialized } from '../../../src/db/repositories/appMeta'
+import { getSeedVersion, setSeedVersion } from '../../../src/db/repositories/appMeta'
 
 beforeEach(() => indexedDB.deleteDatabase('trip-companion'))
 
 describe('appMeta repository', () => {
-  it('returns false when not initialized', async () => {
+  it('returns 0 when seed version not set', async () => {
     const db = await openAppDB()
-    expect(await isInitialized(db)).toBe(false)
+    expect(await getSeedVersion(db)).toBe(0)
     db.close()
   })
 
-  it('returns true after setInitialized', async () => {
+  it('returns the seed version after setSeedVersion', async () => {
     const db = await openAppDB()
-    await setInitialized(db)
-    expect(await isInitialized(db)).toBe(true)
+    await setSeedVersion(db, 1)
+    expect(await getSeedVersion(db)).toBe(1)
     db.close()
   })
 })

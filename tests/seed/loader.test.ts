@@ -1,15 +1,15 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { openAppDB } from '../../src/db/client'
 import { loadSeedIfNeeded } from '../../src/seed/loader'
-import { isInitialized } from '../../src/db/repositories/appMeta'
+import { getSeedVersion } from '../../src/db/repositories/appMeta'
 
 beforeEach(() => indexedDB.deleteDatabase('trip-companion'))
 
 describe('loadSeedIfNeeded', () => {
-  it('loads seed data on first call and sets initialized', async () => {
+  it('loads seed data on first call and sets seed version', async () => {
     const db = await openAppDB()
     await loadSeedIfNeeded(db)
-    expect(await isInitialized(db)).toBe(true)
+    expect(await getSeedVersion(db)).toBe(1)
     const prague = await db.get('itinerary', 'prague')
     expect(prague).toBeDefined()
     db.close()
