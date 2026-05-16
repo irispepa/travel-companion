@@ -21,4 +21,4 @@ export interface ExchangeRate { pair: string; rate: number; fetchedAt: string }
 export interface CurrencyPref { from: string; to: string }
 export interface UserPreferences { key: 'data'; currencyPairs: Partial<Record<CityViewId, CurrencyPref>> }
 
-export interface AppMeta { key: 'data'; initialized: boolean }
+export interface AppMeta { key: 'data'; initialized: boolean; seedVersion: number }

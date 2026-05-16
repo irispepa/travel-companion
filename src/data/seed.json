@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "itinerary": {
     "philly-out": { "cityViewId": "philly-out", "days": [
       { "date": "2026-06-13", "items": [
