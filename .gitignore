@@ -36,6 +36,9 @@ coverage/
 .claude/
 .superpowers/
 
+# Git worktrees
+.worktrees/
+
 # Cache
 .eslintcache
 .stylelintcache
