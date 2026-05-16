@@ -26,4 +26,16 @@ describe('loadSeedIfNeeded', () => {
     expect(after.days[0].items[0].name).toBe('EDITED')
     db.close()
   })
+
+  it('re-seeds when seed version is bumped', async () => {
+    const db = await openAppDB()
+    // Simulate a previously seeded state at version 0
+    await db.put('appMeta', { key: 'data', initialized: true, seedVersion: 0 })
+    // Now call loadSeedIfNeeded — seed.json version is 1, stored is 0, so it should re-seed
+    await loadSeedIfNeeded(db)
+    expect(await getSeedVersion(db)).toBe(1)
+    const prague = await db.get('itinerary', 'prague')
+    expect(prague).toBeDefined()
+    db.close()
+  })
 })

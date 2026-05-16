@@ -4,7 +4,7 @@ import seed from '../data/seed.json'
 
 export async function loadSeedIfNeeded(db: AppDB): Promise<void> {
   const storedVersion = await getSeedVersion(db)
-  if (storedVersion === seed.version) return
+  if (storedVersion >= seed.version) return
 
   const tx = db.transaction(['itinerary', 'activities', 'phrases'], 'readwrite')
   for (const record of Object.values(seed.itinerary)) {
