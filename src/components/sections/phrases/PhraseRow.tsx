@@ -1,6 +1,19 @@
 import { PhraseWord } from '../../../db/schema'
 
-interface Props { word: PhraseWord; isFirst?: boolean }
+interface Props {
+  word: PhraseWord
+  isFirst?: boolean
+  isFavorite: boolean
+  onToggle: () => void
+}
+
+function StarFilled() {
+  return (
+    <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>
+    </svg>
+  )
+}
 
 function StarEmpty() {
   return (
@@ -10,7 +23,7 @@ function StarEmpty() {
   )
 }
 
-export function PhraseRow({ word, isFirst = false }: Props) {
+export function PhraseRow({ word, isFirst = false, isFavorite, onToggle }: Props) {
   return (
     <div style={{
       display: 'flex', alignItems: 'flex-start', gap: 12,
@@ -58,9 +71,23 @@ export function PhraseRow({ word, isFirst = false }: Props) {
         </div>
       </div>
 
-      <div style={{ color: 'var(--color-ink-faint)', paddingTop: 4, flexShrink: 0 }}>
-        <StarEmpty/>
-      </div>
+      <button
+        onClick={onToggle}
+        aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+        style={{
+          all: 'unset',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minWidth: 44,
+          minHeight: 44,
+          color: isFavorite ? 'var(--color-stamp)' : 'var(--color-ink-faint)',
+          flexShrink: 0,
+        }}
+      >
+        {isFavorite ? <StarFilled /> : <StarEmpty />}
+      </button>
     </div>
   )
 }
