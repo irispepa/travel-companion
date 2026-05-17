@@ -298,7 +298,7 @@ export function CityDashboard() {
         }}>
           <MapDoodle city={city} />
           <button
-            onClick={() => window.open(config.mapEmbedUrl.replace('/embed', '/maps'), '_blank')}
+            onClick={() => window.open(config.mapsUrl, '_blank')}
             style={{
               position: 'absolute', left: 10, bottom: 10,
               background: '#fbf7ee', padding: '6px 10px', borderRadius: 999,
