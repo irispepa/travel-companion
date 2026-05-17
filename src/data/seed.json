@@ -79,32 +79,32 @@
   },
   "activities": {
     "philly": { "cityId": "philly", "items": [
-      { "id": "act-phl-1", "name": "Reading Terminal Market", "location": "12th and Arch St", "timeEstimate": "1.5h", "cost": "Free entry", "priority": 5, "notes": "Best cheesesteaks, Amish pretzels, DiNic's roast pork", "link": "" },
-      { "id": "act-phl-2", "name": "Philadelphia Museum of Art", "location": "2600 Benjamin Franklin Pkwy", "timeEstimate": "3h", "cost": "$25", "priority": 4, "notes": "Run the Rocky steps", "link": "" },
-      { "id": "act-phl-3", "name": "Independence Hall", "location": "Chestnut St", "timeEstimate": "1.5h", "cost": "Free", "priority": 5, "notes": "Where the Declaration of Independence was signed", "link": "" }
+      { "id": "act-phl-1", "name": "Reading Terminal Market", "location": "12th and Arch St", "timeEstimate": "1.5h", "cost": "Free entry", "priority": 5, "notes": "Best cheesesteaks, Amish pretzels, DiNic's roast pork", "link": "", "tags": ["must-do", "food"] },
+      { "id": "act-phl-2", "name": "Philadelphia Museum of Art", "location": "2600 Benjamin Franklin Pkwy", "timeEstimate": "3h", "cost": "$25", "priority": 4, "notes": "Run the Rocky steps", "link": "", "tags": ["must-do"] },
+      { "id": "act-phl-3", "name": "Independence Hall", "location": "Chestnut St", "timeEstimate": "1.5h", "cost": "Free", "priority": 5, "notes": "Where the Declaration of Independence was signed", "link": "", "tags": ["must-do", "quick"] }
     ]},
     "prague": { "cityId": "prague", "items": [
-      { "id": "act-prg-1", "name": "Prague Castle", "location": "Hradcany", "timeEstimate": "3h", "cost": "350 CZK", "priority": 5, "notes": "Largest ancient castle in the world. St. Vitus Cathedral inside.", "link": "" },
-      { "id": "act-prg-2", "name": "Old Town Square", "location": "Staromestske namesti", "timeEstimate": "1.5h", "cost": "Free", "priority": 5, "notes": "Astronomical Clock performs at top of each hour 9am-9pm", "link": "" },
-      { "id": "act-prg-3", "name": "Charles Bridge", "location": "Karluv most", "timeEstimate": "45m", "cost": "Free", "priority": 5, "notes": "30 Baroque statues. Best at dawn or dusk.", "link": "" },
-      { "id": "act-prg-4", "name": "Josefov Jewish Quarter", "location": "Josefov", "timeEstimate": "2.5h", "cost": "500 CZK", "priority": 4, "notes": "6 synagogues, Old Jewish Cemetery. Haunting and beautiful.", "link": "" },
-      { "id": "act-prg-5", "name": "Beer at a local pub", "location": "Various", "timeEstimate": "2h", "cost": "50-80 CZK per pint", "priority": 5, "notes": "Pilsner Urquell or Kozel. Best beer in the world at best prices.", "link": "" },
-      { "id": "act-prg-6", "name": "Sedlec Ossuary Bone Church", "location": "Kutna Hora day trip", "timeEstimate": "4h total", "cost": "160 CZK plus train", "priority": 4, "notes": "Decorations made from 40,000 human bones. Unique.", "link": "" }
+      { "id": "act-prg-1", "name": "Prague Castle", "location": "Hradcany", "timeEstimate": "3h", "cost": "350 CZK", "priority": 5, "notes": "Largest ancient castle in the world. St. Vitus Cathedral inside.", "link": "", "tags": ["must-do"] },
+      { "id": "act-prg-2", "name": "Old Town Square", "location": "Staromestske namesti", "timeEstimate": "1.5h", "cost": "Free", "priority": 5, "notes": "Astronomical Clock performs at top of each hour 9am-9pm", "link": "", "tags": ["must-do", "quick"] },
+      { "id": "act-prg-3", "name": "Charles Bridge", "location": "Karluv most", "timeEstimate": "45m", "cost": "Free", "priority": 5, "notes": "30 Baroque statues. Best at dawn or dusk.", "link": "", "tags": ["must-do", "quick"] },
+      { "id": "act-prg-4", "name": "Josefov Jewish Quarter", "location": "Josefov", "timeEstimate": "2.5h", "cost": "500 CZK", "priority": 4, "notes": "6 synagogues, Old Jewish Cemetery. Haunting and beautiful.", "link": "", "tags": ["must-do"] },
+      { "id": "act-prg-5", "name": "Beer at a local pub", "location": "Various", "timeEstimate": "2h", "cost": "50-80 CZK per pint", "priority": 5, "notes": "Pilsner Urquell or Kozel. Best beer in the world at best prices.", "link": "", "tags": ["food"] },
+      { "id": "act-prg-6", "name": "Sedlec Ossuary Bone Church", "location": "Kutna Hora day trip", "timeEstimate": "4h total", "cost": "160 CZK plus train", "priority": 4, "notes": "Decorations made from 40,000 human bones. Unique.", "link": "", "tags": ["day-trip"] }
     ]},
     "vienna": { "cityId": "vienna", "items": [
-      { "id": "act-vie-1", "name": "Schonbrunn Palace", "location": "Schonbrunner Schlossstr. 47", "timeEstimate": "3h", "cost": "26 EUR Grand Tour", "priority": 5, "notes": "Summer residence of Habsburg emperors. Maze in garden.", "link": "" },
-      { "id": "act-vie-2", "name": "Kunsthistorisches Museum", "location": "Maria-Theresien-Platz", "timeEstimate": "3h", "cost": "21 EUR", "priority": 5, "notes": "World-class art museum. Vermeer, Raphael, Velazquez.", "link": "" },
-      { "id": "act-vie-3", "name": "Belvedere Palace", "location": "Prinz-Eugen-Str. 27", "timeEstimate": "2.5h", "cost": "16 EUR", "priority": 5, "notes": "Klimt's The Kiss. Stunning baroque gardens.", "link": "" },
-      { "id": "act-vie-4", "name": "Cafe Central", "location": "Herrengasse 14", "timeEstimate": "1h", "cost": "10-15 EUR", "priority": 4, "notes": "Historic coffeehouse. Order Melange and Apfelstrudel.", "link": "" },
-      { "id": "act-vie-5", "name": "Vienna State Opera Standing Room", "location": "Opernring 2", "timeEstimate": "3h", "cost": "5 EUR standing", "priority": 4, "notes": "Standing room tickets sold 80 min before curtain.", "link": "" }
+      { "id": "act-vie-1", "name": "Schonbrunn Palace", "location": "Schonbrunner Schlossstr. 47", "timeEstimate": "3h", "cost": "26 EUR Grand Tour", "priority": 5, "notes": "Summer residence of Habsburg emperors. Maze in garden.", "link": "", "tags": ["must-do"] },
+      { "id": "act-vie-2", "name": "Kunsthistorisches Museum", "location": "Maria-Theresien-Platz", "timeEstimate": "3h", "cost": "21 EUR", "priority": 5, "notes": "World-class art museum. Vermeer, Raphael, Velazquez.", "link": "", "tags": ["must-do"] },
+      { "id": "act-vie-3", "name": "Belvedere Palace", "location": "Prinz-Eugen-Str. 27", "timeEstimate": "2.5h", "cost": "16 EUR", "priority": 5, "notes": "Klimt's The Kiss. Stunning baroque gardens.", "link": "", "tags": ["must-do"] },
+      { "id": "act-vie-4", "name": "Cafe Central", "location": "Herrengasse 14", "timeEstimate": "1h", "cost": "10-15 EUR", "priority": 4, "notes": "Historic coffeehouse. Order Melange and Apfelstrudel.", "link": "", "tags": ["food", "quick"] },
+      { "id": "act-vie-5", "name": "Vienna State Opera Standing Room", "location": "Opernring 2", "timeEstimate": "3h", "cost": "5 EUR standing", "priority": 4, "notes": "Standing room tickets sold 80 min before curtain.", "link": "", "tags": ["must-do"] }
     ]},
     "budapest": { "cityId": "budapest", "items": [
-      { "id": "act-bud-1", "name": "Szechenyi Thermal Bath", "location": "Allatkerti krt. 9-11", "timeEstimate": "3h", "cost": "7000 HUF", "priority": 5, "notes": "Bring swimsuit. Outdoor pools open year-round. Iconic yellow building.", "link": "" },
-      { "id": "act-bud-2", "name": "Buda Castle and Castle Hill", "location": "Szent Gyorgy ter 2", "timeEstimate": "3h", "cost": "Free to walk", "priority": 5, "notes": "Funicular from Clark Adam ter. Hungarian National Gallery inside.", "link": "" },
-      { "id": "act-bud-3", "name": "Hungarian Parliament Building", "location": "Kossuth Lajos ter 1-3", "timeEstimate": "1.5h", "cost": "8000 HUF", "priority": 5, "notes": "Must book online. Crown of St. Stephen on display.", "link": "" },
-      { "id": "act-bud-4", "name": "Fisherman's Bastion", "location": "Szentharomsag ter 5", "timeEstimate": "1h", "cost": "Free", "priority": 5, "notes": "Fairy-tale towers. Best panoramic view of Pest.", "link": "" },
-      { "id": "act-bud-5", "name": "Great Market Hall", "location": "Fovam ter 1-3", "timeEstimate": "1.5h", "cost": "Free entry", "priority": 4, "notes": "3 floors. Ground floor: paprika, salami. Upper floor: langos, folk crafts.", "link": "" },
-      { "id": "act-bud-6", "name": "Szimpla Kert ruin bar", "location": "Kazinczy u. 14", "timeEstimate": "2h", "cost": "1500-3000 HUF drinks", "priority": 4, "notes": "Original Budapest ruin bar. Jewish Quarter. Quirky decor.", "link": "" }
+      { "id": "act-bud-1", "name": "Szechenyi Thermal Bath", "location": "Allatkerti krt. 9-11", "timeEstimate": "3h", "cost": "7000 HUF", "priority": 5, "notes": "Bring swimsuit. Outdoor pools open year-round. Iconic yellow building.", "link": "", "tags": ["must-do"] },
+      { "id": "act-bud-2", "name": "Buda Castle and Castle Hill", "location": "Szent Gyorgy ter 2", "timeEstimate": "3h", "cost": "Free to walk", "priority": 5, "notes": "Funicular from Clark Adam ter. Hungarian National Gallery inside.", "link": "", "tags": ["must-do"] },
+      { "id": "act-bud-3", "name": "Hungarian Parliament Building", "location": "Kossuth Lajos ter 1-3", "timeEstimate": "1.5h", "cost": "8000 HUF", "priority": 5, "notes": "Must book online. Crown of St. Stephen on display.", "link": "", "tags": ["must-do", "quick"] },
+      { "id": "act-bud-4", "name": "Fisherman's Bastion", "location": "Szentharomsag ter 5", "timeEstimate": "1h", "cost": "Free", "priority": 5, "notes": "Fairy-tale towers. Best panoramic view of Pest.", "link": "", "tags": ["must-do", "quick"] },
+      { "id": "act-bud-5", "name": "Great Market Hall", "location": "Fovam ter 1-3", "timeEstimate": "1.5h", "cost": "Free entry", "priority": 4, "notes": "3 floors. Ground floor: paprika, salami. Upper floor: langos, folk crafts.", "link": "", "tags": ["food"] },
+      { "id": "act-bud-6", "name": "Szimpla Kert ruin bar", "location": "Kazinczy u. 14", "timeEstimate": "2h", "cost": "1500-3000 HUF drinks", "priority": 4, "notes": "Original Budapest ruin bar. Jewish Quarter. Quirky decor.", "link": "", "tags": ["food"] }
     ]}
   },
   "phrases": {

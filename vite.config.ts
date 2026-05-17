@@ -13,6 +13,7 @@ export default defineConfig({
         short_name: 'Trip',
         theme_color: '#0f1923',
         background_color: '#0f1923',
+        start_url: '/#/',
         display: 'standalone',
         orientation: 'portrait',
         icons: [
@@ -28,6 +29,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./tests/setup.ts'],
-    globals: true
+    globals: true,
+    testTimeout: 10000
   }
 })

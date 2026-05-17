@@ -6,12 +6,12 @@ export function ActivityDetail({ item }: Props) {
   return (
     <div style={{
       padding: 'var(--space-sm) var(--space-md) var(--space-md)',
-      borderTop: '1px solid var(--color-bg)',
+      borderTop: '1px solid var(--color-rule)',
     }}>
       {item.notes && (
         <p style={{
           fontSize: 'var(--text-body)',
-          color: 'var(--color-muted)',
+          color: 'var(--color-ink-soft)',
           lineHeight: 'var(--leading-normal)',
           marginBottom: 'var(--space-sm)',
         }}>
@@ -22,7 +22,7 @@ export function ActivityDetail({ item }: Props) {
         display: 'flex',
         gap: 'var(--space-lg)',
         fontSize: 'var(--text-caption)',
-        color: 'var(--color-gold)',
+        color: 'var(--color-stamp)',
         letterSpacing: '0.04em',
       }}>
         {item.timeEstimate && <span>{item.timeEstimate}</span>}

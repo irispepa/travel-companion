@@ -1,11 +1,12 @@
 @import './tokens.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@500;600&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body, #root {
   height: 100%;
-  background: var(--color-bg);
-  color: var(--color-cream);
+  background: var(--color-paper-deep);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
@@ -14,11 +15,12 @@ html, body, #root {
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
+  font-weight: 600;
   text-wrap: balance;
 }
 
-a { color: var(--color-blue); text-decoration: none; }
+a { color: var(--color-ink-blue); text-decoration: none; }
 
 button {
   font-family: inherit;
@@ -28,15 +30,21 @@ button {
   color: inherit;
 }
 
-/* Global focus treatment — gold outline on all interactive elements */
+/* Focus — stamp red outline */
 :focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-stamp);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
 
 /* Tabular numbers for timestamps and currency */
 .tabular { font-variant-numeric: tabular-nums; }
+
+/* Paper noise texture */
+.paper-noise {
+  background-image: radial-gradient(rgba(0,0,0,0.018) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
 
 @keyframes skeletonPulse {
   0%, 100% { opacity: 0.6; }
@@ -59,7 +67,7 @@ button {
 }
 
 @keyframes fadeStagger {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 

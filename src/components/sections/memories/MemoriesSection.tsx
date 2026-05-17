@@ -27,25 +27,39 @@ export function MemoriesSection() {
 
   return (
     <AppShell cityLabel={config.label} showBack={true} onCalculator={() => setShowCalc(true)}>
-      <div style={{ padding: 'var(--space-lg) var(--space-md)', paddingBottom: 88 }}>
-        <h2 style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: 'var(--text-headline)',
-          fontWeight: 400,
-          color: 'var(--color-cream)',
-          marginBottom: 'var(--space-lg)',
-        }}>
-          Memories
-        </h2>
+      <div style={{ padding: 'var(--space-lg) var(--space-md)', paddingBottom: 88, background: 'var(--color-paper)' }}>
+        <div style={{ marginBottom: 'var(--space-lg)' }}>
+          <p style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 9,
+            color: 'var(--color-stamp)',
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            marginBottom: 4,
+          }}>
+            {config.label}
+          </p>
+          <h2 style={{
+            fontSize: 22,
+            fontWeight: 700,
+            color: 'var(--color-ink)',
+            letterSpacing: '-0.01em',
+          }}>
+            Memories
+          </h2>
+        </div>
 
         {storageWarning && (
           <div style={{
-            background: 'var(--color-bg-card-alt)',
+            background: 'var(--color-paper-deep)',
             borderRadius: 'var(--radius-sm)',
+            border: '1px solid var(--color-rule)',
             padding: 'var(--space-sm) var(--space-md)',
             marginBottom: 'var(--space-md)',
-            fontSize: 'var(--text-caption)',
-            color: 'var(--color-gold)',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 10,
+            color: 'var(--color-stamp)',
+            letterSpacing: '0.04em',
           }}>
             Storage is over 80% full — consider exporting photos.
           </div>
@@ -54,7 +68,7 @@ export function MemoriesSection() {
         {loading && <SkeletonList rows={3} rowHeight={120} />}
         {!loading && entries.length === 0 && (
           <p style={{
-            color: 'var(--color-muted)',
+            color: 'var(--color-ink-faint)',
             fontSize: 'var(--text-body)',
             textAlign: 'center',
             paddingTop: 'var(--space-xl)',
@@ -78,8 +92,8 @@ export function MemoriesSection() {
           width: 56,
           height: 56,
           borderRadius: 'var(--radius-full)',
-          background: 'var(--color-gold)',
-          color: 'var(--color-bg)',
+          background: 'var(--color-stamp)',
+          color: '#fff',
           fontSize: 28,
           display: 'flex',
           alignItems: 'center',

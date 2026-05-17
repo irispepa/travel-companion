@@ -1,17 +1,34 @@
 :root {
-  /* Colors */
-  --color-bg: #0f1923;
-  --color-bg-card: #1a2a3a;
-  --color-bg-card-alt: #152030;
-  --color-cream: #e8dcc8;
-  --color-gold: #a08060;
-  --color-blue: #8ab4c8;
-  --color-muted: #5a6a7a;
-  --color-dim: rgba(232, 220, 200, 0.35);
+  /* Colors — Postcard from Europe */
+  --color-paper: #f4ede1;
+  --color-paper-deep: #ebe2d2;
+  --color-ink: #1d1c1a;
+  --color-ink-soft: #5b5751;
+  --color-ink-faint: #9a9389;
+  --color-rule: #d6cdb9;
+  --color-stamp: #c8442a;
+  --color-stamp-deep: #a8351f;
+  --color-ink-blue: #1f3a5f;
+  --color-mustard: #d39327;
+  --color-moss: #5a6b3b;
+  --color-white: #fbf7ee;
+
+  /* Legacy aliases (used in older components) */
+  --color-bg: var(--color-paper);
+  --color-bg-card: var(--color-white);
+  --color-bg-card-alt: var(--color-paper-deep);
+  --color-cream: var(--color-ink);
+  --color-gold: var(--color-stamp);
+  --color-blue: var(--color-ink-blue);
+  --color-muted: var(--color-ink-soft);
+  --color-dim: rgba(29, 28, 26, 0.15);
 
   /* Typography */
-  --font-serif: 'Georgia', 'Times New Roman', serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --font-display: 'Inter Tight', 'Helvetica Neue', system-ui, sans-serif;
+  --font-sans: 'Inter Tight', 'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --font-hand: 'Caveat', cursive;
+  --font-serif: 'Inter Tight', 'Helvetica Neue', system-ui, sans-serif;
 
   --text-display: 28px;
   --text-headline: 22px;

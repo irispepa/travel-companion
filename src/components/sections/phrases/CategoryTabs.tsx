@@ -6,12 +6,15 @@ export function CategoryTabs({ categories, active, onSelect }: Props) {
   const chipStyle = (isActive: boolean): React.CSSProperties => ({
     flexShrink: 0,
     padding: '0 var(--space-md)',
-    height: 36,
+    height: 34,
     borderRadius: 'var(--radius-pill)',
-    fontSize: 'var(--text-caption)',
-    letterSpacing: '0.04em',
-    background: isActive ? 'var(--color-gold)' : 'var(--color-bg-card)',
-    color: isActive ? 'var(--color-bg)' : 'var(--color-cream)',
+    fontSize: 11,
+    fontFamily: 'var(--font-mono)',
+    letterSpacing: '0.08em',
+    textTransform: 'uppercase' as const,
+    background: isActive ? 'var(--color-stamp)' : 'var(--color-white)',
+    color: isActive ? '#fff' : 'var(--color-ink-soft)',
+    border: isActive ? 'none' : '1px solid var(--color-rule)',
     transition: `background var(--duration-fast) var(--ease-out-expo), color var(--duration-fast) var(--ease-out-expo)`,
     whiteSpace: 'nowrap' as const,
   })
@@ -19,7 +22,7 @@ export function CategoryTabs({ categories, active, onSelect }: Props) {
   return (
     <div style={{
       display: 'flex',
-      gap: 'var(--space-xs)',
+      gap: 6,
       overflowX: 'auto',
       paddingBottom: 'var(--space-xs)',
       marginBottom: 'var(--space-md)',
