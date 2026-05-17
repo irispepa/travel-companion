@@ -20,6 +20,10 @@ export interface MemoryEntry { id: string; cityId: CityId; author: string; times
 export interface ExchangeRate { pair: string; rate: number; fetchedAt: string }
 
 export interface CurrencyPref { from: string; to: string }
-export interface UserPreferences { key: 'data'; currencyPairs: Partial<Record<CityViewId, CurrencyPref>> }
+export interface UserPreferences {
+  key: 'data'
+  currencyPairs: Partial<Record<CityViewId, CurrencyPref>>
+  favoritePhrases: Partial<Record<CityId, string[]>>
+}
 
 export interface AppMeta { key: 'data'; initialized: boolean }
