@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from 'react-router-dom'
+import { createHashRouter, Outlet } from 'react-router-dom'
 import { CitySelector } from './components/layout/CitySelector'
 import { CityDashboard } from './components/layout/CityDashboard'
 import { ItinerarySection } from './components/sections/itinerary/ItinerarySection'
@@ -15,7 +15,7 @@ function Root() {
   )
 }
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     element: <Root />,
     children: [
