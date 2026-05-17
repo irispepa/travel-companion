@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { CityViewId, PhraseCategory } from '../../../db/schema'
+import { CityViewId, PhraseCategory, PhraseWord } from '../../../db/schema'
 import { getCityView } from '../../../config/cities'
 import { usePhrases } from '../../../hooks/usePhrases'
+import { useFavoritePhrases } from '../../../hooks/useFavoritePhrases'
 import { CalculatorOverlay } from '../../calculator/CalculatorOverlay'
 import { PhraseRow } from './PhraseRow'
 import { InfoCard } from './InfoCard'
@@ -21,6 +22,13 @@ export function searchPhrases(categories: PhraseCategory[], query: string) {
       i.title.toLowerCase().includes(q) || i.body.toLowerCase().includes(q)
     )
   }
+}
+
+export function sortByFavorites(words: PhraseWord[], favorites: Set<string>): PhraseWord[] {
+  return [
+    ...words.filter(w => favorites.has(w.english)),
+    ...words.filter(w => !favorites.has(w.english)),
+  ]
 }
 
 const LANG_LABEL: Record<string, string> = {
@@ -49,6 +57,7 @@ export function PhrasesSection() {
   const config = getCityView(cityViewId!)
   const navigate = useNavigate()
   const { categories, loading } = usePhrases(config.cityId)
+  const { favorites, toggle } = useFavoritePhrases(config.cityId)
   const [activeCategory, setActiveCategory] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [showCalc, setShowCalc] = useState(false)
@@ -57,7 +66,8 @@ export function PhrasesSection() {
     ? categories.filter(c => c.name === activeCategory)
     : categories
 
-  const { words, info } = searchPhrases(filtered, searchQuery)
+  const { words: filteredWords, info } = searchPhrases(filtered, searchQuery)
+  const words = sortByFavorites(filteredWords, favorites)
 
   const langLabel = config.translateTo ? (LANG_LABEL[config.translateTo] ?? config.translateTo.toUpperCase()) : null
   const eyebrow = langLabel ? `ENGLISH → ${langLabel}` : config.label.toUpperCase()
@@ -212,7 +222,15 @@ export function PhrasesSection() {
             }}>
               Words
             </div>
-            {words.map((w, i) => <PhraseRow key={w.english} word={w} isFirst={i === 0}/>)}
+            {words.map((w, i) => (
+              <PhraseRow
+                key={w.english}
+                word={w}
+                isFirst={i === 0}
+                isFavorite={favorites.has(w.english)}
+                onToggle={() => toggle(w.english)}
+              />
+            ))}
           </>
         )}
 
