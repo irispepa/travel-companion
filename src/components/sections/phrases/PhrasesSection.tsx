@@ -63,7 +63,7 @@ export function PhrasesSection() {
   const eyebrow = langLabel ? `ENGLISH → ${langLabel}` : config.label.toUpperCase()
 
   const translateUrl = config.translateFrom && config.translateTo
-    ? `https://translate.google.com/?sl=${config.translateFrom}&tl=${config.translateTo}&op=translate`
+    ? `googletranslate://?sl=${config.translateFrom}&tl=${config.translateTo}${searchQuery ? `&text=${encodeURIComponent(searchQuery)}` : ''}`
     : null
 
   return (
