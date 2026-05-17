@@ -9,7 +9,7 @@ beforeEach(async () => {
   try {
     await db.clear('userPreferences')
   } catch {
-    // Ignore errors if store doesn't exist yet
+    // Ignore if store doesn't exist yet
   }
 })
 
