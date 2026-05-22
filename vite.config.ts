@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  base: '/travel-companion/',
   plugins: [
     react(),
     VitePWA({
@@ -13,7 +14,8 @@ export default defineConfig({
         short_name: 'Trip',
         theme_color: '#0f1923',
         background_color: '#0f1923',
-        start_url: '/#/',
+        scope: '/travel-companion/',
+        start_url: '/travel-companion/',
         display: 'standalone',
         orientation: 'portrait',
         icons: [

@@ -40,3 +40,35 @@ When opened mid-trip, the user should feel **grounded and oriented** — "everyt
 - Fonts: `--font-display` (Inter Tight) · `--font-mono` (JetBrains Mono) · `--font-hand` (Caveat)
 - Spacing: `--space-xs/sm/md/lg/xl/2xl/3xl` (4pt scale)
 - Do not introduce new color tokens — use existing ones
+
+## Development
+
+### Local dev server
+```bash
+npm run dev
+```
+Service worker does not run in dev mode — offline support requires a production build.
+
+### Test on iPhone (local network)
+```bash
+npm run build && npx vite preview --host
+```
+Opens at `http://192.168.4.32:4173` (IP may vary). Only works while phone is on the same wifi — not suitable for offline testing.
+
+### Run tests
+```bash
+npm test
+```
+
+## Deployment
+
+The app is deployed to GitHub Pages at `https://irispepa.github.io/travel-companion/`.
+
+The repo must be **public** for GitHub Pages to serve. Workflow:
+1. Make repo public
+2. `npm run deploy` — builds and pushes to `gh-pages` branch
+3. Wait ~1 minute for Pages to update
+4. Install PWA on iPhones from `https://irispepa.github.io/travel-companion/` in Safari
+5. Make repo private again
+
+Once installed, the PWA works fully offline (except currency conversion). Reinstalling requires making the repo public again.
