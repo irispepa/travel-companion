@@ -15,7 +15,26 @@ export interface InfoCard { title: string; body: string }
 export interface PhraseCategory { name: string; words: PhraseWord[]; info: InfoCard[] }
 export interface PhrasesRecord { cityId: CityId; categories: PhraseCategory[] }
 
-export interface MemoryEntry { id: string; cityId: CityId; author: string; timestamp: string; location: string; photos: string[]; note: string }
+export type MemoryKind = 'photo' | 'note' | 'food' | 'voice' | 'ticket'
+
+interface BaseMemory {
+  id: string
+  cityId: CityId
+  author: 'Iris' | 'Niko' | 'both'
+  timestamp: string
+  location?: string
+}
+
+export interface PhotoMemory extends BaseMemory  { kind: 'photo';  photoSrc: string; caption?: string }
+export interface NoteMemory extends BaseMemory   { kind: 'note';   body: string; tone?: 'cream' | 'white' }
+export interface FoodMemory extends BaseMemory   { kind: 'food';   dish: string; note: string }
+export interface VoiceMemory extends BaseMemory  { kind: 'voice';  audioSrc: string; duration: number; caption?: string; waveform: number[] }
+export interface TicketMemory extends BaseMemory { kind: 'ticket'; from: string; to: string; date: string; time: string; line?: string; caption?: string }
+
+export type MemoryEntry = PhotoMemory | NoteMemory | FoodMemory | VoiceMemory | TicketMemory
+
+export interface LineOfDay  { id: string; cityId: CityId; date: string; text: string; updatedAt: string }
+export interface DayWeather { id: string; cityId: CityId; date: string; kind: 'sun' | 'cloud' | 'partly' | 'rain'; temp: number; fetchedAt: string }
 
 export interface ExchangeRate { pair: string; rate: number; fetchedAt: string }
 

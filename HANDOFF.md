@@ -1,202 +1,191 @@
-# Session Handoff — 2026-05-06
+# Session Handoff — 2026-05-22
 
 ## Session Summary
-Completed three full implementation passes on the travel companion PWA: bug fixes (back navigation, currency overlay iOS layout, exchange rate API), feature work (inline currency converter on dashboard), and both animate and harden passes with full motion system, loading skeletons, offline states, and error handling. App is now functionally complete and production-ready for polish and delight phases.
+Completed full implementation of Plan 1: Memories page redesign with discriminated union schema, 7 card types (photo, note, food, voice, ticket), day grouping, filters, and 2-column drop layout. All 55 tests passing, build clean.
 
 ## Completed Work
 
-### Bugs Fixed
-1. **Back navigation from CityDashboard** — changed `showBack={false}` to `showBack={true}` in `src/components/layout/CityDashboard.tsx` so users can navigate back from city views
-2. **Currency calculator overlay cut off on iOS** — restructured `src/components/calculator/CalculatorOverlay.tsx`:
-   - Changed backdrop from flexbox child to plain positioned div
-   - Sheet uses `position: absolute; bottom: 0` instead of flex-based layout
-   - Used `calc()` instead of `max()` for safe-area padding compatibility
-   - Added `WebkitOverflowScrolling: touch` for momentum scrolling
-3. **Exchange rate API 301 redirect** — updated `src/hooks/useExchangeRate.ts` from `api.frankfurter.app` to `api.frankfurter.dev/v1/` (old domain returns unfollow-able 301)
+### Database & Hooks (Tasks 1–2)
+- **Schema v2**: Replaced `MemoryEntry` with discriminated union (`PhotoMemory | NoteMemory | FoodMemory | VoiceMemory | TicketMemory`)
+  - Each type has `kind` field, id, `cityDate`, `authorId`, `createdAt`
+  - Photo/note: title/caption/text; food: dish/cuisine/rating; voice: empty state only (Plan 2 adds recording); ticket: event/code
+- **DB migration**: version bumped 1→2, added `linesOfDay` and `dayWeather` stores with `byCityDate` compound indexes
+- **Migration shim**: `repositories/memories.ts` adds `kind: 'photo'` to pre-v2 records on read
+- **New hooks**: `useLineOfDay` (IDB-persisted per city/date), `useDayWeather` (cache-only read, no fetch yet)
 
-### Feature: Inline Currency Converter
-Replaced bottom-sheet overlay on CityDashboard with always-visible inline converter:
-- **New component** `src/components/calculator/InlineCurrencyConverter.tsx` — two currency pickers, two number inputs side by side, live rate display
-- **Collapse state** persisted per city in localStorage, toggled via chevron icon
-- **Default open** on initial dashboard load
-- **Header button removed** — made `AppShell.onCalculator` optional, dashboard no longer passes it; overlay calculator still available in Itinerary, Activities, Phrases, Memories sections
+### Primitives & DayHeader (Tasks 3–4)
+- **WeatherStamp.tsx**: Displays weather icon + temp; used in DayHeader
+- **LineOfDay.tsx**: Inline-editable text with stamp-red focus ring, dashed empty-state pill, blur-to-save
+- **DayHeader.tsx**: Sticky date pill (stamp-red), dashed rule, optional weather, item count, inline LineOfDay editor
 
-### /impeccable animate Pass — Full Motion System
-Added production-grade animations across the entire app:
+### Card Types (Tasks 5–6)
+- **PhotoCard**: Polaroid-style with image, caption, attribution, author name
+- **NoteCard**: Sticky-note style with text, author name
+- **FoodCard**: Food card with dish, cuisine, rating (★), author
+- **VoiceCard**: 3-state UI (empty "Tap to record", recording "●", recorded with duration + play icon); wiring in Plan 2
+- **TicketCard**: Dashed perforation line, event name, code, author
 
-**Route-level transitions:**
-- New `src/components/layout/PageTransition.tsx` component wrapping page content
-- Fade + 10px upward translateY on every route change
-- Wired via `Root` layout in `src/router.tsx`, wraps all `Outlet` content
+### MemoriesSection Rewrite (Task 7)
+- Full rewrite with:
+  - **2-column drop layout algorithm**: Distributes cards to minimize column height difference
+  - **Day grouping**: Reverse-chronological (newest first), grouped by city + date
+  - **Sticky DayHeaders**: Float above cards within their day
+  - **Filter chips**: Both/Iris/Niko/Photos/Notes/Voice/Tickets (multi-select)
+  - **Stamp-red FAB**: Opens AddMemorySheet (unchanged temporary shim)
+- Deleted old `MemoryEntry.tsx` (single card component)
 
-**Micro-interactions:**
-- `CalculatorOverlay` and `AddMemorySheet` animate in with `sheetSlideUp` + `backdropFadeIn` keyframes
-- `ActivityDetail` wraps in div with `fadeStagger` on mount
+## Files Changed (21 total)
 
-**Content stagger:**
-- `ItineraryCard`, `ActivityRow`, `PhraseCard`, `MemoryEntry` all accept `index` prop
-- Each uses `fadeStagger` animation with `animationDelay: ${index * 50}ms` for ripple effect
+### DB Layer
+- `src/db/schema.ts` — discriminated union types
+- `src/db/client.ts` — version 2, new stores + migrations
+- `src/db/repositories/memories.ts` — kind shim
+- `src/db/repositories/linesOfDay.ts` — NEW
+- `src/db/repositories/dayWeather.ts` — NEW
+- `src/db/repositories/userPreferences.ts` — TS error fix (readonly key)
 
-**Keyframe library** in `src/styles/global.css`:
-- `skeletonPulse` — placeholder loading effect
-- `pageEnter` — route transition (fade + translateY)
-- `sheetSlideUp` — sheet entrance from bottom
-- `backdropFadeIn` — backdrop fade
-- `fadeStagger` — staggered content reveal
+### Hooks
+- `src/hooks/useLineOfDay.ts` — NEW
+- `src/hooks/useDayWeather.ts` — NEW
+- `src/hooks/useMemories.ts` — unchanged (union flows through)
 
-**Prefers-reduced-motion** already globally respected (no override).
+### Components
+- `src/components/sections/memories/WeatherStamp.tsx` — NEW
+- `src/components/sections/memories/LineOfDay.tsx` — NEW
+- `src/components/sections/memories/DayHeader.tsx` — NEW
+- `src/components/sections/memories/cards/PhotoCard.tsx` — NEW
+- `src/components/sections/memories/cards/NoteCard.tsx` — NEW
+- `src/components/sections/memories/cards/FoodCard.tsx` — NEW
+- `src/components/sections/memories/cards/VoiceCard.tsx` — NEW
+- `src/components/sections/memories/cards/TicketCard.tsx` — NEW
+- `src/components/sections/memories/MemoriesSection.tsx` — REWRITE
+- `src/components/sections/memories/AddMemorySheet.tsx` — updated to PhotoMemory shape (note→caption)
+- `src/components/sections/memories/MemoryEntry.tsx` — DELETED
 
-### /impeccable harden Pass — Robustness & Offline
-**Loading states:**
-- New `src/components/layout/SkeletonList.tsx` component — multi-item placeholder list
-- `useActivities`, `usePhrases`, `useMemories` hooks now track `loading` state via `.finally(() => setLoading(false))`
-- Activities, Phrases, Memories sections show skeletons while IndexedDB hydrates
-
-**Error handling:**
-- `src/db/DbContext.tsx` catches `openAppDB()` failures and displays human-readable error: "Looks like you're in private browsing. Some data won't persist, but the app works offline."
-- `InlineCurrencyConverter` shows "Rate unavailable offline" when API fails
-
-**Text overflow & truncation:**
-- `ItineraryCard` and `ActivityRow` names use `overflowWrap: break-word`, `flex: 1`, `minWidth: 0` to prevent layout shift
-- Memory photo `<img>` has `onError` handler to hide broken images gracefully
-
-**Delete confirmation (Memories):**
-- Tap × once to arm delete (visual feedback)
-- Tap again within 3s to confirm; auto-resets via `useRef` timer
-- Prevents accidental deletion
+### Tests & Styles
+- `tests/db/memories.test.ts` — NEW
+- `tests/db/linesOfDay.test.ts` — NEW
+- `tests/db/repositories/memories.test.ts` — updated for union
+- `tests/hooks/useLineOfDay.test.ts` — NEW
+- `tests/hooks/useMemories.test.ts` — updated for union
+- `tests/components/memories/AddMemorySheet.test.tsx` — updated (note→caption)
+- `src/styles/tokens.css` — voice animation keyframes (`voiceRecording` pulse)
 
 ## Current Codebase State
-- **Build Status:** passing
-- **Test Status:** no tests written (PWA PWA-focused, client-only)
-- **Route structure:** Root layout wraps PageTransition, all sections use outline/fill header style
-- **Data layer:** IndexedDB via `idb` library, hydrated on app load, all mutations sync back
-- **Offline capability:** Full offline support for all routes except exchange rate fetch
-- **Mobile-optimized:** Touch targets, no hover states, dark mode only, portrait orientation
+- **Build Status**: ✓ Clean
+- **Test Status**: ✓ 55/55 passing
+- **Branch**: `worktree-feature+memories-page-plan1` (linked worktree at `.claude/worktrees/feature+memories-page-plan1`)
+- **Dev server**: Was running at `http://localhost:5173/` — user reviewed app visually
 
 ## Work in Progress
-None. All planned work for this session is complete.
-
-## Next Steps (Priority Order)
-**User will announce next phase.**
-
-The session ended with the user noting:
-> "The user said next session will be **`/impeccable polish`** followed by **`/impeccable delight`**. Do not start these — wait for the user to say so."
-
-### Expected `/impeccable polish` scope:
-Typography & visual hierarchy (sizing scale, rhythm), refine animations, iOS polish (safe area, notch, gesture feedback).
-
-### Expected `/impeccable delight` scope:
-Surprise micro-interactions, personality, easter eggs aligned with "The Evening Dispatch" editorial aesthetic.
+None — Plan 1 fully implemented and tested.
 
 ## Blockers & Issues Encountered
-None. All work completed as scoped.
+None. Clean implementation path.
+
+## Next Steps (Priority Order)
+
+1. **Choose integration path for Plan 1** — User must select one:
+   - **Option A**: Merge back to main locally
+   - **Option B**: Push branch and create Pull Request
+   - **Option C**: Keep as-is in worktree
+   - **Option D**: Discard
+   - *Decision pending*
+
+2. **Implement Plan 2** (`docs/superpowers/plans/2026-05-22-memories-page-plan2.md`)
+   - Replace `AddMemorySheet` with multi-step `AddFlowSheet` (kind selector → type-specific form → review)
+   - Wire VoiceCard to MediaRecorder + AnalyserNode (recording state, frequency visualization, playback)
+   - Add wttr.in weather fetch (cache-first strategy, `useDayWeather` becomes reactive)
+   - Update day grouping to reflect new memories in real-time
+
+3. **Demo on iPhones**
+   - Build: `npm run build`
+   - Preview: `npx vite preview --host`
+   - Connect on same wifi at returned IP
+   - Verify touch interactions, offline state, PWA install flow
 
 ## Key Decisions & Rationale
 
-**Inline converter over persistent overlay:**
-- Original bottom-sheet was hidden by iOS keyboard when typing in other parts of the app
-- Moving to always-visible inline component on dashboard solves UX friction
-- Keeps overlay calculator available in other sections for comparison/reference workflow
+- **Discriminated union over single schema**: Enables type-safe filtering and card-specific UI without runtime type checks.
+- **IDB stores for metadata**: `linesOfDay` and `dayWeather` are denormalized for fast `(city, date)` queries.
+- **2-column drop layout**: Responsive to content width; approximate height estimation prevents jank on first paint.
+- **VoiceCard 3-state UI**: Prepares for Plan 2 MediaRecorder wiring; empty state makes intent explicit.
+- **Stamp-red accents**: DayHeader, LineOfDay focus, FAB all use `#d77d4f` for visual cohesion.
+- **AddMemorySheet unchanged**: Plan 2 replaces it; keeping it simple for now avoids scope creep.
 
-**Exchange rate API change:**
-- `frankfurter.app` returns HTTP 301 that `fetch()` cannot follow; had to move to `frankfurter.dev/v1/`
-- Fallback to null state on offline/error allows graceful degradation
+## Known Limitations & TODOs
 
-**Stagger animations via index:**
-- Passing `index` from parent to child (e.g., `DayGroup` → `ItineraryCard`) allows for ripple effect
-- Cleaner than querying siblings or using CSS nth-child (which doesn't work with conditional rendering)
+- `AddMemorySheet` is a temporary shim; still outputs `PhotoMemory` only
+- `useDayWeather` reads cache only — no wttr.in fetch yet (Plan 2)
+- VoiceCard recording is UI-only; no MediaRecorder wiring yet (Plan 2)
+- Card height in layout algorithm is approximate; real heights may differ for long notes
+- **Run commands from worktree path**: `.claude/worktrees/feature+memories-page-plan1`
 
-**Skeleton pattern over spinners:**
-- More immersive than loading spinners; reduces perceived wait time
-- Matches "The Evening Dispatch" editorial aesthetic (content blocks, not chrome)
+## Resume From Here
 
-**Persist collapse state per city:**
-- Users may want converter visible in one city, hidden in another
-- localStorage key includes city name to isolate state
+**At session start:**
+1. Confirm worktree: `git worktree list`
+2. Read this HANDOFF.md
+3. Present the 4 integration options to user (merge / PR / keep / discard)
+4. After choice: proceed to Plan 2 or cleanup as needed
+
+**Key context for next session:**
+- Main branch is untouched; Plan 1 is isolated in worktree
+- Tests are reliable; build is deterministic
+- Demo app is ready for iPhone testing
+- Plan 2 spec is ready in `docs/superpowers/plans/2026-05-22-memories-page-plan2.md`
 
 ## Code Snippets to Reference
 
-**Route transitions (src/router.tsx):**
-```tsx
-import PageTransition from '@/components/layout/PageTransition'
-// In Root layout:
-<PageTransition>
-  <Outlet />
-</PageTransition>
-```
+### Discriminated union type pattern
+```typescript
+// src/db/schema.ts
+export type MemoryEntry = PhotoMemory | NoteMemory | FoodMemory | VoiceMemory | TicketMemory;
 
-**Staggered content (DayGroup.tsx example):**
-```tsx
-{events.map((event, index) => (
-  <ItineraryCard key={event.id} event={event} index={index} />
-))}
-```
-
-**ItineraryCard animation:**
-```tsx
-animation: `fadeStagger 0.6s ease-out forwards`,
-animationDelay: `${index * 50}ms`,
-```
-
-**Delete confirmation pattern (MemoryEntry.tsx):**
-```tsx
-const [deleteArmed, setDeleteArmed] = useState(false)
-const deleteTimerRef = useRef<number>()
-
-const handleDelete = () => {
-  if (!deleteArmed) {
-    setDeleteArmed(true)
-    deleteTimerRef.current = window.setTimeout(
-      () => setDeleteArmed(false),
-      3000
-    )
-  } else {
-    clearTimeout(deleteTimerRef.current)
-    // confirm deletion
-  }
+export interface PhotoMemory {
+  kind: 'photo';
+  id: string;
+  cityDate: string;
+  src: string;
+  caption?: string;
+  attribution?: string;
+  authorId: 'iris' | 'niko' | 'both';
+  createdAt: number;
 }
 ```
 
-**Loading state pattern (useActivities.ts):**
-```tsx
-const [loading, setLoading] = useState(true)
-useEffect(() => {
-  fetchActivities()
-    .finally(() => setLoading(false))
-}, [])
+### LineOfDay inline editor pattern
+```typescript
+// src/components/sections/memories/LineOfDay.tsx
+const [isEditing, setIsEditing] = useState(false);
+
+return isEditing ? (
+  <input
+    onBlur={() => { setIsEditing(false); onSave(value); }}
+    style={{ outlineColor: stampRed, ... }}
+  />
+) : (
+  <div onClick={() => setIsEditing(true)} style={{...}}>
+    {value || <span style={{color: stampRed}}>+ Add line of the day</span>}
+  </div>
+);
 ```
 
-## Resume From Here
-1. User will announce next phase (likely `/impeccable polish`)
-2. Do not start polish or delight phases until explicitly asked
-3. When resuming, check git status to verify all changes are committed
-4. All feature work is complete; next work is UI refinement and personality
-
-## Design System Context
-- **North Star:** "The Evening Dispatch" (editorial travel writing, warm personal tone)
-- **Color palette:** Navy (`#0f1923`), cream (`#e8dcc8`), muted gold (`#a08060`), steel blue (`#8ab4c8`), used sparingly (≤10%)
-- **Typography:** Serif headings, sans-serif body, established in `src/styles/tokens.css`
-- **Motion:** All transitions respect `prefers-reduced-motion`; no gratuitous animation
-- **Devices:** iPhone PWA, dark mode only, portrait orientation, touch-first
-
-## Important Files Modified This Session
-- `src/components/layout/CityDashboard.tsx` — showBack, inline converter, overlay removed
-- `src/components/layout/AppShell.tsx` — onCalculator optional
-- `src/components/layout/PageTransition.tsx` — NEW
-- `src/components/layout/SkeletonList.tsx` — NEW
-- `src/components/calculator/InlineCurrencyConverter.tsx` — NEW
-- `src/components/calculator/CalculatorOverlay.tsx` — restructured
-- `src/components/sections/memories/` — AddMemorySheet, MemoryEntry, MemoriesSection (animation, delete confirm, loading)
-- `src/components/sections/activities/` — ActivityRow, ActivitiesSection (stagger, overflow, loading)
-- `src/components/sections/phrases/` — PhraseCard, PhrasesSection (stagger, loading)
-- `src/components/sections/itinerary/` — ItineraryCard, DayGroup (stagger, overflow)
-- `src/hooks/` — useActivities, usePhrases, useMemories (loading), useExchangeRate (API URL)
-- `src/db/DbContext.tsx` — error state
-- `src/styles/global.css` — keyframes
-- `src/router.tsx` — Root layout
+### 2-column drop layout algorithm
+```typescript
+// src/components/sections/memories/MemoriesSection.tsx
+const [col1, col2] = memories.reduce(
+  ([l, r, lh, rh], mem) => {
+    const est = estimateCardHeight(mem);
+    return lh <= rh ? [[...l, mem], r, lh + est, rh] : [l, [...r, mem], lh, rh + est];
+  },
+  [[], [], 0, 0]
+);
+```
 
 ---
 
-**Last updated:** 2026-05-06 23:59 UTC
-**User:** Iris Pepa (irispepa@gmail.com)
-**Project:** Travel Companion PWA (Prague → Vienna → Budapest)
+**Session date:** 2026-05-22
+**Plan path:** `docs/superpowers/plans/2026-05-22-memories-page-plan1.md`
+**Branch:** `worktree-feature+memories-page-plan1`
+**Status:** Complete. 55/55 tests passing. Awaiting merge decision.

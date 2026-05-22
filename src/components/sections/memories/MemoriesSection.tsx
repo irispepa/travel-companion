@@ -1,34 +1,215 @@
-import { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { CityViewId } from '../../../db/schema'
+import { CityViewId, CityId, MemoryEntry } from '../../../db/schema'
 import { getCityView } from '../../../config/cities'
 import { useMemories } from '../../../hooks/useMemories'
+import { useLineOfDay } from '../../../hooks/useLineOfDay'
+import { useDayWeather } from '../../../hooks/useDayWeather'
 import { AppShell } from '../../layout/AppShell'
 import { CalculatorOverlay } from '../../calculator/CalculatorOverlay'
-import { MemoryEntry } from './MemoryEntry'
 import { AddMemorySheet } from './AddMemorySheet'
 import { SkeletonList } from '../../layout/SkeletonList'
+import { DayHeader } from './DayHeader'
+import { PhotoCard } from './cards/PhotoCard'
+import { NoteCard } from './cards/NoteCard'
+import { FoodCard } from './cards/FoodCard'
+import { VoiceCard } from './cards/VoiceCard'
+import { TicketCard } from './cards/TicketCard'
+
+// ── Layout algorithm ──────────────────────────────────────────────────────────
+
+interface CardPlacement {
+  left: number
+  top: number
+  width: number
+  rotate: number
+  height: number
+}
+
+function rotationForIndex(index: number): number {
+  const rotations = [-3, 4, -2, 5, -4, 3, -5, 2, -3, 4]
+  return rotations[index % rotations.length]
+}
+
+function estimateCardHeight(entry: MemoryEntry, width: number): number {
+  switch (entry.kind) {
+    case 'photo':  return width + 32
+    case 'note':   return 100 + Math.ceil(entry.body.length / 30) * 22
+    case 'food':   return 100
+    case 'voice':  return 110
+    case 'ticket': return 90
+  }
+}
+
+function layoutDay(items: MemoryEntry[], containerWidth: number): { placements: CardPlacement[]; totalHeight: number } {
+  const CARD_W_LEFT = Math.floor(containerWidth * 0.52)
+  const CARD_W_RIGHT = Math.floor(containerWidth * 0.48)
+  const OVERLAP = 20
+  const GAP = 8
+  let leftY = 0
+  let rightY = 30
+
+  const placements: CardPlacement[] = []
+  const tickets = items.filter(e => e.kind === 'ticket')
+  const rest = items.filter(e => e.kind !== 'ticket')
+  let globalIdx = 0
+
+  for (const entry of tickets) {
+    const w = Math.floor(containerWidth * 0.7)
+    const h = estimateCardHeight(entry, w)
+    placements.push({
+      left: Math.floor((containerWidth - w) / 2),
+      top: Math.max(leftY, rightY),
+      width: w,
+      rotate: rotationForIndex(globalIdx),
+      height: h,
+    })
+    const bottom = Math.max(leftY, rightY) + h + GAP
+    leftY = bottom - OVERLAP
+    rightY = bottom - OVERLAP
+    globalIdx++
+  }
+
+  for (const entry of rest) {
+    const isLeft = globalIdx % 2 === 0
+    const w = isLeft ? CARD_W_LEFT : CARD_W_RIGHT
+    const h = estimateCardHeight(entry, w)
+    const top = isLeft ? leftY : rightY
+    placements.push({
+      left: isLeft ? 0 : containerWidth - w,
+      top,
+      width: w,
+      rotate: rotationForIndex(globalIdx),
+      height: h,
+    })
+    if (isLeft) leftY = top + h - OVERLAP
+    else rightY = top + h - OVERLAP
+    globalIdx++
+  }
+
+  return {
+    placements,
+    totalHeight: Math.max(leftY, rightY) + OVERLAP + 40,
+  }
+}
+
+// ── Day grouping ──────────────────────────────────────────────────────────────
+
+function groupByDate(entries: MemoryEntry[]): Array<{ date: string; items: MemoryEntry[] }> {
+  const map = new Map<string, MemoryEntry[]>()
+  for (const e of entries) {
+    const date = e.timestamp.slice(0, 10)
+    if (!map.has(date)) map.set(date, [])
+    map.get(date)!.push(e)
+  }
+  return Array.from(map.entries())
+    .sort(([a], [b]) => b.localeCompare(a))
+    .map(([date, items]) => ({ date, items }))
+}
+
+// ── Card renderer ─────────────────────────────────────────────────────────────
+
+function renderCard(entry: MemoryEntry, width: number): React.ReactNode {
+  switch (entry.kind) {
+    case 'photo':  return <PhotoCard  key={entry.id} entry={entry} width={width} />
+    case 'note':   return <NoteCard   key={entry.id} entry={entry} width={width} />
+    case 'food':   return <FoodCard   key={entry.id} entry={entry} width={width} />
+    case 'voice':  return <VoiceCard  key={entry.id} entry={entry} width={width} state="recorded" />
+    case 'ticket': return <TicketCard key={entry.id} entry={entry} width={width} />
+  }
+}
+
+// ── Filter ────────────────────────────────────────────────────────────────────
+
+type FilterKey = 'both' | 'iris' | 'niko' | 'photos' | 'notes' | 'voice' | 'tickets'
+
+const FILTERS: { key: FilterKey; label: string }[] = [
+  { key: 'both',    label: 'Both of us' },
+  { key: 'iris',    label: 'Iris' },
+  { key: 'niko',    label: 'Niko' },
+  { key: 'photos',  label: 'Photos' },
+  { key: 'notes',   label: 'Notes' },
+  { key: 'voice',   label: 'Voice' },
+  { key: 'tickets', label: 'Tickets' },
+]
+
+function applyFilter(entries: MemoryEntry[], filter: FilterKey): MemoryEntry[] {
+  switch (filter) {
+    case 'both':    return entries
+    case 'iris':    return entries.filter(e => e.author === 'Iris')
+    case 'niko':    return entries.filter(e => e.author === 'Niko')
+    case 'photos':  return entries.filter(e => e.kind === 'photo')
+    case 'notes':   return entries.filter(e => e.kind === 'note')
+    case 'voice':   return entries.filter(e => e.kind === 'voice')
+    case 'tickets': return entries.filter(e => e.kind === 'ticket')
+    default:        return entries
+  }
+}
+
+// ── DaySection ────────────────────────────────────────────────────────────────
+
+function DaySection({ date, items, cityId, containerWidth }: {
+  date: string
+  items: MemoryEntry[]
+  cityId: CityId
+  containerWidth: number
+}) {
+  const { text, setLine } = useLineOfDay(cityId, date)
+  const { weather } = useDayWeather(cityId, date)
+  const { placements, totalHeight } = layoutDay(items, containerWidth)
+
+  return (
+    <section>
+      <DayHeader
+        date={date}
+        itemCount={items.length}
+        weather={weather}
+        lineText={text}
+        onSaveLine={setLine}
+      />
+      <div style={{ position: 'relative', height: totalHeight, marginTop: 8 }}>
+        {items.map((entry, i) => {
+          const p = placements[i]
+          return (
+            <div
+              key={entry.id}
+              style={{
+                position: 'absolute',
+                left: p.left,
+                top: p.top,
+                transform: `rotate(${p.rotate}deg)`,
+                transformOrigin: 'center center',
+              }}
+            >
+              {renderCard(entry, p.width)}
+            </div>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
+// ── MemoriesSection ───────────────────────────────────────────────────────────
 
 export function MemoriesSection() {
   const { cityViewId } = useParams<{ cityViewId: CityViewId }>()
   const config = getCityView(cityViewId!)
-  const { entries, addMemory, deleteMemory, loading } = useMemories(config.cityId)
+  const { entries, addMemory, loading } = useMemories(config.cityId)
   const [showAdd, setShowAdd] = useState(false)
   const [showCalc, setShowCalc] = useState(false)
-  const [storageWarning, setStorageWarning] = useState(false)
+  const [activeFilter, setActiveFilter] = useState<FilterKey>('both')
 
-  useEffect(() => {
-    if (navigator.storage?.estimate) {
-      navigator.storage.estimate().then(({ usage = 0, quota = 1 }) => {
-        if (usage / quota > 0.8) setStorageWarning(true)
-      })
-    }
-  }, [])
+  const CONTAINER_WIDTH = Math.min(window.innerWidth, 390) - 36
+
+  const filtered = applyFilter(entries, activeFilter)
+  const days = groupByDate(filtered)
 
   return (
     <AppShell cityLabel={config.label} showBack={true} onCalculator={() => setShowCalc(true)}>
-      <div style={{ padding: 'var(--space-lg) var(--space-md)', paddingBottom: 88, background: 'var(--color-paper)' }}>
-        <div style={{ marginBottom: 'var(--space-lg)' }}>
+      <div style={{ padding: '0 18px', paddingBottom: 88, background: 'var(--color-paper)' }}>
+
+        <div style={{ paddingTop: 'var(--space-lg)', marginBottom: 'var(--space-md)' }}>
           <p style={{
             fontFamily: 'var(--font-mono)',
             fontSize: 9,
@@ -40,45 +221,82 @@ export function MemoriesSection() {
             {config.label}
           </p>
           <h2 style={{
-            fontSize: 22,
+            fontFamily: 'var(--font-display)',
+            fontSize: 28,
             fontWeight: 700,
             color: 'var(--color-ink)',
-            letterSpacing: '-0.01em',
+            letterSpacing: '-0.02em',
+            marginBottom: 4,
           }}>
-            Memories
+            Memories.
           </h2>
+          <p style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: 14,
+            fontStyle: 'italic',
+            color: 'var(--color-ink-soft)',
+          }}>
+            Whatever you'll want later. No pressure.
+          </p>
         </div>
 
-        {storageWarning && (
-          <div style={{
-            background: 'var(--color-paper-deep)',
-            borderRadius: 'var(--radius-sm)',
-            border: '1px solid var(--color-rule)',
-            padding: 'var(--space-sm) var(--space-md)',
-            marginBottom: 'var(--space-md)',
-            fontFamily: 'var(--font-mono)',
-            fontSize: 10,
-            color: 'var(--color-stamp)',
-            letterSpacing: '0.04em',
-          }}>
-            Storage is over 80% full — consider exporting photos.
-          </div>
-        )}
+        <div style={{
+          display: 'flex',
+          gap: 6,
+          overflowX: 'auto',
+          marginBottom: 'var(--space-md)',
+          paddingBottom: 4,
+          WebkitOverflowScrolling: 'touch',
+        }}>
+          {FILTERS.map(f => (
+            <button
+              key={f.key}
+              onClick={() => setActiveFilter(f.key)}
+              aria-pressed={activeFilter === f.key}
+              style={{
+                flexShrink: 0,
+                padding: '5px 12px',
+                borderRadius: 20,
+                border: '1px solid var(--color-ink)',
+                background: activeFilter === f.key ? 'var(--color-ink)' : 'transparent',
+                color: activeFilter === f.key ? 'var(--color-paper)' : 'var(--color-ink)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: 10,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                minHeight: 44,
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
 
         {loading && <SkeletonList rows={3} rowHeight={120} />}
-        {!loading && entries.length === 0 && (
+
+        {!loading && days.length === 0 && (
           <p style={{
             color: 'var(--color-ink-faint)',
-            fontSize: 'var(--text-body)',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 12,
             textAlign: 'center',
             paddingTop: 'var(--space-xl)',
+            letterSpacing: '0.08em',
           }}>
-            Nothing captured yet. Add your first memory.
+            {entries.length === 0 ? 'Nothing captured yet.' : 'Nothing matches this filter.'}
           </p>
         )}
 
-        {!loading && entries.map((entry, idx) => (
-          <MemoryEntry key={entry.id} entry={entry} onDelete={deleteMemory} index={idx} />
+        {!loading && days.map(({ date, items }) => (
+          <DaySection
+            key={date}
+            date={date}
+            items={items}
+            cityId={config.cityId}
+            containerWidth={CONTAINER_WIDTH}
+          />
         ))}
       </div>
 
@@ -101,6 +319,8 @@ export function MemoriesSection() {
           boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
           zIndex: 'var(--z-fab)',
           lineHeight: 1,
+          border: 'none',
+          cursor: 'pointer',
         }}
       >
         +

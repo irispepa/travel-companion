@@ -11,6 +11,6 @@ describe('AddMemorySheet', () => {
     await userEvent.type(textarea, 'Great view')
     await userEvent.click(screen.getByText('Iris'))
     await userEvent.click(screen.getByRole('button', { name: /save/i }))
-    expect(onSave).toHaveBeenCalledWith(expect.objectContaining({ author: 'Iris', note: 'Great view' }))
+    expect(onSave).toHaveBeenCalledWith(expect.objectContaining({ author: 'Iris', caption: 'Great view' }))
   })
 })

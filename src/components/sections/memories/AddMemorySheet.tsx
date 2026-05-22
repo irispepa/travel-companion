@@ -1,16 +1,16 @@
 import React, { useState, useRef } from 'react'
-import { MemoryEntry } from '../../../db/schema'
+import { PhotoMemory } from '../../../db/schema'
 import { compressImage } from '../../../utils/imageCompressor'
 
-const AUTHORS = ['Iris', 'Niko']
+const AUTHORS: Array<'Iris' | 'Niko'> = ['Iris', 'Niko']
 
 interface Props {
-  onSave: (entry: Omit<MemoryEntry, 'id' | 'cityId'>) => void
+  onSave: (entry: Omit<PhotoMemory, 'id' | 'cityId'>) => void
   onClose: () => void
 }
 
 export function AddMemorySheet({ onSave, onClose }: Props) {
-  const [author, setAuthor] = useState(AUTHORS[0])
+  const [author, setAuthor] = useState<'Iris' | 'Niko'>(AUTHORS[0])
   const [note, setNote] = useState('')
   const [location, setLocation] = useState('')
   const [photos, setPhotos] = useState<string[]>([])
@@ -23,7 +23,14 @@ export function AddMemorySheet({ onSave, onClose }: Props) {
   }
 
   function handleSave() {
-    onSave({ author, note, location, photos, timestamp: new Date().toISOString() })
+    onSave({
+      kind: 'photo',
+      author,
+      location,
+      timestamp: new Date().toISOString(),
+      photoSrc: photos[0] ?? '',
+      caption: note || undefined,
+    })
     onClose()
   }
 
