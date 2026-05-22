@@ -75,6 +75,8 @@ Completed full implementation of Plan 1: Memories page redesign with discriminat
 - **Build Status**: ✓ Clean
 - **Test Status**: ✓ 55/55 passing
 - **Branch**: `worktree-feature+memories-page-plan1` (linked worktree at `.claude/worktrees/feature+memories-page-plan1`)
+- **Pushed**: ✓ `origin/worktree-feature+memories-page-plan1`
+- **PR**: Ready to open at `https://github.com/irispepa/travel-companion/pull/new/worktree-feature+memories-page-plan1` (`gh` not installed — open in browser)
 - **Dev server**: Was running at `http://localhost:5173/` — user reviewed app visually
 
 ## Work in Progress
@@ -85,12 +87,9 @@ None. Clean implementation path.
 
 ## Next Steps (Priority Order)
 
-1. **Choose integration path for Plan 1** — User must select one:
-   - **Option A**: Merge back to main locally
-   - **Option B**: Push branch and create Pull Request
-   - **Option C**: Keep as-is in worktree
-   - **Option D**: Discard
-   - *Decision pending*
+1. **Merge or close the Plan 1 PR** — Branch pushed, PR ready to create at:
+   `https://github.com/irispepa/travel-companion/pull/new/worktree-feature+memories-page-plan1`
+   (`gh` CLI not installed — PR must be created manually in browser)
 
 2. **Implement Plan 2** (`docs/superpowers/plans/2026-05-22-memories-page-plan2.md`)
    - Replace `AddMemorySheet` with multi-step `AddFlowSheet` (kind selector → type-specific form → review)
@@ -126,8 +125,8 @@ None. Clean implementation path.
 **At session start:**
 1. Confirm worktree: `git worktree list`
 2. Read this HANDOFF.md
-3. Present the 4 integration options to user (merge / PR / keep / discard)
-4. After choice: proceed to Plan 2 or cleanup as needed
+3. Remind user to open the PR in browser if not already done
+4. Proceed to Plan 2
 
 **Key context for next session:**
 - Main branch is untouched; Plan 1 is isolated in worktree
@@ -188,4 +187,4 @@ const [col1, col2] = memories.reduce(
 **Session date:** 2026-05-22
 **Plan path:** `docs/superpowers/plans/2026-05-22-memories-page-plan1.md`
 **Branch:** `worktree-feature+memories-page-plan1`
-**Status:** Complete. 55/55 tests passing. Awaiting merge decision.
+**Status:** Complete. 55/55 tests passing. Branch pushed. PR pending creation in browser.

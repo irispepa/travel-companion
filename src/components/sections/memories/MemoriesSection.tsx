@@ -328,7 +328,9 @@ export function MemoriesSection() {
 
       {showAdd && (
         <AddMemorySheet
-          onSave={entry => addMemory({ ...entry, id: crypto.randomUUID(), cityId: config.cityId })}
+          cityId={config.cityId}
+          date={new Date().toISOString().slice(0, 10)}
+          onSave={entry => addMemory({ ...entry, id: crypto.randomUUID(), cityId: config.cityId } as MemoryEntry)}
           onClose={() => setShowAdd(false)}
         />
       )}
