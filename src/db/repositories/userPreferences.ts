@@ -11,7 +11,7 @@ export async function toggleFavoritePhrase(db: AppDB, cityId: CityId, english: s
   const current = existing.favoritePhrases?.[cityId] ?? []
   const has = current.includes(english)
   existing.favoritePhrases = existing.favoritePhrases ?? {}
-  existing.favoritePhrases[cityId] = has ? current.filter(e => e !== english) : [...current, english]
+  existing.favoritePhrases[cityId] = has ? current.filter((e: string) => e !== english) : [...current, english]
   await db.put('userPreferences', existing)
 }
 

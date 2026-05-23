@@ -12,11 +12,11 @@ Warm, personal, intimate. This app was made for two specific people for one spec
 When opened mid-trip, the user should feel **grounded and oriented** — "everything I need is here." No anxiety, no friction, no cognitive load. The app handles logistics quietly so they can be present in the moment.
 
 ### Aesthetic Direction
-- **Dark editorial** base: deep navy (`#0f1923`), warm cream (`#e8dcc8`), muted gold (`#a08060`), steel blue (`#8ab4c8`)
-- Warm and place-specific in feel — closer to Airbnb's travel editorial warmth than utility-first dark UIs
-- Serif type for headings evokes the old-world texture of Central European destinations
-- Cards are clean with no left-border accents — modern, no AI design anti-patterns
-- Always dark mode; no toggle needed
+- **Light editorial** base: warm paper (`#f4ede1`), deep paper (`#ebe2d2`), near-black ink (`#1d1c1a`), stamp red (`#c8442a`)
+- Feels like a hand-made travel journal — aged paper, rubber stamps, handwritten notes, polaroid photos
+- Serif-adjacent: Inter Tight for display, JetBrains Mono for labels/stamps, Caveat for handwritten elements
+- Cards use white paper background, 1px ink border, hard 2–3px offset shadow (no blur) — scrapbook aesthetic
+- Light mode only; the paper feel depends on warm off-white backgrounds
 
 ### Design Principles
 1. **Warmth over precision** — Prefer rounded corners, warm tones, and generous spacing over tight, data-dense layouts
@@ -32,5 +32,11 @@ When opened mid-trip, the user should feel **grounded and oriented** — "everyt
 ### Tech Constraints
 - React 19 + TypeScript + Vite, no component library
 - All styles are inline React styles using CSS custom properties from `src/styles/tokens.css`
-- IndexedDB via `idb` for offline-first storage
+- IndexedDB via `idb` for offline-first storage, DB currently at **version 2**
 - PWA on iPhone — portrait orientation, touch targets, no hover states
+
+### Key Design Tokens (from `src/styles/tokens.css`)
+- Colors: `--color-paper` `--color-paper-deep` `--color-ink` `--color-ink-soft` `--color-ink-faint` `--color-rule` `--color-stamp` `--color-white`
+- Fonts: `--font-display` (Inter Tight) · `--font-mono` (JetBrains Mono) · `--font-hand` (Caveat)
+- Spacing: `--space-xs/sm/md/lg/xl/2xl/3xl` (4pt scale)
+- Do not introduce new color tokens — use existing ones

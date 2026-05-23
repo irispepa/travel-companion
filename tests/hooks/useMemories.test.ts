@@ -13,12 +13,15 @@ describe('useMemories', () => {
     }, { timeout: 3000 })
     await act(async () => {
       await result.current.addMemory({
-        id: '1', cityId: 'prague', author: 'Iris',
+        id: '1', cityId: 'prague', kind: 'note', author: 'Iris',
         timestamp: '2026-06-14T10:00:00Z', location: 'Prague Castle',
-        photos: [], note: 'Amazing view'
+        body: 'Amazing view'
       })
     })
     expect(result.current.entries).toHaveLength(1)
-    expect(result.current.entries[0].note).toBe('Amazing view')
+    const entry = result.current.entries[0]
+    if (entry.kind === 'note') {
+      expect(entry.body).toBe('Amazing view')
+    }
   })
 })
