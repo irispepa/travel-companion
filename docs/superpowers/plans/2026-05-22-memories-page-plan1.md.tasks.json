@@ -1,0 +1,54 @@
+{
+  "planPath": "docs/superpowers/plans/2026-05-22-memories-page-plan1.md",
+  "tasks": [
+    {
+      "id": 1,
+      "subject": "Task 1: Schema and DB migration",
+      "status": "pending",
+      "description": "**Goal:** Extend the data model to support all memory kinds plus LineOfDay and DayWeather, and bump the DB to version 2.\n\n**Files:**\n- Modify: `src/db/schema.ts`\n- Modify: `src/db/client.ts`\n- Modify: `src/db/repositories/memories.ts`\n- Create: `src/db/repositories/linesOfDay.ts`\n- Create: `src/db/repositories/dayWeather.ts`\n- Test: `src/db/repositories/__tests__/memories.test.ts`\n- Test: `src/db/repositories/__tests__/linesOfDay.test.ts`\n\n**Acceptance Criteria:**\n- [ ] MemoryEntry is a discriminated union with kind field\n- [ ] DB version 2 with linesOfDay and dayWeather stores\n- [ ] migration shim applies kind=photo to old records\n- [ ] all tests pass\n\n**Verify:** `npm test` → all tests pass\n\n```json:metadata\n{\"files\": [\"src/db/schema.ts\", \"src/db/client.ts\", \"src/db/repositories/memories.ts\", \"src/db/repositories/linesOfDay.ts\", \"src/db/repositories/dayWeather.ts\"], \"verifyCommand\": \"npm test\", \"acceptanceCriteria\": [\"MemoryEntry is a discriminated union with kind field\", \"DB version 2 with linesOfDay and dayWeather stores\", \"migration shim applies kind=photo to old records\", \"all tests pass\"]}\n```"
+    },
+    {
+      "id": 2,
+      "subject": "Task 2: useMemories, useLineOfDay, useDayWeather hooks",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Update useMemories to work with the new union type and create the two new hooks.\n\n**Files:**\n- Modify: `src/hooks/useMemories.ts`\n- Create: `src/hooks/useLineOfDay.ts`\n- Create: `src/hooks/useDayWeather.ts`\n- Test: `src/hooks/__tests__/useLineOfDay.test.ts`\n\n**Acceptance Criteria:**\n- [ ] useMemories works with discriminated union MemoryEntry\n- [ ] useLineOfDay persists to IndexedDB\n- [ ] all tests pass\n\n**Verify:** `npm test` → all tests pass\n\n```json:metadata\n{\"files\": [\"src/hooks/useMemories.ts\", \"src/hooks/useLineOfDay.ts\", \"src/hooks/useDayWeather.ts\"], \"verifyCommand\": \"npm test\", \"acceptanceCriteria\": [\"useMemories works with discriminated union MemoryEntry\", \"useLineOfDay persists to IndexedDB\", \"all tests pass\"]}\n```"
+    },
+    {
+      "id": 3,
+      "subject": "Task 3: WeatherStamp and LineOfDay components",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Build the two small layout primitives used by DayHeader.\n\n**Files:**\n- Create: `src/components/sections/memories/WeatherStamp.tsx`\n- Create: `src/components/sections/memories/LineOfDay.tsx`\n\n**Acceptance Criteria:**\n- [ ] WeatherStamp renders with 4 weather kinds\n- [ ] LineOfDay shows editable quote or empty-state pill\n- [ ] focus ring is stamp-red 2px\n\n**Verify:** `npm run build` → no TypeScript errors\n\n```json:metadata\n{\"files\": [\"src/components/sections/memories/WeatherStamp.tsx\", \"src/components/sections/memories/LineOfDay.tsx\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"WeatherStamp renders with 4 weather kinds\", \"LineOfDay shows editable quote or empty-state pill\", \"focus ring is stamp-red 2px\"]}\n```"
+    },
+    {
+      "id": 4,
+      "subject": "Task 4: DayHeader component",
+      "status": "pending",
+      "blockedBy": [3],
+      "description": "**Goal:** Build the sticky day header.\n\n**Files:**\n- Create: `src/components/sections/memories/DayHeader.tsx`\n\n**Acceptance Criteria:**\n- [ ] DayHeader is sticky top:0\n- [ ] date pill is stamp-red mono uppercase\n- [ ] WeatherStamp conditional on weather prop\n- [ ] LineOfDay inline editable\n\n**Verify:** `npm run build` → no TypeScript errors\n\n```json:metadata\n{\"files\": [\"src/components/sections/memories/DayHeader.tsx\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"DayHeader is sticky top:0\", \"date pill is stamp-red mono uppercase\", \"WeatherStamp conditional on weather prop\"]}\n```"
+    },
+    {
+      "id": 5,
+      "subject": "Task 5: PhotoCard, NoteCard, FoodCard",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Build the three visual-only card components.\n\n**Files:**\n- Create: `src/components/sections/memories/cards/PhotoCard.tsx`\n- Create: `src/components/sections/memories/cards/NoteCard.tsx`\n- Create: `src/components/sections/memories/cards/FoodCard.tsx`\n\n**Acceptance Criteria:**\n- [ ] HAND sizes: display 26, cardTitle 19, caption 13\n- [ ] all cards have paper bg, ink border, border-radius 4, hard shadow\n\n**Verify:** `npm run build` → no TypeScript errors\n\n```json:metadata\n{\"files\": [\"src/components/sections/memories/cards/PhotoCard.tsx\", \"src/components/sections/memories/cards/NoteCard.tsx\", \"src/components/sections/memories/cards/FoodCard.tsx\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"HAND sizes respected\", \"all cards have paper bg, ink border, border-radius 4, hard shadow\"]}\n```"
+    },
+    {
+      "id": 6,
+      "subject": "Task 6: VoiceCard and TicketCard",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Build VoiceCard (3 states) and TicketCard.\n\n**Files:**\n- Create: `src/components/sections/memories/cards/VoiceCard.tsx`\n- Create: `src/components/sections/memories/cards/TicketCard.tsx`\n- Modify: `src/styles/tokens.css`\n\n**Acceptance Criteria:**\n- [ ] VoiceCard same dimensions in all 3 states\n- [ ] aria-live polite on timer\n- [ ] TicketCard has dashed perforation line\n\n**Verify:** `npm run build` → no TypeScript errors\n\n```json:metadata\n{\"files\": [\"src/components/sections/memories/cards/VoiceCard.tsx\", \"src/components/sections/memories/cards/TicketCard.tsx\", \"src/styles/tokens.css\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"VoiceCard same dimensions in all 3 states\", \"aria-live polite on timer\", \"TicketCard has dashed perforation line\"]}\n```"
+    },
+    {
+      "id": 7,
+      "subject": "Task 7: MemoriesSection rewrite",
+      "status": "pending",
+      "blockedBy": [2, 3, 4, 5, 6],
+      "description": "**Goal:** Rewrite MemoriesSection with Daily Spreads scrapbook layout.\n\n**Files:**\n- Rewrite: `src/components/sections/memories/MemoriesSection.tsx`\n- Delete: `src/components/sections/memories/MemoryEntry.tsx`\n\n**Acceptance Criteria:**\n- [ ] filter chips wire real filter state\n- [ ] 2-column drop algorithm implemented\n- [ ] tickets render first per day\n- [ ] MemoryEntry.tsx deleted\n\n**Verify:** `npm run build` → no TypeScript errors\n\n```json:metadata\n{\"files\": [\"src/components/sections/memories/MemoriesSection.tsx\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"filter chips wire real filter state\", \"2-column drop algorithm implemented\", \"tickets render first per day\", \"MemoryEntry.tsx deleted\"]}\n```"
+    }
+  ],
+  "lastUpdated": "2026-05-22T00:00:00Z"
+}

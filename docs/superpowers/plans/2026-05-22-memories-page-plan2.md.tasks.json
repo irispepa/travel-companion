@@ -1,0 +1,41 @@
+{
+  "planPath": "docs/superpowers/plans/2026-05-22-memories-page-plan2.md",
+  "tasks": [
+    {
+      "id": 8,
+      "subject": "Task 1: Sheet shell and AddPickerSheet",
+      "status": "completed",
+      "blockedBy": [7],
+      "description": "**Goal:** Build the bottom-sheet chrome and the picker step with mini card previews for all six memory types.\n\n**Files:**\n- Rewrite: `src/components/sections/memories/AddMemorySheet.tsx`\n- Create: `src/components/sections/memories/add/AddPickerSheet.tsx`\n\n**Acceptance Criteria:**\n- [ ] sheet has grab handle and scrim\n- [ ] 6 tile types with miniature previews\n- [ ] role=dialog aria-modal=true\n\n**Verify:** `npm run build` → no TypeScript errors\n\n```json:metadata\n{\"files\": [\"src/components/sections/memories/AddMemorySheet.tsx\", \"src/components/sections/memories/add/AddPickerSheet.tsx\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"sheet has grab handle and scrim\", \"6 tile types with miniature previews\", \"role=dialog aria-modal=true\"]}\n```"
+    },
+    {
+      "id": 9,
+      "subject": "Task 2: AddNoteSheet, AddFoodSheet, AddTicketSheet",
+      "status": "completed",
+      "blockedBy": [8],
+      "description": "**Goal:** Implement the three text-input compose sheets.\n\n**Files:**\n- Create: `src/components/sections/memories/add/AddNoteSheet.tsx`\n- Create: `src/components/sections/memories/add/AddFoodSheet.tsx`\n- Create: `src/components/sections/memories/add/AddTicketSheet.tsx`\n\n**Acceptance Criteria:**\n- [ ] PASTE IT IN stamp button on all sheets\n- [ ] AddFoodSheet has live preview\n- [ ] all sheets have back link\n\n**Verify:** `npm run build` → no TypeScript errors\n\n```json:metadata\n{\"files\": [\"src/components/sections/memories/add/AddNoteSheet.tsx\", \"src/components/sections/memories/add/AddFoodSheet.tsx\", \"src/components/sections/memories/add/AddTicketSheet.tsx\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"PASTE IT IN stamp button on all sheets\", \"AddFoodSheet has live preview\", \"all sheets have back link\"]}\n```"
+    },
+    {
+      "id": 10,
+      "subject": "Task 3: AddPhotoSheet and AddQuoteSheet",
+      "status": "completed",
+      "blockedBy": [8],
+      "description": "**Goal:** Photo caption compose and Line of the Day compose sheets.\n\n**Files:**\n- Create: `src/components/sections/memories/add/AddPhotoSheet.tsx`\n- Create: `src/components/sections/memories/add/AddQuoteSheet.tsx`\n\n**Acceptance Criteria:**\n- [ ] photo tile triggers file picker\n- [ ] quote sheet writes LineOfDay not MemoryEntry\n- [ ] char count max 80 shown\n\n**Verify:** `npm run build` → no TypeScript errors\n\n```json:metadata\n{\"files\": [\"src/components/sections/memories/add/AddPhotoSheet.tsx\", \"src/components/sections/memories/add/AddQuoteSheet.tsx\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"photo tile triggers file picker\", \"quote sheet writes LineOfDay not MemoryEntry\", \"char count max 80 shown\"]}\n```"
+    },
+    {
+      "id": 11,
+      "subject": "Task 4: useVoiceRecorder hook and VoiceRecordSheet",
+      "status": "completed",
+      "blockedBy": [8],
+      "description": "**Goal:** Implement useVoiceRecorder using MediaRecorder + Web Audio API, wire into VoiceRecordSheet.\n\n**Files:**\n- Create: `src/hooks/useVoiceRecorder.ts`\n- Create: `src/components/sections/memories/add/VoiceRecordSheet.tsx`\n\n**Acceptance Criteria:**\n- [ ] MediaRecorder used for audio capture\n- [ ] AnalyserNode downsampled to 30 bars\n- [ ] auto-saves VoiceMemory on stop\n\n**Verify:** `npm run build` → no TypeScript errors\n\n```json:metadata\n{\"files\": [\"src/hooks/useVoiceRecorder.ts\", \"src/components/sections/memories/add/VoiceRecordSheet.tsx\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"MediaRecorder used for audio capture\", \"AnalyserNode downsampled to 30 bars\", \"auto-saves VoiceMemory on stop\"]}\n```"
+    },
+    {
+      "id": 12,
+      "subject": "Task 5: Weather fetching and caching",
+      "status": "completed",
+      "blockedBy": [2],
+      "description": "**Goal:** Fetch weather once per (cityId, date) from wttr.in, cache in IndexedDB.\n\n**Files:**\n- Create: `src/utils/fetchWeather.ts`\n- Modify: `src/hooks/useDayWeather.ts`\n\n**Acceptance Criteria:**\n- [ ] cache-first weather load\n- [ ] fetch failure returns undefined silently\n- [ ] no refetch if cached\n\n**Verify:** `npm run build && npm test` → all pass\n\n```json:metadata\n{\"files\": [\"src/utils/fetchWeather.ts\", \"src/hooks/useDayWeather.ts\"], \"verifyCommand\": \"npm run build && npm test\", \"acceptanceCriteria\": [\"cache-first weather load\", \"fetch failure returns undefined silently\", \"no refetch if cached\"]}\n```"
+    }
+  ],
+  "lastUpdated": "2026-05-22T23:00:00Z"
+}
