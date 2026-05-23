@@ -18,8 +18,11 @@ function mapWeatherCode(code: number): DayWeather['kind'] {
   return 'cloud'
 }
 
+// wttr.in free tier only returns current/forecast data — date is used as a cache key
+// upstream (useDayWeather) but is not passed to the API.
 export async function fetchWeather(
   cityId: CityId,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _date: string,
 ): Promise<{ kind: DayWeather['kind']; temp: number } | null> {
   const location = CITY_LOCATION[cityId]

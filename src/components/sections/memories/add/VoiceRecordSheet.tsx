@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { VoiceMemory } from '../../../../db/schema'
 import { VoiceCard } from '../cards/VoiceCard'
 import { useVoiceRecorder } from '../../../../hooks/useVoiceRecorder'
@@ -13,11 +13,13 @@ interface Props {
 const CARD_WIDTH = 300
 
 export function VoiceRecordSheet({ onSave, onBack }: Props) {
+  const [author, setAuthor] = useState<VoiceMemory['author']>('both')
+
   const handleDone = useCallback(
     (result: { audioSrc: string; duration: number; waveform: number[] }) => {
       const entry: SaveArg = {
         kind: 'voice',
-        author: 'Iris',
+        author,
         audioSrc: result.audioSrc,
         duration: result.duration,
         waveform: result.waveform,
@@ -25,10 +27,14 @@ export function VoiceRecordSheet({ onSave, onBack }: Props) {
       }
       onSave(entry)
     },
-    [onSave],
+    [onSave, author],
   )
 
-  const { state, duration, waveform, start, stop } = useVoiceRecorder(handleDone)
+  const { state, duration, waveform, start, stop, cleanup } = useVoiceRecorder(handleDone)
+
+  useEffect(() => {
+    return () => { cleanup() }
+  }, [cleanup])
 
   const cardState = state === 'idle' ? 'empty' : state === 'recording' ? 'recording' : 'recorded'
 
@@ -36,7 +42,7 @@ export function VoiceRecordSheet({ onSave, onBack }: Props) {
     id: '',
     cityId: 'prague',
     kind: 'voice',
-    author: 'Iris',
+    author,
     audioSrc: '',
     duration,
     waveform,
@@ -106,6 +112,32 @@ export function VoiceRecordSheet({ onSave, onBack }: Props) {
         onStartRecord={start}
         onStopRecord={stop}
       />
+
+      <div style={{ display: 'flex', gap: 6 }}>
+        {(['Iris', 'Niko', 'both'] as VoiceMemory['author'][]).map(a => (
+          <button
+            key={a}
+            onClick={() => setAuthor(a)}
+            aria-pressed={author === a}
+            disabled={state === 'recording'}
+            style={{
+              padding: '0 12px',
+              height: 36,
+              borderRadius: 20,
+              border: '1px solid var(--color-ink)',
+              background: author === a ? 'var(--color-ink)' : 'transparent',
+              color: author === a ? 'var(--color-paper)' : 'var(--color-ink)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 10,
+              cursor: state === 'recording' ? 'default' : 'pointer',
+              opacity: state === 'recording' ? 0.4 : 1,
+              minHeight: 44,
+            }}
+          >
+            {a === 'both' ? 'Both' : a}
+          </button>
+        ))}
+      </div>
 
       {state === 'idle' && (
         <p style={hintStyle}>tap the mic to start recording</p>

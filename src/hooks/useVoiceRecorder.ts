@@ -120,5 +120,14 @@ export function useVoiceRecorder(onDone: (result: RecordResult) => void) {
     }
   }, [clearIntervals])
 
-  return { state, duration, waveform, start, stop }
+  const cleanup = useCallback(() => {
+    clearIntervals()
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop()
+    }
+    mediaRecorderRef.current?.stream.getTracks().forEach(t => t.stop())
+    audioCtxRef.current?.close().catch(() => {})
+  }, [clearIntervals])
+
+  return { state, duration, waveform, start, stop, cleanup }
 }
