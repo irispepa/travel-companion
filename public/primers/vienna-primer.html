@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vienna Primer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f0ece3;
+    --ink: #16120c;
+    --imperial: #7a1a2e;
+    --gold: #b08d3a;
+    --muted: #7a7062;
+    --pale: #e5dfd2;
+    --dark: #1e1810;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--muted);
+    position: relative;
+  }
+
+  .header::before {
+    content: '';
+    display: block;
+    height: 5px;
+    background: linear-gradient(90deg, var(--imperial) 0%, var(--gold) 100%);
+    margin-bottom: 26px;
+  }
+
+  .eyebrow {
+    font-size: 9.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--imperial);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(46px, 9vw, 80px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -1px;
+    color: var(--ink);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--imperial);
+  }
+
+  .standfirst {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+
+  .byline {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 14px;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--pale);
+  }
+
+  .section:last-of-type { border-bottom: none; }
+
+  .section-tag {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--imperial);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--pale);
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 4.5vw, 34px);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--imperial);
+  }
+
+  p {
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  /* ─── PULLQUOTE ─── */
+  .pull {
+    margin: 22px 0;
+    padding: 6px 0 6px 20px;
+    border-left: 3px solid var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* ─── DARK BOX ─── */
+  .dark-box {
+    background: var(--dark);
+    color: #c8bfae;
+    padding: 22px 24px;
+    margin: 20px 0;
+  }
+
+  .dark-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+
+  .dark-box p {
+    color: #c0b9a8;
+    font-size: 12px;
+    margin-bottom: 10px;
+    line-height: 1.75;
+  }
+
+  /* ─── RULES ─── */
+  .rules {
+    background: var(--pale);
+    border-top: 2px solid var(--imperial);
+    padding: 20px 22px;
+    margin: 20px 0;
+  }
+
+  .rules h3 {
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--imperial);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  .rule {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 9px;
+    align-items: flex-start;
+  }
+
+  .rn {
+    color: var(--imperial);
+    font-weight: 500;
+    flex-shrink: 0;
+    min-width: 20px;
+    font-size: 12px;
+  }
+
+  /* ─── VOCAB TABLE ─── */
+  .vocab {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 16px 0;
+  }
+
+  .vocab thead tr {
+    border-bottom: 2px solid var(--imperial);
+  }
+
+  .vocab th {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--imperial);
+    padding: 6px 12px 6px 0;
+    text-align: left;
+    font-weight: 500;
+  }
+
+  .vocab td {
+    padding: 8px 12px 8px 0;
+    border-bottom: 1px solid var(--pale);
+    vertical-align: top;
+  }
+
+  .vocab td:first-child { font-weight: 500; white-space: nowrap; }
+  .vocab td:nth-child(2) { color: var(--muted); font-size: 11px; white-space: nowrap; }
+  .vocab td:nth-child(3) { color: var(--muted); }
+
+  /* ─── COFFEE GRID ─── */
+  .coffee-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 16px 0;
+    background: var(--pale);
+  }
+
+  @media (max-width: 520px) {
+    .coffee-grid { grid-template-columns: 1fr; }
+  }
+
+  .coffee-card {
+    background: var(--paper);
+    padding: 14px 16px;
+  }
+
+  .coffee-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--ink);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .coffee-sub {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--imperial);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .coffee-desc {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── PRACTICAL BLOCKS ─── */
+  .prac-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 520px) {
+    .prac-grid { grid-template-columns: 1fr; }
+  }
+
+  .prac-block {
+    border: 1px solid var(--pale);
+    padding: 14px;
+  }
+
+  .prac-block h4 {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--imperial);
+    font-weight: 500;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--pale);
+  }
+
+  .prac-block p { font-size: 12px; }
+
+  /* ─── TRANSIT TABLE ─── */
+  .transit {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 16px 0;
+  }
+
+  .transit thead tr {
+    background: var(--imperial);
+    color: var(--paper);
+  }
+
+  .transit th {
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 9.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .transit td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--pale);
+    vertical-align: top;
+    color: var(--ink);
+  }
+
+  .transit tr:nth-child(even) td { background: var(--pale); }
+
+  /* ─── HIGHLIGHT ─── */
+  .hl { color: var(--imperial); font-weight: 500; }
+
+  strong { font-weight: 500; }
+
+  .dingbat { color: var(--gold); margin: 0 3px; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px solid var(--muted);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="eyebrow">First-Time Visitor Briefing <span class="dingbat">◆</span> Wien, Austria</div>
+    <h1>Now You're in the <em>Empire.</em></h1>
+    <p class="standfirst">Vienna isn't a European city that had a good run. It was the administrative and cultural capital of half a continent for six centuries. It knows it. You should too.</p>
+    <p class="byline">3 days <span class="dingbat">·</span> Coming from Prague <span class="dingbat">·</span> Heavier on practical than you'll need but you asked</p>
+  </div>
+
+  <!-- 1: SOUL -->
+  <div class="section">
+    <div class="section-tag">The Psychology</div>
+    <h2>A Superpower That Lost Its Empire <em>and Never Quite Got Over It</em></h2>
+
+    <p>To understand Vienna, you need to sit with one fact: <strong>the Habsburg dynasty ruled from this city for over 600 years</strong>. At the empire's peak they controlled swaths of what is today Austria, Hungary, Czechia, Slovakia, Croatia, Slovenia, parts of Poland, and northern Italy. Vienna was not a peripheral capital — it was the actual center of European political gravity for centuries.</p>
+
+    <p>Then came World War I, and in four years the entire apparatus collapsed. The Austro-Hungarian Empire dissolved in 1918 and Austria became a small, landlocked republic of 8 million people. The city of Vienna — built to administrate an empire of 50 million — was suddenly a bloated imperial head on a tiny provincial body. Imagine Washington DC if America had simply ceased to exist.</p>
+
+    <div class="pull">
+      Austrians carry imperial memory without imperial power. The past doesn't haunt Vienna so much as furnish it.
+    </div>
+
+    <p>What this creates psychologically: a culture that is genuinely, deeply sophisticated — because it earned that sophistication over centuries — combined with a kind of low-key melancholia about reduced circumstances. This is not a people who are trying to seem cultured. They are cultured, in the bone-deep, unself-conscious way that comes from actually having been the center of Western music, psychoanalysis, modernist architecture, and fin-de-siècle painting simultaneously.</p>
+
+    <p>The humor that emerges from this — called <span class="hl">Schmäh</span> in Viennese — is dry, ironic, occasionally savage, and delivered with a perfectly straight face. Its roots are interesting: <strong>it originated as the wit of servants mocking their aristocratic employers</strong>, which tells you something about the class structure and the pressure valve the culture needed. If someone seems to be gently insulting you while smiling, they probably are, and it's probably a compliment.</p>
+
+    <div class="dark-box">
+      <h3>The WWII question — know this before you go</h3>
+      <p>Austria spent decades after World War II operating on a comfortable official fiction: that the Anschluss of 1938 was a Nazi invasion and that Austria was Hitler's "first victim." This absolved Austrians of responsibility for the war and the Holocaust. The problem: in the 1938 plebiscite, 99.7% of Austrians voted to join the German Reich. Austrians were disproportionately represented among senior Nazi officials — including Hitler himself, who was born in Braunau am Inn.</p>
+      <p>This myth began unraveling in the 1980s around the Waldheim scandal (a presidential candidate whose Wehrmacht past was exposed) and was formally repudiated by Chancellor Vranitzky in 1991. Modern Austrians — especially younger ones — have a clear-eyed view of this history. Don't bring it up as a gotcha; do feel equipped to discuss it if it arises. It's a mark of taking Austria seriously rather than treating it as a postcard.</p>
+    </div>
+  </div>
+
+  <!-- 2: NOT GERMANY -->
+  <div class="section">
+    <div class="section-tag">Identity</div>
+    <h2>Austria Is <em>Not Germany</em> and You Will Not Be Forgiven for Confusing Them</h2>
+
+    <p>The language is German. The cultural DNA is not. Austrian identity is specifically, consciously distinct from German identity, and this distinction matters enormously to Austrians. The short version: Germany was Protestant, militarist, and Prussian. Austria was Catholic, cosmopolitan, and Habsburg. They share grammar; they do not share a soul.</p>
+
+    <p>A few visible markers of this distinction: Austrians greet each other with <span class="hl">Grüß Gott</span> (literally "may God greet you"), not the German "Guten Tag." They call January <em>Jänner</em> instead of <em>Januar</em>. They call a plastic bag a <em>Sackerl</em> instead of a <em>Tüte</em>. Viennese dialect — <em>Wienerisch</em> — has a melodic, almost southern softness that sounds nothing like High German. These are not trivial differences to Austrians.</p>
+
+    <p>The relationship with Germany is genuinely complicated — a mixture of sibling rivalry, cultural defensiveness, and occasional genuine affection. Saying "this is just like Germany" in any context will land somewhere between mildly irritating and actively offensive. Don't do it.</p>
+
+    <p>The relationship between Vienna and the rest of Austria is its own thing: <strong>Viennese consider themselves categorically more sophisticated than provincial Austrians</strong>, who consider Viennese arrogant and out of touch. Both are probably right. Vienna is a city-state in all but name — it is its own federal province — and it votes significantly more left than the rest of the country. This divide is real and occasionally erupts in Austrian politics.</p>
+  </div>
+
+  <!-- 3: READING THE ROOM -->
+  <div class="section">
+    <div class="section-tag">Social Calibration</div>
+    <h2>Formality Is Not Coldness. <em>It Is the Point.</em></h2>
+
+    <p>In Prague the reserve was a communist-era survival habit. In Vienna it's older and prouder than that — it's the etiquette of a civilization that ran half a continent and considers social protocol a form of mutual respect rather than stiffness. The formal <em>Sie</em> (you, formal) vs. informal <em>du</em> distinction is alive, well, and taken seriously. With a shopkeeper, a waiter, a stranger on the street: Sie. Always. Switching to <em>du</em> requires an explicit invitation, which comes from the older or more senior person, and jumping the gun doesn't come across as friendly — it comes across as presumptuous. Think of it less as a rule and more as a default setting that someone else gets to change, not you.</p>
+
+    <p>The title culture is something to see. Austria has, depending on who's counting, somewhere around <strong>800 distinct academic titles and degrees</strong> — and many of them appear in people's passports. <em>Herr Doktor</em>, <em>Frau Magister</em>, <em>Herr Diplomingenieur</em>: these are real forms of address that real people use in actual conversations, not ironic formalities left over from the 19th century. The record for longest Austrian title on a business card has apparently never been officially established, which tells you something. As a tourist you're exempt from navigating all of this — nobody expects you to know — but you'll catch it happening around you, and now you won't look confused.</p>
+
+    <div class="rules">
+      <h3>Behavioral Calibration for Vienna</h3>
+      <div class="rule"><span class="rn">01</span><span><strong>Say Grüß Gott when you enter anywhere.</strong> Shops, elevators, small spaces — silence on arrival is considered rude. The greeting is non-negotiable. Alternatively, <em>Guten Morgen / Guten Tag / Guten Abend</em> depending on time of day. Any of these lands fine.</span></div>
+      <div class="rule"><span class="rn">02</span><span><strong>Dress like you give a damn.</strong> Athletic gear, Birkenstocks, and shorts in nice establishments are frowned upon. Viennese dress for public life — smart casual minimum for daytime, presentable for evenings. For opera or classical concerts: proper attire. You cannot be overdressed for these.</span></div>
+      <div class="rule"><span class="rn">03</span><span><strong>Be punctual.</strong> A few minutes late is noticed. Being late without calling ahead is genuinely rude. The culture takes time seriously in a way that reflects order as a core value.</span></div>
+      <div class="rule"><span class="rn">04</span><span><strong>Keep your voice down on transit.</strong> Same rules as Prague, possibly stricter. The Viennese are quieter in public than almost any major European city. Talking loudly on the U-Bahn or tram earns cold looks.</span></div>
+      <div class="rule"><span class="rn">05</span><span><strong>Don't eat on the U-Bahn or trams.</strong> Water is fine. Food — particularly anything with a smell — is not acceptable and will be noticed.</span></div>
+      <div class="rule"><span class="rn">06</span><span><strong>Stand right on escalators.</strong> Walk left. Identical to Prague, same rule across most of continental Europe. Blocking the left side is a declaration of war.</span></div>
+      <div class="rule"><span class="rn">07</span><span><strong>Tipping: state the total.</strong> As in Prague, you state the amount you want to pay — including tip — rather than leaving cash on the table. "Stimmt so" (keep the change) is the phrase. Aim for 5–10% rounded to a clean number.</span></div>
+      <div class="rule"><span class="rn">08</span><span><strong>Don't perform enthusiasm.</strong> Viennese reserve is not depression — it is composure. Loud American-style expressions of delight read as superficial. Calm, specific appreciation is received much better.</span></div>
+    </div>
+  </div>
+
+  <!-- 4: LANGUAGE -->
+  <div class="section">
+    <div class="section-tag">Language</div>
+    <h2>They Speak German Here. <em>Sort of.</em></h2>
+
+    <p>Austrian German is its own thing, and Wienerisch — the Viennese dialect specifically — is its own thing within that. The pronunciation is melodically softer than anything you'd learn in a German class, almost lilting in places, with vocabulary that diverges from German German in ways that can genuinely trip up even intermediate speakers. January is <em>Jänner</em>. A plastic bag is a <em>Sackerl</em>. A staircase is a <em>Stiege</em>. At full conversational speed, Viennese dialect can sound like a different language entirely. None of this matters much in practice — Standard German works everywhere and English proficiency in central Vienna is very high — but knowing the gap exists means you won't assume you misheard something when you probably didn't.</p>
+
+    <p>Attempting even basic Austrian German earns goodwill disproportionate to the effort, possibly because tourists so reliably assume English is fine and don't try. The single highest-value phrase: <span class="hl">Grüß Gott</span> on entering anywhere. It's the Austrian greeting (literally "may God greet you"), it's what distinguishes you from someone who just walked in from Germany, and it costs two syllables.</p>
+
+    <table class="vocab">
+      <thead>
+        <tr><th>Austrian/German</th><th>Sounds like</th><th>When and why</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Grüß Gott</td>
+          <td>GROOS got</td>
+          <td>The Austrian hello. Use it entering any space. Distinctive from German "Guten Tag."</td>
+        </tr>
+        <tr>
+          <td>Servus</td>
+          <td>SAIR-vus</td>
+          <td>Casual hello/goodbye between people who know each other. Don't use it with strangers.</td>
+        </tr>
+        <tr>
+          <td>Danke / Bitte</td>
+          <td>DAN-keh / BIT-teh</td>
+          <td>Thank you / Please. Also "you're welcome." Bitte does triple duty — learn it.</td>
+        </tr>
+        <tr>
+          <td>Zahlen, bitte</td>
+          <td>TSAH-len BIT-teh</td>
+          <td>"The bill, please." Essential. They'll ask: Zusammen? (together?) answer accordingly.</td>
+        </tr>
+        <tr>
+          <td>Stimmt so</td>
+          <td>SHTIMMT zo</td>
+          <td>"Keep the change." Say this while handing over cash. Simple tip mechanism.</td>
+        </tr>
+        <tr>
+          <td>Entschuldigung</td>
+          <td>ent-SHOOL-di-gung</td>
+          <td>Excuse me / Sorry. Long but worth knowing. Necessary in crowds.</td>
+        </tr>
+        <tr>
+          <td>Auf Wiedersehen</td>
+          <td>owf-VEE-der-zayn</td>
+          <td>Formal goodbye. Tschüss works informally between friends; use Auf Wiedersehen everywhere else.</td>
+        </tr>
+        <tr>
+          <td>Ein Melange, bitte</td>
+          <td>ine meh-LONZH BIT-teh</td>
+          <td>"A Melange, please." The canonical coffeehouse order. More on this below.</td>
+        </tr>
+        <tr>
+          <td>Prost / Zum Wohl</td>
+          <td>PROHST / tsum VOHL</td>
+          <td>Toast for beer (Prost) or wine/formal (Zum Wohl). Eye contact required. Always.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 5: COFFEEHOUSE -->
+  <div class="section">
+    <div class="section-tag">The Kaffeehaus</div>
+    <h2>The Coffeehouse Is Not a Place to Get Coffee. <em>It's a Place to Exist.</em></h2>
+
+    <p>UNESCO listed Viennese coffeehouse culture as intangible cultural heritage in 2011. This is not hyperbole — the Viennese Kaffeehaus is a genuinely distinct cultural institution that functioned for centuries as a living room, office, salon, and social equalizer simultaneously. Freud worked here. Klimt worked here. Trotsky, Hitler, Stalin, and Tito were all living in Vienna in 1913 — and they were all, separately, regular coffeehouse patrons. That's the kind of room it was.</p>
+
+    <p>The defining feature — still operative today — is that <strong>you are not expected to leave</strong>. Order one coffee, stay three hours, read the newspaper (provided on a rack), write your manifesto, people-watch. The waiter will not hover. The waiter will not ask if you want anything else. The waiter will come when you flag them. This is intentional and you should lean into it fully.</p>
+
+    <div class="pull">
+      The Viennese coffeehouse is described in UNESCO's listing as "a place where time and space are consumed, but only the coffee is found on the bill."
+    </div>
+
+    <p>The coffee menu is not what you're used to. There are dozens of distinct drinks and ordering a generic "coffee" will get you a gentle stare. Here are the ones you actually need:</p>
+
+    <div class="coffee-grid">
+      <div class="coffee-card">
+        <div class="coffee-name">Melange</div>
+        <div class="coffee-sub">The default order</div>
+        <div class="coffee-desc">Espresso with steamed milk and light foam. Milder than a cappuccino. Served on a small tray with a glass of water. This is what you order unless you have a strong reason to do otherwise.</div>
+      </div>
+      <div class="coffee-card">
+        <div class="coffee-name">Einspänner</div>
+        <div class="coffee-sub">Espresso in a glass, whipped cream on top</div>
+        <div class="coffee-desc">The cream was originally designed to keep the coffee warm longer (for coachmen waiting outside). Still a classic. Order this when you want to feel like 1890.</div>
+      </div>
+      <div class="coffee-card">
+        <div class="coffee-name">Verlängerter</div>
+        <div class="coffee-sub">Extended espresso</div>
+        <div class="coffee-desc">Espresso extended with extra hot water. Smooth and long, similar to an Americano but better. Good for slow-drinking over a newspaper.</div>
+      </div>
+      <div class="coffee-card">
+        <div class="coffee-name">Schwarzer</div>
+        <div class="coffee-sub">Black coffee / espresso</div>
+        <div class="coffee-desc">A "Kleiner Schwarzer" is a single espresso. A "Großer Schwarzer" is a double. This is the one you ask for when you just want caffeine without ceremony.</div>
+      </div>
+    </div>
+
+    <p>Coffee arrives on a small silver or metal tray with a glass of cold water. The water is not a bonus — it is part of the service, always included, always replaced. Drink it.</p>
+
+    <p>In the coffeehouse, you pay when you're ready to leave, not immediately after receiving your order. Flag the waiter with eye contact, say <em>Zahlen, bitte</em>, and when they quote you the total, respond with a number that includes your tip — or say <em>Stimmt so</em> to keep the change. Don't leave cash on the table and walk away.</p>
+  </div>
+
+  <!-- 6: PRACTICAL -->
+  <div class="section">
+    <div class="section-tag">Practical Layer</div>
+    <h2>The Specifics That Will <em>Actually Save You</em></h2>
+
+    <h3 style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; margin: 20px 0 12px; color:var(--ink);">Transit: The U-Bahn</h3>
+
+    <p>Five lines (U1–U4, U6 — the U5 is still under construction, yes, it's been years), extensive trams the locals call the <span class="hl">Bim</span>, honour system throughout with no barriers. Buy a <strong>72-hour pass (~€17)</strong> from orange Wiener Linien machines or the WienMobil app and forget about it — it covers everything, no per-trip validation. The fine for riding without a valid ticket is €135 and the plainclothes inspectors called <em>Schwarzkappler</em> are not charmed by tourists. U-Bahn runs to midnight daily, 24 hours Friday and Saturday. Airport: S7 rapid rail is the cheap option (~25 min), City Airport Train is the fast one (~15 min, costs more).</p>
+
+    <div class="prac-grid">
+      <div class="prac-block">
+        <h4>Currency & Cards</h4>
+        <p>Austria uses Euros. <strong>Tap-to-pay is widely accepted</strong> — restaurants, shops, transit machines, most cafés will take a contactless card or phone without blinking. Still carry some cash for markets, smaller shops, and public toilets. Get it from a bank ATM, not exchange kiosks. Tipping in cash directly to the server is preferred even when the meal goes on card.</p>
+      </div>
+      <div class="prac-block">
+        <h4>Tipping</h4>
+        <p>5–10% is standard. State the total including tip aloud when paying — "Vierzig, bitte" (forty, please) if the bill is €36. Saying "Stimmt so" means keep the change. Don't leave cash on the table and walk away — hand it to the server.</p>
+      </div>
+      <div class="prac-block">
+        <h4>Sundays</h4>
+        <p>Most shops close on Sunday. This is strictly observed. Supermarkets at train stations are exceptions. Restaurants, cafés, museums, and tourist sites stay open — Naschmarkt has a flea market Sunday mornings. Plan grocery needs for Saturday.</p>
+      </div>
+      <div class="prac-block">
+        <h4>Quiet hours</h4>
+        <p>Ruhezeit (quiet hours) are real and culturally enforced. Roughly 10pm–7am and all day Sunday in residential areas. This means no loud music from apartment windows, no drilling, no disturbance. Hotels in residential neighborhoods take this seriously.</p>
+      </div>
+      <div class="prac-block">
+        <h4>Dress codes</h4>
+        <p>For Vienna State Opera (Staatsoper) and classical concerts: jacket at minimum for men, dress or equivalent for women. No one will turn you away in smart casual but you will stand out. Going overdressed is never a problem here.</p>
+      </div>
+      <div class="prac-block">
+        <h4>Recycling / bins</h4>
+        <p>Vienna takes recycling seriously and has color-coded bins everywhere. You won't be expected to know the system intimately, but littering or using the wrong bin carelessly is noticed. The city is noticeably clean — keep it that way and you fit in.</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; margin: 24px 0 12px; color:var(--ink);">At Restaurants</h3>
+
+    <div class="rules">
+      <h3>Dining Mechanics</h3>
+      <div class="rule"><span class="rn">◆</span><span><strong>Wait to be seated</strong> at sit-down restaurants. Unlike the Prague hospoda, Austrian restaurants have a more formal seating protocol. Someone will approach you.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>"Guten Appetit"</strong> is said before eating. Wait for it from the host or table, then eat. At restaurants, the server often says it when delivering your food.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>Bread is not always free.</strong> Bread brought to the table before the meal is typically charged — usually a small amount. It's not included by default the way water is in the US.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>Tap water is not offered by default.</strong> You will be offered still or sparkling mineral water. If you want tap, you can ask — <em>Leitungswasser, bitte</em> — but it's not common practice and some places won't have it.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>The bill does not come automatically.</strong> You flag the waiter when you're ready. This is the same as Prague — the default is that you're not being rushed. Catch their eye, say <em>Zahlen, bitte</em>.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>Splitting bills</strong> is possible — they'll ask "Zusammen oder getrennt?" (Together or separate?). Getrennt means split. Each person pays for what they ordered; this is not the ambiguous "let's figure it out later" situation.</span></div>
+    </div>
+  </div>
+
+  <!-- 7: CULTURE -->
+  <div class="section">
+    <div class="section-tag">Cultural Context</div>
+    <h2>Music, Freud, and the Weight <em>of Fin-de-Siècle</em></h2>
+
+    <p>Vienna in the late 19th and early 20th century produced a concentration of cultural output that is genuinely hard to overstate. In the space of a few decades, in this city: Mozart, Beethoven, Schubert, Brahms, Mahler, Bruckner, and Strauss all composed here. Klimt and Schiele painted here. Freud developed psychoanalysis here. Wittgenstein philosophized here. Herzl founded Zionism here. Loos and Otto Wagner reshaped modern architecture here. The Secession movement, the Vienna Workshops, Viennese modernism — all here, all at the same time, all arguing with each other in the same coffeehouses.</p>
+
+    <p>Much of it was destroyed. The city's Jewish intellectual community — which disproportionately powered the whole explosion — was decimated by the Holocaust. Many who survived fled and didn't come back. The coffeehouse culture that had made all of this cross-pollination possible was largely hollowed out. What you're walking through today is simultaneously the authentic continuation of that tradition and a city carrying a loss it still doesn't quite have the language for.</p>
+
+    <p>The Vienna State Opera offers standing tickets — <em>Stehplätze</em> — for a few euros, sold at the door before each performance. You stand at the back of the stalls or gallery for a world-class opera production. There is a protocol: arrive at least an hour before, queue properly, and once inside you can tie a scarf to the railing to mark your spot while you get a drink. It is one of the better deals in European culture and the Viennese take it completely seriously.</p>
+
+    <div class="dark-box">
+      <h3>Context from Prague: what connects</h3>
+      <p>You're arriving from a city that spent centuries under Habsburg rule — the very rule administered from this city. The Habsburg bureaucracy Kafka satirized in Prague was run from Vienna. The Catholic reconquista of Bohemia after the Battle of White Mountain in 1620 was a Habsburg project, executed from here. The Vienna you're visiting built its wealth and power partly on the backs of the territories it governed, including the Czech lands.</p>
+      <p>One figure worth knowing: Karl Lueger, mayor of Vienna 1897–1910, was an openly antisemitic populist whom a young Adolf Hitler explicitly admired while living in Vienna in his early twenties. Freud was living and working here during Lueger's entire tenure. Klimt was painting. The coffeehouse intellectuals were arguing. Vienna's golden age and its darkest political currents were not sequential — they were simultaneous, in the same rooms. That's the texture of the place.</p>
+    </div>
+  </div>
+
+  <!-- 8: CLOSING -->
+  <div class="section">
+    <div class="section-tag">The Frame</div>
+    <h2>The Middle City, <em>and Why That's the Right Place for It</em></h2>
+
+    <p>Prague gave you the irony. Budapest will give you the strangeness. Vienna gives you the grandeur — and the weight that comes with it. It is the city that everything else in this trip is in conversation with: the empire that ruled Prague for centuries, the co-capital that shared power with Budapest, the cultural center that shaped what the entire region thought music and architecture and intellectual life were supposed to look like.</p>
+
+    <p>Coming from Prague, the adjustment is mostly tonal. Swap the Czech stoicism for Austrian formality. Swap Czech Koruna for Euros. Dress better — not expensively, just intentionally. Expect that the waiter addressing you as <em>Herr</em> is completely sincere and not doing a bit. The cities are neighbors geographically and psychologically quite far apart: Prague survived by being ungovernable; Vienna survived by being the thing everyone else had to answer to.</p>
+
+    <p>The Belvedere has Klimt's <em>The Kiss</em> in person, which is a different experience than any reproduction. The Kunsthistorisches Museum has a permanent collection that would be the centerpiece of any city in the world. And the coffeehouse, on a slow afternoon with a Melange and a borrowed newspaper, is one of the most genuinely civilized things available to a human being in 2026.</p>
+
+    <div class="pull">
+      Say Grüß Gott, dress like you're going somewhere, order a Melange and sit with it for two hours. The city will open.
+    </div>
+  </div>
+
+  <div class="footer">
+    Second in a three-city Central European series <span class="dingbat">◆</span> Prague → Vienna → Budapest <span class="dingbat">◆</span> Auf Wiedersehen
+  </div>
+
+</div>
+</body>
+</html>

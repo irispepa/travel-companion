@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getCityView } from '../../config/cities'
 import { CityViewId } from '../../db/schema'
@@ -12,6 +12,7 @@ const CITY_DATA: Record<string, {
   stampColor: string
   stampLabel: string
   stampDate: string
+  morseCode: Array<'dot' | 'dash'> | null
   coords: string
   tag: string
   pins: string
@@ -24,6 +25,7 @@ const CITY_DATA: Record<string, {
     stampColor: '#c8442a',
     stampLabel: 'PRAHA',
     stampDate: '3 · VI',
+    morseCode: ['dot', 'dash', 'dash', 'dot'],
     coords: '50.0755° N · 14.4378° E',
     tag: 'Stone city, slow river, cheap pivo.',
     pins: '6 SAVED PINS',
@@ -41,6 +43,7 @@ const CITY_DATA: Record<string, {
     stampColor: '#d39327',
     stampLabel: 'WIEN',
     stampDate: '6 · VI',
+    morseCode: ['dot', 'dot', 'dot', 'dash'],
     coords: '48.2082° N · 16.3738° E',
     tag: 'Imperial cake, late-night opera, perfect coffee.',
     pins: '8 SAVED PINS',
@@ -58,6 +61,7 @@ const CITY_DATA: Record<string, {
     stampColor: '#5a6b3b',
     stampLabel: 'BUDA',
     stampDate: '9 · VI',
+    morseCode: ['dash', 'dot', 'dot', 'dot'],
     coords: '47.4979° N · 19.0402° E',
     tag: 'Two cities, one river, ruin-bar nights.',
     pins: '7 SAVED PINS',
@@ -75,6 +79,7 @@ const CITY_DATA: Record<string, {
     stampColor: '#1f3a5f',
     stampLabel: 'PHL',
     stampDate: 'JUN · 2026',
+    morseCode: null,
     coords: '39.9526° N · 75.1652° W',
     tag: 'Home base.',
     pins: '',
@@ -86,21 +91,129 @@ const CITY_DATA: Record<string, {
 }
 
 // ── Sub-components ─────────────────────────────────────────────────────────
-function Postmark({ color, label, date }: { color: string; label: string; date: string }) {
+function MorseDivider({ symbols, color }: { symbols: Array<'dot' | 'dash'>; color: string }) {
+  const dotSize = 2.5
+  const dashW = 7
+  const dashH = 2.5
+  const gap = 2.5
+  const totalW = symbols.reduce((acc, s) => acc + (s === 'dot' ? dotSize : dashW) + gap, -gap)
+
   return (
-    <div style={{
-      width: 62, height: 62, borderRadius: '50%',
-      border: `1.5px solid ${color}`, color,
-      display: 'grid', placeItems: 'center',
-      transform: 'rotate(-9deg)',
-      fontFamily: 'var(--font-mono)', textAlign: 'center',
-      position: 'relative', flexShrink: 0,
-      opacity: 0.82,
-    }}>
+    <svg
+      width={totalW}
+      height={dotSize}
+      viewBox={`0 0 ${totalW} ${dotSize}`}
+      style={{ display: 'block', opacity: 0.5 }}
+    >
+      {symbols.reduce<{ els: React.ReactNode[]; x: number }>(
+        ({ els, x }, s, i) => {
+          const el = s === 'dot'
+            ? <circle key={i} cx={x + dotSize / 2} cy={dotSize / 2} r={dotSize / 2} fill={color} />
+            : <rect key={i} x={x} y={0} width={dashW} height={dashH} rx={1} fill={color} />
+          return { els: [...els, el], x: x + (s === 'dot' ? dotSize : dashW) + gap }
+        },
+        { els: [], x: 0 }
+      ).els}
+    </svg>
+  )
+}
+
+function useMorseGesture(
+  code: Array<'dot' | 'dash'> | null,
+  onSuccess: () => void,
+  onPress: () => void
+) {
+  const sequenceRef = React.useRef<Array<'dot' | 'dash'>>([])
+  const pressStartRef = React.useRef<number>(0)
+  const resetTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  if (!code) return {}
+
+  const resetSequence = () => {
+    sequenceRef.current = []
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+  }
+
+  const scheduleReset = () => {
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+    resetTimerRef.current = setTimeout(resetSequence, 2000)
+  }
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    e.preventDefault()
+    pressStartRef.current = Date.now()
+    onPress()
+    scheduleReset()
+  }
+
+  const handlePointerUp = () => {
+    const duration = Date.now() - pressStartRef.current
+    const symbol: 'dot' | 'dash' = duration >= 500 ? 'dash' : 'dot'
+    sequenceRef.current = [...sequenceRef.current, symbol]
+    scheduleReset()
+
+    const seq = sequenceRef.current
+    if (seq.length === code.length) {
+      if (seq.every((s, i) => s === code[i])) {
+        resetSequence()
+        onSuccess()
+      } else {
+        resetSequence()
+      }
+    } else if (seq.length > code.length) {
+      resetSequence()
+    }
+  }
+
+  return { onPointerDown: handlePointerDown, onPointerUp: handlePointerUp }
+}
+
+function Postmark({ color, label, date, morseCode, onPrimerUnlock }: {
+  color: string
+  label: string
+  date: string
+  morseCode: Array<'dot' | 'dash'> | null
+  onPrimerUnlock?: () => void
+}) {
+  const [pressed, setPressed] = React.useState(false)
+
+  const handlePress = () => {
+    setPressed(true)
+    setTimeout(() => setPressed(false), 120)
+  }
+
+  const gesture = useMorseGesture(
+    morseCode,
+    () => onPrimerUnlock?.(),
+    handlePress
+  )
+
+  return (
+    <div
+      {...gesture}
+      style={{
+        width: 62, height: 62, borderRadius: '50%',
+        border: `1.5px solid ${color}`, color,
+        display: 'grid', placeItems: 'center',
+        transform: `rotate(-9deg) scale(${pressed ? 0.88 : 1})`,
+        transition: pressed ? 'none' : 'transform 180ms ease-out',
+        fontFamily: 'var(--font-mono)', textAlign: 'center',
+        position: 'relative', flexShrink: 0,
+        opacity: 0.82,
+        touchAction: 'none',
+        cursor: morseCode ? 'pointer' : 'default',
+        userSelect: 'none',
+      }}
+    >
       <div style={{ position: 'absolute', inset: 4, borderRadius: '50%', border: `1px dashed ${color}`, opacity: 0.5 }} />
       <div>
         <div style={{ fontSize: 8, letterSpacing: '0.18em', fontWeight: 600 }}>{label}</div>
-        <div style={{ height: 1, background: color, margin: '2px 6px', opacity: 0.5 }} />
+        <div style={{ margin: '3px 0', display: 'flex', justifyContent: 'center' }}>
+          {morseCode
+            ? <MorseDivider symbols={morseCode} color={color} />
+            : <div style={{ height: 1, width: 28, background: color, opacity: 0.5 }} />
+          }
+        </div>
         <div style={{ fontSize: 7, letterSpacing: '0.1em' }}>{date}</div>
       </div>
     </div>
@@ -297,7 +410,13 @@ export function CityDashboard() {
               {city.tag}
             </div>
           </div>
-          <Postmark color={city.stampColor} label={city.stampLabel} date={city.stampDate} />
+          <Postmark
+            color={city.stampColor}
+            label={city.stampLabel}
+            date={city.stampDate}
+            morseCode={city.morseCode}
+            onPrimerUnlock={() => navigate(`/${cityViewId}/primer`)}
+          />
         </div>
       </div>
 

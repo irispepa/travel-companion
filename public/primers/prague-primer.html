@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prague Primer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1209;
+    --cream: #f5efe2;
+    --rust: #b5400a;
+    --gold: #c8920a;
+    --faded: #8a7d6a;
+    --pale: #ede6d5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .masthead {
+    border-top: 4px solid var(--rust);
+    border-bottom: 1px solid var(--faded);
+    padding: 28px 0 20px;
+    margin-bottom: 36px;
+  }
+
+  .masthead::after {
+    content: '';
+    display: block;
+    border-top: 1px solid var(--faded);
+    margin-top: 20px;
+  }
+
+  .kicker {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 8vw, 72px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--ink);
+  }
+
+  h1 em { font-style: italic; color: var(--rust); }
+
+  .subhead {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--faded);
+    margin-top: 10px;
+  }
+
+  .meta {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--faded);
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+
+  .section {
+    margin-bottom: 44px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid var(--pale);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--pale);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  h2 em { font-style: italic; color: var(--rust); }
+
+  p { margin-bottom: 14px; color: var(--ink); }
+  p:last-child { margin-bottom: 0; }
+
+  .pullquote {
+    border-left: 3px solid var(--rust);
+    padding: 4px 0 4px 18px;
+    margin: 20px 0;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .rules-box {
+    background: var(--pale);
+    border: 1px solid #d4c8b0;
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+
+  .rules-box h3 {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 12px;
+  }
+
+  .rule {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 9px;
+    align-items: flex-start;
+  }
+
+  .rule-num {
+    font-weight: 500;
+    color: var(--rust);
+    flex-shrink: 0;
+    min-width: 18px;
+  }
+
+  .vocab {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 12px;
+  }
+
+  .vocab thead tr { border-bottom: 2px solid var(--rust); }
+
+  .vocab th {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    padding: 6px 10px 6px 0;
+    text-align: left;
+    font-weight: 500;
+  }
+
+  .vocab td {
+    padding: 8px 10px 8px 0;
+    border-bottom: 1px solid var(--pale);
+    vertical-align: top;
+  }
+
+  .vocab td:first-child { font-weight: 500; white-space: nowrap; }
+  .vocab td:nth-child(2) { font-size: 11px; color: var(--faded); white-space: nowrap; }
+  .vocab td:nth-child(3) { color: var(--faded); font-size: 12px; }
+
+  .aside {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+
+  .aside h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .aside p { color: #c8bfae; font-size: 12px; margin-bottom: 10px; }
+  .aside p:last-child { margin-bottom: 0; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+
+  .col-block {
+    background: var(--pale);
+    border-top: 2px solid var(--rust);
+    padding: 14px;
+  }
+
+  .col-block h4 {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .col-block p { font-size: 12px; }
+
+  .footer {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px solid var(--faded);
+    font-size: 10px;
+    color: var(--faded);
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+
+  strong { font-weight: 500; }
+  .hl { color: var(--rust); font-weight: 500; }
+  .dingbat { color: var(--rust); margin: 0 4px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <div class="kicker">First-Time Visitor Briefing <span class="dingbat">◆</span> Prague, Czech Republic — Stop One</div>
+    <h1>So You're Going to <em>Praha.</em></h1>
+    <p class="subhead">The city that survived the Habsburgs, the Nazis, and forty years of Soviet bureaucracy — and ended communism without firing a single shot. It has opinions about your noise level.</p>
+    <p class="meta">3 days <span class="dingbat">·</span> KCD2 side trip included <span class="dingbat">·</span> First of three cities</p>
+  </div>
+
+  <!-- SECTION 1: SOUL -->
+  <div class="section">
+    <div class="section-label">The Soul of the Place</div>
+    <h2>A Nation That Survived By Being <em>Impossible to Pin Down</em></h2>
+
+    <p>Czechs have spent most of the last seven centuries under someone else's management — Habsburgs, Nazis, Soviets — and open rebellion was never really an option for a small landlocked country with larger, angrier neighbors on all sides. So they developed something more durable: <strong>patient, ironic non-compliance</strong>. Smile at the occupier. Nod. Go home and do exactly what you wanted to do anyway. Repeat for three hundred years until the empire collapses under its own weight.</p>
+
+    <p>This produced one of the most beloved fictional characters in European literature, and the Czech national mascot:</p>
+
+    <div class="pullquote">
+      Josef Švejk — the apparently brainless soldier who followed orders so enthusiastically and literally that he single-handedly paralyzed the Austro-Hungarian military apparatus — is not a joke. He is a philosophy.
+    </div>
+
+    <p>Jaroslav Hašek's <em>The Good Soldier Švejk</em> (1921) is worth at least knowing about before you land. Švejk never fires a weapon. He causes maximum chaos through maximum helpfulness. His genius is being genuinely impossible to punish, because he never technically does anything wrong. <strong>Czechs recognize themselves in him completely.</strong> The book was so perfectly Czech that no subsequent regime — Habsburg, Nazi, or Communist — could safely ban it without making themselves the villain.</p>
+
+    <p>The 20th century stacked indignities. The <strong>Munich Agreement of 1938</strong> — Britain and France handing the Sudetenland to Hitler without asking anyone Czech — is remembered as the foundational Western betrayal. Then Nazi occupation. Then the communist coup of 1948. Then 1968: the Prague Spring, eight months of liberalism crushed when Soviet tanks arrived and "normalisation" began — a bureaucratic word for twenty years of cultural suffocation. The Velvet Revolution of 1989 ended all of that without a single act of violence. Very Švejk.</p>
+
+    <p>What you get from all this: a country with essentially zero tolerance for pomposity, a dark sense of humor that rewards patience, and a deep quiet pride that doesn't need to announce itself.</p>
+  </div>
+
+  <!-- SECTION 2: RELIGION -->
+  <div class="section">
+    <div class="section-label">Religion, or Mostly the Absence of It</div>
+    <h2>All These Gorgeous Churches <em>and Nobody Goes to Them</em></h2>
+
+    <p>Prague is full of magnificent baroque churches. Most of them are essentially museums with admission fees. Around 65–70% of Czechs identify as atheist or agnostic — one of the highest secular rates on Earth — and this is not a communist hangover. It predates Lenin by about five centuries.</p>
+
+    <p>The thread goes like this: in 1415, <span class="hl">Jan Hus</span> — rector of Charles University, a century ahead of Martin Luther — got burned at the stake by the Papal Council for pointing out that the Catholic Church was corrupt. The Czech revolt that followed, the <strong>Hussite Wars</strong>, made anti-clerical resistance a foundational part of Czech identity. Then in 1620, the Habsburgs crushed the Bohemian revolt at the Battle of White Mountain and forcibly re-Catholicized the country. When Czech nationalism re-emerged in the 19th century, it treated the Catholic Church as an Austro-Hungarian political instrument — something imposed from outside — not a native institution. Communism's hostility to religion didn't create Czech secularism. It just gave it a government grant.</p>
+
+    <div class="aside">
+      <h3>What this means on the ground</h3>
+      <p>Religion won't come up as common ground the way it might in Poland or Slovakia. Czechs aren't hostile to the subject — they'll find the history genuinely interesting — but the default ethical framework here is secular and skeptical. Jan Hus's motto <em>Pravda vítězí</em> ("Truth prevails") is still the Czech state motto. That's not decorative.</p>
+      <p>Václav Havel — playwright, dissident, first post-communist president — articulated the Czech moral framework as clearly as anyone: living in truth as a duty, no deity required. If you want to understand what Czechs actually believe in, it's somewhere in the overlap between Havel's moral seriousness and Hašek's total refusal to take anything too seriously. The productive tension between those two is very much the point.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: READING THE ROOM -->
+  <div class="section">
+    <div class="section-label">Reading the Room</div>
+    <h2>The Waiter Is Not Angry With You. <em>That Is Just His Face.</em></h2>
+
+    <p>The most reliably disorienting thing about Prague for first-time visitors: Czechs in public look deeply unimpressed by everything. The waiter delivers your food with the emotional energy of a man filling out tax forms. Someone on the tram stares past you into the middle distance. You smile at a stranger and they look at you like you've accused them of something.</p>
+
+    <p>None of this is rudeness. It's the <strong>public/private divide</strong> taken seriously. In public spaces, Czechs maintain a deliberate, quiet distance from people they don't know. Forty years of surveillance and informants made enthusiastic public expressiveness feel like a bad survival strategy, and the habit stuck. Once you move from stranger to acquaintance — sitting at the same pub table, sharing a beer — the warmth is real and arrives fairly suddenly. Czechs are deeply curious about the outside world, surprisingly well-read, and excellent company once the ice breaks. The reserve is the cover charge, not the show.</p>
+
+    <div class="rules-box">
+      <h3>How to Behave</h3>
+      <div class="rule"><span class="rule-num">01</span><span><strong>Say Dobrý den every time you enter anywhere.</strong> Shop, restaurant, pharmacy, elevator with someone in it. Arriving in silence is rude. Two syllables, costs nothing, changes everything.</span></div>
+      <div class="rule"><span class="rule-num">02</span><span><strong>Say Na shledanou when you leave.</strong> Even restaurants. Even when other patrons are present. A brief parting acknowledgment to the room is expected. It doesn't need to be theatrical.</span></div>
+      <div class="rule"><span class="rule-num">03</span><span><strong>Bring your volume down.</strong> Then another notch. Czechs speak quietly in public. Loud conversations — especially in foreign languages — on trams generate the kind of looks that could strip paint. If your companion is across the table, half the volume gets there fine.</span></div>
+      <div class="rule"><span class="rule-num">04</span><span><strong>Don't eat or drink on public transit.</strong> Water is fine. Anything else — including the coffee you're running with — is considered genuinely rude. The tram is not a dining car, a food court, or a breakfast spot.</span></div>
+      <div class="rule"><span class="rule-num">05</span><span><strong>Stand right on escalators, walk left.</strong> This is true everywhere in Central Europe and Czechia is not an exception.</span></div>
+      <div class="rule"><span class="rule-num">06</span><span><strong>Don't perform enthusiasm.</strong> "Oh my GOD this is ABSOLUTELY INCREDIBLE" will be met with polite, puzzled silence. Czechs trust calm, specific appreciation. "This beer is really good" lands better than seventeen exclamation points. Save the jazz hands for someone who asked for them.</span></div>
+      <div class="rule"><span class="rule-num">07</span><span><strong>"Jak se máte?" is not small talk.</strong> "How are you?" in Czech is a real question expecting a real answer — not a filler greeting. Using it casually will produce a genuine response and a slightly confused expression. Only ask it if you want to know.</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: LANGUAGE -->
+  <div class="section">
+    <div class="section-label">Language</div>
+    <h2>Czech Looks Unpronounceable. <em>It Mostly Isn't.</em></h2>
+
+    <p>Czech has seven grammatical cases, three genders, and one letter — <strong>ř</strong> — that exists in no other language on Earth and requires simultaneously trilling an R and making the "zh" sound from the word "measure." Mastering it takes months. You have three days, so let's calibrate expectations appropriately.</p>
+
+    <p>The goal is not fluency. It's the two-second signal that you tried, which Czechs notice and reward with visible warmth because so few tourists bother. The good news: pronunciation is actually more consistent than English. <strong>One letter, one sound, stress always on the first syllable.</strong> Czech is phonetic in a way that English — with its "through," "though," "thought" situation — emphatically is not. Once you learn the letter sounds, you can read anything out loud.</p>
+
+    <table class="vocab">
+      <thead>
+        <tr><th>Czech</th><th>Sounds like</th><th>When and why</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dobrý den</td>
+          <td>DOH-bree den</td>
+          <td>Every time you enter anywhere. Non-negotiable cultural entry fee.</td>
+        </tr>
+        <tr>
+          <td>Děkuji</td>
+          <td>DYE-koo-yee</td>
+          <td>Thank you. Say it often. Locals will visibly warm.</td>
+        </tr>
+        <tr>
+          <td>Prosím</td>
+          <td>PRO-seem</td>
+          <td>Please / here you go / you're welcome. One word, infinite applications.</td>
+        </tr>
+        <tr>
+          <td>Na zdraví</td>
+          <td>nah ZDRAH-vee</td>
+          <td>The toast. Eye contact with every person at the table, then tap the glass down before drinking.</td>
+        </tr>
+        <tr>
+          <td>Pivo, prosím</td>
+          <td>PEE-voh PRO-seem</td>
+          <td>"Beer, please." You will say this more than any other phrase in your life here.</td>
+        </tr>
+        <tr>
+          <td>Zaplatit</td>
+          <td>ZAH-plah-teet</td>
+          <td>"To pay" — signals you want the bill. Or just catch eye contact and mime signing something.</td>
+        </tr>
+        <tr>
+          <td>Na shledanou</td>
+          <td>nah SKLE-dah-no</td>
+          <td>Goodbye. Deploy whenever leaving any establishment.</td>
+        </tr>
+        <tr>
+          <td>Ahoj</td>
+          <td>ah-HOY</td>
+          <td>Casual hi/bye. Fine between friends; a bit forward with strangers.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>English is spoken widely in central Prague — anyone under 40 in hospitality will be fine. Outside the center, and on the KCD2 day trip to Kutná Hora, don't assume it. Download Google Translate with Czech offline before you fly.</p>
+  </div>
+
+  <!-- SECTION 5: BEER -->
+  <div class="section">
+    <div class="section-label">The Hospoda</div>
+    <h2>Beer Is Not a Vice Here. <em>It's Load-Bearing Infrastructure.</em></h2>
+
+    <p>The Czech Republic has the highest per capita beer consumption on Earth. Not "among the highest." First. By a significant margin. Czech Pilsner — invented in Plzeň in 1842 — is the template every mass-market lager on the planet is attempting to imitate, with highly variable results. Czechs can detect a poorly-maintained tap line the way a sommelier detects a corked Burgundy. This is not hyperbole; it is considered a basic competency.</p>
+
+    <p>The <span class="hl">hospoda</span> (pub) is a genuine civic institution — democratic, flat, and egalitarian in a way that almost nothing else is. You cannot buy a better beer than anyone else. There is no VIP section. Your profession means exactly nothing the moment you sit down. The hospoda is where the problems of the world get thoroughly litigated after the ninth half-liter. You're welcome to sit at a partially occupied table; just ask <em>Je tu volno?</em> ("Is this seat free?") and they'll shift over without ceremony.</p>
+
+    <div class="two-col">
+      <div class="col-block">
+        <h4>The tab system</h4>
+        <p>Your server keeps a running tally on a paper slip at your table. Don't lose it. Don't touch it. When you're ready to pay, say <em>zaplatit</em> or catch the server's eye. They'll ask <em>Dohromady?</em> ("together?") — answer accordingly. Then state the total including your tip, they make change.</p>
+      </div>
+      <div class="col-block">
+        <h4>The foam situation</h4>
+        <p>Your beer will arrive with a substantial, dense foam head. This is intentional and correct — the foam seals carbonation and flavor. Asking for less foam at a Czech pub is roughly equivalent to asking a Neapolitan pizza maker to skip the wood fire. Just drink it as poured.</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="col-block">
+        <h4>Tipping — the trap</h4>
+        <p><strong>Saying "thank you" while handing over cash = keep the change, all of it.</strong> The server will not return anything. This is how it works everywhere in Czechia. State the total you want to pay — "čtyři sta" (400) if the bill is 363. That gap is your tip. Learn this before your first transaction, not during it.</p>
+      </div>
+      <div class="col-block">
+        <h4>Toasting rules</h4>
+        <p>Na zdraví, eye contact with every person, clink, then tap the bottom of your glass on the table before drinking. The table tap is Czech-specific. Skipping the eye contact is considered poor manners and, per local superstition, earns you seven years of bad sex. Now you know.</p>
+      </div>
+    </div>
+
+    <p>One upgrade worth requesting: <span class="hl">tankové pivo</span> — unpasteurized tank beer straight from steel tanks rather than kegs. Brighter, fresher, noticeably crisper. Most good pubs in the center carry it. Worth asking.</p>
+
+    <p>The beer will often cost less than bottled water on the same menu. This is not a marketing gimmick. It is a cultural and economic reality. Order the beer.</p>
+  </div>
+
+  <!-- SECTION 6: KCD2 -->
+  <div class="section">
+    <div class="section-label">The KCD2 Pilgrimage</div>
+    <h2>Kuttenberg Is a Real Place <em>and It Is One Hour Away by Train</em></h2>
+
+    <p>Kutná Hora — <em>Kuttenberg</em> in the game, its historical German name, because in 1403 the city's upper class was substantially German-speaking — is a direct train from Prague's main station, about 60–70 minutes, trains running regularly. UNESCO World Heritage Site, and in the late 14th and early 15th century arguably the second most important city in the Kingdom of Bohemia.</p>
+
+    <p>Why it mattered: silver. The mines here bankrolled the Czech crown. The <strong>Prague groschen</strong> — one of the dominant coins circulating across Central Europe — was minted at the Italian Court (<em>Vlašský dvůr</em>) right in the city center. The same building Henry gets tangled up in, with the same basic street geometry, is still standing. In the game's 1403 setting, King Václav IV — son of Charles IV, who built much of what you'll see in Prague proper — is still on the throne. Walking the actual streets with that context loaded is a genuinely strange experience.</p>
+
+    <div class="aside">
+      <h3>The historical context you already carry</h3>
+      <p>KCD2 takes place twelve years before the Council of Constance burns Jan Hus. All the political tension in the game — Sigismund vs. Václav IV, German vs. Czech power within Bohemia, the fracturing authority of the Church — is exactly the pressure that will ignite the Hussite Wars in 1419. Henry is walking around a powder keg that doesn't know yet it's a powder keg. Knowing that sharpens everything. Visiting the actual city sharpens it further.</p>
+      <p>The <strong>Sedlec Ossuary</strong>, just outside the city in the suburb of Sedlec, is decorated with the arranged bones of approximately 40,000 people — many of them dead from the Black Death and the Hussite Wars that followed directly after Henry's story ends. A woodcarver named František Rint arranged them into sculptures, chandeliers, and garlands in 1870. It is exactly as strange as it sounds and completely worth your time.</p>
+    </div>
+
+    <p>The <strong>Trosky Castle and Bohemian Paradise</strong> region — the first KCD2 map, sandstone rock formations and all — is about 90 minutes northeast of Prague. Combinable with Kutná Hora in a long day by car or private tour, but it's a commitment. The rock formations in the game are rendered accurately enough that you'll recognize specific outcroppings, which is either deeply satisfying or slightly unsettling depending on your constitution.</p>
+
+    <p>The <strong>Malešov fortress</strong> — the first major hub in the game — is a few kilometers from Kutná Hora, now restored as a living history site. Worth the detour if you have the time.</p>
+  </div>
+
+  <!-- SECTION 7: PRACTICAL -->
+  <div class="section">
+    <div class="section-label">Practical Layer</div>
+    <h2>The Things That Will <em>Actually</em> Save You</h2>
+
+    <div class="two-col">
+      <div class="col-block">
+        <h4>Currency: CZK, not Euros</h4>
+        <p>Czech Republic is EU but not Eurozone. You need Czech Koruna (CZK). Tourist places accept Euros but at quietly punishing rates — often 10–15% worse than the real exchange. Always pay in CZK. <strong>Tap-to-pay works broadly</strong> across Prague — restaurants, shops, transit machines, most cafés. Smaller spots, market stalls, and public toilets need coins. Get CZK from a bank ATM, not the airport kiosks, which exist to charge you for not having read this.</p>
+      </div>
+      <div class="col-block">
+        <h4>Tipping</h4>
+        <p>State the total including your tip when paying: "čtyři sta" (400) if the bill is 363. Hand it directly to the server — don't leave it on the table. <strong>Saying "thank you" while handing over cash means keep everything.</strong> This applies in every bar, restaurant, and café in the country. Know it before your first transaction.</p>
+      </div>
+      <div class="col-block">
+        <h4>Transit</h4>
+        <p>Trams and metro are cheap and good. The system runs on honour — no gates — with random, aggressive ticket inspection. The fine is steep and inspectors have zero interest in your tourist status. Validate at the yellow machines before boarding. A 24-hour pass covers a full exploring day without thinking about it.</p>
+      </div>
+      <div class="col-block">
+        <h4>Sundays</h4>
+        <p>Unlike Vienna, Prague doesn't shut down on Sundays. Restaurants, tourist sites, and most central shops stay open. Some smaller local shops close — check specific hours for anything off the main drag. You won't be stranded.</p>
+      </div>
+      <div class="col-block">
+        <h4>Public Toilets</h4>
+        <p>Cost 5–10 CZK almost universally, including some restaurant bathrooms. Keep small coins on you at all times. This will catch you exactly once if you don't prepare for it.</p>
+      </div>
+      <div class="col-block">
+        <h4>At Someone's Home</h4>
+        <p>Remove shoes at the door without being asked. Bring something — wine, chocolates, flowers. Accept what you're offered; refusing is rude. Czech hospitality, once activated, is thorough and generous.</p>
+      </div>
+    </div>
+
+    <div class="rules-box">
+      <h3>Scam Awareness</h3>
+      <div class="rule"><span class="rule-num">◆</span><span><strong>Unsolicited bread or snacks are sometimes charged.</strong> Old Town restaurants near the main tourist drag may place bread, nuts, or a "welcome snack" on the table without being asked. Ask whether it's complimentary before eating. If it's not on the menu as included, it's on your bill.</span></div>
+      <div class="rule"><span class="rule-num">◆</span><span><strong>Check the bill line by line in high-traffic tourist areas.</strong> Around Old Town Square and Charles Bridge especially. Errors happen and not always accidentally.</span></div>
+      <div class="rule"><span class="rule-num">◆</span><span><strong>Street exchange kiosks display great rates that apply to selling, not buying.</strong> The buy rate — what you actually get — is often 20–30% worse. ATMs attached to actual banks only.</span></div>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="section">
+    <div class="section-label">The Frame</div>
+    <h2>This Is Where the Trip Starts — <em>and That's the Right Order</em></h2>
+
+    <p>Prague calibrates you well for what comes next. It is medieval and baroque and genuinely ancient — the astronomical clock on the Old Town Hall dates to 1410, meaning it was already seven years old in KCD2's timeline — but it wears all of that lightly. It doesn't make you feel like a guest in a museum. It makes you feel like someone who wandered into a city that has simply been here the whole time, mildly amused you finally showed up.</p>
+
+    <p>Prague, Vienna, and Budapest tell a continuous story: the Czech lands under Habsburg rule administered from Vienna, with Hungary as the other half of the Dual Monarchy, all of it detonated by one war and rearranged by another. The sequence matters. By the time you reach Vienna you'll understand why the imperial architecture feels like it was built to impress the people it was governing. By the time you reach Budapest you'll understand why Hungarians have always had a complicated relationship with both of those other cities.</p>
+
+    <p>The Velvet Revolution ended communism here without a single shot fired. Whatever you're anxious about for this trip, Prague has genuinely seen worse.</p>
+
+    <div class="pullquote">
+      Say Dobrý den when you walk into places. Keep your voice down on the trams. Order the tank beer. The rest handles itself.
+    </div>
+  </div>
+
+  <div class="footer">
+    First in a three-city Central European series <span class="dingbat">◆</span> Prague → Vienna → Budapest <span class="dingbat">◆</span> Na zdraví
+  </div>
+
+</div>
+</body>
+</html>
