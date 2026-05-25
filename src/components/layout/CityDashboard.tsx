@@ -14,8 +14,6 @@ const CITY_DATA: Record<string, {
   stampDate: string
   coords: string
   tag: string
-  day: string
-  today: string
   pins: string
   riverColor: string
   riverShadow: string
@@ -28,8 +26,6 @@ const CITY_DATA: Record<string, {
     stampDate: '3 · VI',
     coords: '50.0755° N · 14.4378° E',
     tag: 'Stone city, slow river, cheap pivo.',
-    day: 'DAY 01 / 10',
-    today: 'Tue · June 3',
     pins: '6 SAVED PINS',
     riverColor: '#9bbcd1',
     riverShadow: '#7aa3bd',
@@ -47,8 +43,6 @@ const CITY_DATA: Record<string, {
     stampDate: '6 · VI',
     coords: '48.2082° N · 16.3738° E',
     tag: 'Imperial cake, late-night opera, perfect coffee.',
-    day: 'DAY 04 / 10',
-    today: 'Sat · June 6',
     pins: '8 SAVED PINS',
     riverColor: '#7fb6c8',
     riverShadow: '#5e94a6',
@@ -66,8 +60,6 @@ const CITY_DATA: Record<string, {
     stampDate: '9 · VI',
     coords: '47.4979° N · 19.0402° E',
     tag: 'Two cities, one river, ruin-bar nights.',
-    day: 'DAY 07 / 10',
-    today: 'Tue · June 9',
     pins: '7 SAVED PINS',
     riverColor: '#9bbcd1',
     riverShadow: '#7aa3bd',
@@ -85,8 +77,6 @@ const CITY_DATA: Record<string, {
     stampDate: 'JUN · 2026',
     coords: '39.9526° N · 75.1652° W',
     tag: 'Home base.',
-    day: 'TRAVEL',
-    today: '',
     pins: '',
     riverColor: '#9bbcd1',
     riverShadow: '#7aa3bd',
@@ -220,20 +210,37 @@ export function CityDashboard() {
   const city = CITY_DATA[config.cityId] ?? CITY_DATA['philly']
   const [activeTab, setActiveTab] = useState('activities')
   const [showCalc, setShowCalc] = useState(false)
+  const [fxFlipped, setFxFlipped] = useState(false)
   const { record } = useItinerary(cityViewId!)
 
-  const { rate, isOffline } = useExchangeRate(config.defaultCurrencyFrom, config.defaultCurrencyTo)
+  const fxFrom = fxFlipped ? config.defaultCurrencyTo : config.defaultCurrencyFrom
+  const fxTo   = fxFlipped ? config.defaultCurrencyFrom : config.defaultCurrencyTo
+  const { rate, isOffline } = useExchangeRate(fxFrom, fxTo)
   const fxValue = rate === null ? '—' : rate >= 10 ? rate.toFixed(0) : rate >= 1 ? rate.toFixed(1) : rate.toFixed(2)
-  const fxSub = isOffline ? `${config.defaultCurrencyTo} · cached` : `${config.defaultCurrencyTo} · live`
+  const fxSub = isOffline ? `${fxTo} · cached` : `${fxTo} · live`
 
   const today = new Date().toISOString().slice(0, 10)
-  const { weather } = useDayWeather(config.cityId, today)
+
+  // Clamp today to the city's itinerary date range so the dashboard
+  // shows the first day before the trip starts and the last day after it ends.
+  const sortedDates = record?.days.map(d => d.date).sort() ?? []
+  const firstDate = sortedDates[0] ?? today
+  const lastDate  = sortedDates[sortedDates.length - 1] ?? today
+  const activeDate = today < firstDate ? firstDate : today > lastDate ? lastDate : today
+
+  const { weather } = useDayWeather(config.cityId, activeDate)
   const weatherValue = weather ? `${weather.temp}°` : '—'
   const weatherSub = weather
     ? ({ sun: 'sunny', cloud: 'cloudy', partly: 'partly cloudy', rain: 'rainy' } as const)[weather.kind] ?? ''
     : ''
 
-  const todayDay = record?.days.find(d => d.date === today)
+  const activeDayIndex = sortedDates.indexOf(activeDate)
+  const activeDayLabel = activeDayIndex >= 0
+    ? `DAY ${String(activeDayIndex + 1).padStart(2, '0')} / ${sortedDates.length}`
+    : '—'
+  const activeDayDate = new Date(activeDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' })
+
+  const todayDay = record?.days.find(d => d.date === activeDate)
   const todayItems = todayDay?.items ?? []
   const nowTime = new Date().toTimeString().slice(0, 5)
   const undoneItems = todayItems.filter(i => !i.done)
@@ -260,7 +267,7 @@ export function CityDashboard() {
           ← TRIP
         </button>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.16em', color: 'var(--color-ink-soft)' }}>
-          {city.day}
+          {activeDayLabel}
         </div>
         <button
           onClick={() => setShowCalc(true)}
@@ -352,7 +359,12 @@ export function CityDashboard() {
       {/* Stub cards: Weather / FX / Next up */}
       <div style={{ padding: '12px 18px 0', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
         <StubCard label="WEATHER" value={weatherValue} sub={weatherSub} />
-        <StubCard label={`1 ${config.defaultCurrencyFrom} =`} value={fxValue} sub={fxSub} highlight />
+        <button
+          onClick={() => { navigator.vibrate?.(8); setFxFlipped(f => !f) }}
+          style={{ all: 'unset', cursor: 'pointer', display: 'block' }}
+        >
+          <StubCard label={`1 ${fxFrom} =`} value={fxValue} sub={fxSub} highlight />
+        </button>
         <StubCard label="NEXT UP" value={nextValue} sub={nextSub} />
       </div>
 
@@ -361,9 +373,9 @@ export function CityDashboard() {
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 12 }}>
           <div>
             <div style={{ fontSize: 24, fontWeight: 500, letterSpacing: '-0.02em' }}>Today</div>
-            {city.today && (
+            {activeDayDate && (
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--color-ink-soft)', marginTop: 2 }}>
-                {city.today.toUpperCase()}
+                {activeDayDate.toUpperCase()}
               </div>
             )}
           </div>
