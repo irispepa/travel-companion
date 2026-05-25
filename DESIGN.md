@@ -2,53 +2,65 @@
 name: Trip Companion
 description: A personal offline travel journal for two, built for one specific trip.
 colors:
-  deep-navy: "#0f1923"
-  dark-card: "#1a2a3a"
-  darker-card: "#152030"
-  warm-cream: "#e8dcc8"
-  muted-gold: "#a08060"
-  steel-blue: "#8ab4c8"
-  muted-slate: "#5a6a7a"
-  dim-overlay: "rgba(232, 220, 200, 0.35)"
+  paper: "#f4ede1"
+  paper-deep: "#ebe2d2"
+  white: "#fbf7ee"
+  ink: "#1d1c1a"
+  ink-soft: "#5b5751"
+  ink-faint: "#9a9389"
+  rule: "#d6cdb9"
+  stamp: "#c8442a"
+  stamp-deep: "#a8351f"
+  ink-blue: "#1f3a5f"
+  mustard: "#d39327"
+  moss: "#5a6b3b"
 typography:
   display:
-    fontFamily: "Georgia, 'Times New Roman', serif"
-    fontSize: "28px"
-    fontWeight: 400
-    lineHeight: 1.2
-    letterSpacing: "normal"
+    fontFamily: "'Inter Tight', 'Helvetica Neue', system-ui, sans-serif"
+    fontSize: "56px"
+    fontWeight: 500
+    lineHeight: 0.95
+    letterSpacing: "-0.03em"
   headline:
-    fontFamily: "Georgia, 'Times New Roman', serif"
-    fontSize: "20px"
-    fontWeight: 400
-    lineHeight: 1.3
+    fontFamily: "'Inter Tight', 'Helvetica Neue', system-ui, sans-serif"
+    fontSize: "24px"
+    fontWeight: 500
+    lineHeight: 1.2
+    letterSpacing: "-0.02em"
   title:
-    fontFamily: "Georgia, 'Times New Roman', serif"
-    fontSize: "17px"
-    fontWeight: 400
+    fontFamily: "'Inter Tight', 'Helvetica Neue', system-ui, sans-serif"
+    fontSize: "15px"
+    fontWeight: 500
     lineHeight: 1.4
   body:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif"
+    fontFamily: "'Inter Tight', 'Helvetica Neue', system-ui, sans-serif"
     fontSize: "14px"
     fontWeight: 400
     lineHeight: 1.5
   label:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif"
-    fontSize: "12px"
-    fontWeight: 400
+    fontFamily: "'JetBrains Mono', ui-monospace, Menlo, monospace"
+    fontSize: "10px"
+    fontWeight: 500
     lineHeight: 1.4
-    letterSpacing: "0.08em"
+    letterSpacing: "0.18em"
+    textTransform: "uppercase"
   caption:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif"
-    fontSize: "11px"
+    fontFamily: "'JetBrains Mono', ui-monospace, Menlo, monospace"
+    fontSize: "9px"
     fontWeight: 400
     lineHeight: 1.4
-    letterSpacing: "0.1em"
+    letterSpacing: "0.2em"
+    textTransform: "uppercase"
+  hand:
+    fontFamily: "'Caveat', cursive"
+    fontSize: "14px"
+    fontWeight: 400
+    lineHeight: 1.5
 rounded:
   sm: "6px"
   md: "10px"
   lg: "16px"
-  pill: "20px"
+  pill: "999px"
   full: "50%"
 spacing:
   xs: "4px"
@@ -57,202 +69,265 @@ spacing:
   lg: "24px"
   xl: "32px"
   2xl: "48px"
+  3xl: "64px"
 components:
   button-primary:
-    backgroundColor: "{colors.muted-gold}"
-    textColor: "{colors.deep-navy}"
-    rounded: "{rounded.md}"
-    padding: "16px"
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+    rounded: "{rounded.pill}"
+    padding: "7px 14px"
+    border: "1px solid {colors.ink}"
   button-ghost:
     backgroundColor: "transparent"
-    textColor: "{colors.muted-gold}"
-    rounded: "{rounded.sm}"
-    padding: "4px 8px"
+    textColor: "{colors.stamp}"
+    rounded: "none"
+    fontSize: "13px"
+    fontWeight: 500
   button-tab:
-    backgroundColor: "{colors.dark-card}"
-    textColor: "{colors.warm-cream}"
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
     rounded: "{rounded.pill}"
-    padding: "4px 12px"
+    padding: "7px 14px"
+    border: "1px solid {colors.ink}"
   button-tab-active:
-    backgroundColor: "{colors.muted-gold}"
-    textColor: "{colors.deep-navy}"
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
     rounded: "{rounded.pill}"
-    padding: "4px 12px"
+    padding: "7px 14px"
+    border: "1px solid {colors.ink}"
   card-default:
-    backgroundColor: "{colors.dark-card}"
-    textColor: "{colors.warm-cream}"
+    backgroundColor: "{colors.white}"
+    textColor: "{colors.ink}"
     rounded: "{rounded.md}"
-    padding: "16px"
-  card-alt:
-    backgroundColor: "{colors.darker-card}"
-    textColor: "{colors.warm-cream}"
+    padding: "10px 12px"
+    border: "1px solid {colors.ink}"
+  card-active:
+    backgroundColor: "{colors.white}"
+    textColor: "{colors.ink}"
     rounded: "{rounded.md}"
-    padding: "16px"
+    padding: "12px 14px"
+    border: "1px solid {colors.ink}"
+    boxShadow: "2px 3px 0 {colors.ink}"
+  card-dark:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+    rounded: "{rounded.md}"
+    padding: "10px 12px"
+    border: "1px solid {colors.ink}"
   input-default:
-    backgroundColor: "{colors.dark-card}"
-    textColor: "{colors.warm-cream}"
+    backgroundColor: "{colors.paper-deep}"
+    textColor: "{colors.ink}"
     rounded: "{rounded.sm}"
     padding: "10px 14px"
+    border: "none"
 ---
 
 # Design System: Trip Companion
 
 ## 1. Overview
 
-**Creative North Star: "The Evening Dispatch"**
+**Creative North Star: "Postcard from Europe"**
 
-This is an interface designed for a specific evening in a foreign city. The phone comes out of a pocket in Prague or Budapest, the screen wakes, and what appears should feel like consulting a well-made thing: quiet, warm, already familiar. Not a product. Not a utility dashboard. Something closer to a late-night dispatch from a correspondent who knows this city and knows you.
+The phone comes out of a pocket on a cobblestone street in Prague and the screen should look like something already found there: an aged postcard, a rubber stamp, a handwritten note tucked into a travel journal. Not a product that could be for anyone. A specific artifact made for two specific people on one specific trip.
 
-The system is built on deep navy and warm cream, with muted gold used sparingly to mark what matters. Georgia serif carries the headings because it carries history without trying. The sans-serif handles data and labels with clean restraint. The contrast between them is the primary typographic gesture: warmth above, precision below.
+The system is built on warm paper and near-black ink. Color is used through stamps: each city has its own accent (Prague is stamp red, Vienna is mustard, Budapest is moss green). Cards sit on white paper with a hard ink border and a slight offset shadow, the way a photograph or note sits on a journal page. The monospace font carries labels and coordinates; Inter Tight carries everything else. Caveat appears for anything handwritten: personal notes, annotations, captions.
 
-This system explicitly rejects the following: the impersonal density of TripAdvisor and Google Trips, the cold efficiency of utility dark UIs like Citymapper, and every tell of AI-generated aesthetics (purple gradients, glassmorphism, card grids with icons and identical structure, left-stripe accents). It also rejects anything that could belong to any trip by any person. This was made for two people for one trip. Every decision should feel that specific.
+This system explicitly rejects dark utility (cold, data-forward, anonymous) and AI-generated aesthetics (gradients, glassmorphism, hero metrics, left-stripe accents). It also rejects anything that could belong to any trip by any person. Every decision should feel that specific.
 
 **Key Characteristics:**
-- Dark editorial: deep navy ground, warm cream text, gold used at most 10% per screen
-- Serif headings carry place and time; sans-serif carries data and instruction
-- Cards are the workhorse container but they do not dominate; spacing creates breathing room between them
-- No decorative borders, no gradient overlays, no glassmorphism
-- Motion is native-feeling: sheet slides, content fades, nothing bounces
+- Light editorial: warm paper ground, near-black ink, white card surfaces
+- Per-city stamp colors mark what is current and active — never used generically
+- Cards use white paper background, 1px ink border, hard 2–3px offset shadow (no blur)
+- Monospace for labels, stamps, coordinates; Inter Tight for all prose and data
+- Caveat for handwritten annotations, personal notes
+- Postmarks, map doodles, and pin SVGs as illustrative elements — not decoration, but place-specificity
 
-## 2. Colors: The Evening Palette
+## 2. Colors: The Paper Palette
 
-A dark, warm palette rooted in navy with cream and gold as the light source.
+A warm, light palette. Ink on paper, with per-city accent stamps.
 
-### Primary
-- **Deep Navy** (`#0f1923`): The ground. Page background, header background, the surface everything sits on. Never pure black; tinted toward blue to keep it from feeling harsh.
-- **Muted Gold** (`#a08060`): The signal color. Used for labels, date headers, active states, the FAB, and primary actions. Never used decoratively. Its restraint makes it meaningful.
+### Surface
+- **Paper** (`#f4ede1`): Page background. The warmest neutral, carries the journal feeling.
+- **Paper Deep** (`#ebe2d2`): Section backgrounds, card alternates, input surfaces.
+- **White** (`#fbf7ee`): Card surfaces and overlays. Slightly warm white — never pure `#fff`.
 
-### Secondary
-- **Steel Blue** (`#8ab4c8`): Links and navigation actions only. Cooler than gold to distinguish informational links from interactive actions.
+### Ink
+- **Ink** (`#1d1c1a`): Primary text, borders, icon strokes, button fills. The single authoritative dark.
+- **Ink Soft** (`#5b5751`): Secondary text, back-navigation labels, muted body copy.
+- **Ink Faint** (`#9a9389`): Tertiary text, placeholders, empty states, timestamps.
+- **Rule** (`#d6cdb9`): Dividers, inactive borders, subtle separators.
 
-### Neutral
-- **Warm Cream** (`#e8dcc8`): Primary text color. Tinted warm to work with the navy background without cold blue-white harshness.
-- **Dark Card** (`#1a2a3a`): Card and container backgrounds. Lighter than the page ground to create layering without shadows.
-- **Darker Card Alt** (`#152030`): Secondary card variant, inputs, and nested surfaces. Slightly darker than the card ground.
-- **Muted Slate** (`#5a6a7a`): Secondary text, captions, placeholder text. Cool, receding, never used for primary content.
-- **Dim Overlay** (`rgba(232, 220, 200, 0.35)`): Modal backdrop text treatment only.
+### City Stamp Colors
+Each city has an accent used for its postmark, active state indicators, and coordinate labels. Never interchangeable; the color belongs to the place.
+- **Prague / Stamp Red** (`#c8442a`): The primary stamp. Also used for active itinerary time labels and focus states.
+- **Stamp Deep** (`#a8351f`): Pressed or active state of stamp red.
+- **Vienna / Mustard** (`#d39327`): Vienna's stamp and pin color.
+- **Budapest / Moss** (`#5a6b3b`): Budapest's stamp and pin color.
+- **Ink Blue** (`#1f3a5f`): Navigation pins and landmark accents across all cities.
 
 ### Named Rules
-**The Gold Restraint Rule.** Muted gold appears on at most 10% of any given screen's surface area. Its rarity is what makes it readable as a signal. Date headers, active chips, the FAB, primary CTA buttons: those are its homes. Decorative use anywhere else is prohibited.
+**The Stamp Rule.** City accent colors appear in postmarks, coordinate labels, active tab states, and landmark pins for their respective city. They are not general-purpose accents. Never use stamp red for Vienna content or mustard for Prague. If a component needs an accent and you do not know which city it belongs to, use ink.
 
-**The No Stripe Rule.** `border-left` or `border-right` greater than 1px as a colored accent stripe is prohibited on any card, list item, callout, or alert. If visual differentiation is needed, use background tint (`darker-card`) or a full border at 1px opacity.
+**The No Stripe Rule.** `border-left` or `border-right` greater than 1px as a colored accent stripe is prohibited on any card, list item, callout, or alert. Visual differentiation uses background tint or full 1px borders.
 
 ## 3. Typography
 
-**Display / Heading Font:** Georgia (with `'Times New Roman', serif` fallback)
-**Body / UI Font:** -apple-system, BlinkMacSystemFont (system sans-serif stack)
-**Label Font:** Same system sans, smaller scale with tracked letterSpacing
+**Display / Prose Font:** Inter Tight (`--font-display`, `--font-sans`, `--font-serif` — all resolve to the same Inter Tight stack)
+**Label / Stamp Font:** JetBrains Mono (`--font-mono`) — coordinates, stub labels, tab stamps, timestamps
+**Handwritten Font:** Caveat (`--font-hand`) — personal annotations, memory captions, informal notes
 
-**Character:** Georgia brings old-world editorial gravity to city names, section headers, and day labels. The system sans-serif keeps data, captions, and UI chrome legible and unobtrusive. The pairing works because they occupy separate registers: warmth above, precision below.
+**Character:** Inter Tight at large weights and tight tracking carries the editorial quality of the city dashboard: a tight `0.95` line-height `56px` city name reads like a bold editorial headline, not a UI label. JetBrains Mono in uppercase at `0.18–0.22em` letter-spacing carries coordinates and stub labels with the precision of a printed form or travel document. Caveat appears sparingly for anything meant to feel handwritten.
 
 ### Hierarchy
-- **Display** (400 weight, 28px, 1.2 line-height): City names on the selector screen. The largest text in the interface; appears once per screen at most.
-- **Headline** (400 weight, 20px, 1.3): Section titles within city views ("What to Do", "Memories"). Marks the top of a content section.
-- **Title** (400 weight, 17px, 1.4 serif): Card titles, itinerary item names, phrase words. The primary piece of information in any list row.
-- **Body** (400 weight, 14px, 1.5 sans): Notes, descriptions, phrase definitions, memory text. Max line length 65ch.
-- **Label** (400 weight, 12px, 0.08em tracking, sans): Gold-colored data labels, currency codes, category tabs. Often uppercase or small-caps treatment.
-- **Caption** (400 weight, 11px, 0.1em tracking, sans): Timestamps, phonetic guides, travel notes. Muted slate color. Recedes.
+- **Display** (500 weight, 56px, 0.95 line-height, `-0.03em` tracking): City name on the dashboard. One per screen. The single largest text element.
+- **Headline** (500 weight, 24px, 1.2 line-height, `-0.02em` tracking): Section titles ("Today", section headings).
+- **Title** (500 weight, 15px, 1.4 line-height): Card titles, itinerary item names, activity names.
+- **Body** (400 weight, 14px, 1.5 line-height): Descriptions, notes, phrase definitions. Max line length 65ch.
+- **Label** (JetBrains Mono, 500 weight, 10px, `0.18em` tracking, uppercase): Stub card headers, coordinates, nav labels ("← TRIP", "DAY 01 / 10"). Gold or city-accent color.
+- **Caption** (JetBrains Mono, 400 weight, 9–11px, `0.2em` tracking, uppercase): Timestamps, phonetic guides, "NOTHING PLANNED YET" empty states. Ink faint color.
+- **Hand** (Caveat, 400 weight, 14px, 1.5 line-height): Personal notes, memory text, handwritten-feel annotations.
 
 ### Named Rules
-**The Two-Register Rule.** Serif is for place, time, and meaning (city names, day headers, card titles, phrase words). Sans-serif is for data, instruction, and navigation (notes, labels, timestamps, button text). Never mix: a button is never serif, a city name is never sans.
+**The Mono-for-Stamps Rule.** JetBrains Mono is used for all text that references time, coordinates, document structure, or quantity: stub labels, dates, city codes, the "DAY 01/10" counter, nav labels. Inter Tight handles everything else. Caveat is handwriting only.
 
-**The Flat Scale Rule.** The type scale must have at least a 1.25 ratio between adjacent levels. Display (28px) to Headline (20px) is 1.4. Headline (20px) to Title (17px) is 1.18 — this is the weak link. When refining, push Title to 16px or Headline to 22px to restore the ratio.
+**The Tight-Headline Rule.** The city name display uses `lineHeight: 0.95` and `letterSpacing: -0.03em`. This is intentional — it reads as editorial, not app. Do not relax these to default values.
 
-## 4. Elevation
+## 4. Elevation and Borders
 
-This system is flat by default. No shadows appear on cards at rest. Depth is conveyed through tonal layering: page ground (`deep-navy`) is the darkest surface; cards (`dark-card`) are lighter; inputs and nested surfaces (`darker-card-alt`) are in between. The three tones create a clear hierarchy without any shadow.
-
-Shadows appear only in two contexts: the floating action button (FAB) in the Memories section, which is elevated by definition as a persistent floating control, and modal sheet overlays (calculator, add memory), which use a dark translucent backdrop (`rgba(0,0,0,0.7)`) to separate the sheet from the content beneath.
+This system uses hard offset shadows, not blur-based shadows. The aesthetic is a photograph or note laid on a journal page — it has physical presence, not a diffuse drop shadow.
 
 ### Shadow Vocabulary
-- **FAB shadow** (`0 4px 12px rgba(0,0,0,0.3)`): Used only on the Memories `+` button. Lifts the persistent floating action above the content plane.
-- **Modal backdrop** (`rgba(0,0,0,0.7)` full-screen overlay): Used on CalculatorOverlay and AddMemorySheet. Not a shadow; a scrim.
+- **Active card / selected row** (`boxShadow: '2px 3px 0 #1d1c1a'`): The hard offset shadow. Applied to the currently active itinerary row, selected cards, and the FAB. The offset direction is always bottom-right.
+- **FAB** (`boxShadow: '2px 3px 0 #1d1c1a'`): Same treatment, signals float.
+- **Modal backdrop** (`rgba(0,0,0,0.6)` full-screen scrim): Used on CalculatorOverlay and AddMemorySheet.
+
+### Border Treatment
+Cards use `border: '1px solid #1d1c1a'` (ink border) on white paper background. Inactive cards use the rule color (`#d6cdb9`) for borders. The 1px ink border at rest becomes active with the offset shadow when selected.
 
 ### Named Rules
-**The Flat-By-Default Rule.** Cards do not have shadows at rest, hover, or focus. Tonal difference between `deep-navy` and `dark-card` provides all necessary depth. If you reach for a box-shadow on a card, the answer is a background color change, not a shadow.
+**The Hard Shadow Rule.** When a shadow is needed, use a hard 2–3px offset with zero blur: `2px 3px 0 #1d1c1a`. Never use `blur` values greater than 0 on card shadows. Gaussian blur-based shadows belong to a different aesthetic entirely.
+
+**The Flat-By-Default Rule.** Most cards at rest have no shadow — only ink border. The offset shadow is reserved for active, selected, or floating states. Do not add resting shadows.
 
 ## 5. Components
 
 ### Buttons
-Buttons are quiet. They don't compete with content. Only the FAB and the primary save action use the gold background.
 
-- **Shape:** Gently rounded (10px radius for primary; 20px pill for tab/chip buttons)
-- **Primary** (gold fill): `background: #a08060; color: #0f1923; padding: 16px; border-radius: 10px`. Used for Save Memory, primary form submission. Rare.
-- **Ghost** (no background): `color: #a08060; font-size: 13px`. Used for Edit/Done toggles, Google Translate link, section-level secondary actions.
-- **Tab / Chip** (toggle): `background: #1a2a3a; color: #e8dcc8; border-radius: 20px; padding: 4px 12px` at rest. Active state: `background: #a08060; color: #0f1923`.
-- **Focus:** `outline: 2px solid #a08060; outline-offset: 2px` via `:focus-visible`. Applied globally.
+- **Primary / Tab active** (ink fill): `background: #1d1c1a; color: #f4ede1; border: 1px solid #1d1c1a; border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 500`. Used for active tab pills, confirm actions.
+- **Tab inactive**: `background: transparent; color: #1d1c1a; border: 1px solid #1d1c1a; border-radius: 999px; padding: 7px 14px`. Same shape, no fill.
+- **Ghost / Secondary**: `color: #c8442a; font-size: 13px; font-weight: 500; background: transparent`. Used for "Edit →" links, secondary navigational actions. Stamp red, no border.
+- **Navigation text**: `font-family: JetBrains Mono; font-size: 11px; letter-spacing: 0.16em; color: #5b5751`. Used for "← TRIP" back navigation.
+- **Focus:** `outline: 2px solid #c8442a; outline-offset: 2px` via `:focus-visible`.
 - **Minimum touch target:** 44×44px on all interactive elements.
 
 ### Cards / Containers
-Cards are the primary content container. They do not have borders, shadows, or left-stripe accents.
 
-- **Corner Style:** Gently rounded (10px / `--radius-md`)
-- **Default Background:** Dark Card (`#1a2a3a`)
-- **Alt Background:** Darker Card Alt (`#152030`) for inputs and secondary surfaces
-- **Shadow Strategy:** None (see Elevation)
-- **Border:** None. No `border-left` accents. Never.
-- **Internal Padding:** 16px (`--space-md`) standard; 24px (`--space-lg`) for dashboard section cards
+Cards are paper on paper. White surface, ink border, occasional hard shadow.
 
-### Inputs / Fields
-Inputs are embedded in the surface. They use the darker alt background to read as recessed.
+- **Default**: `background: #fbf7ee; border: 1px solid #1d1c1a; border-radius: 10px; padding: 10px 12px`
+- **Active / selected**: adds `box-shadow: 2px 3px 0 #1d1c1a`
+- **Dark variant** (for stub cards): `background: #1d1c1a; color: #f4ede1; border: 1px solid #1d1c1a; border-radius: 10px`
+- **Inactive**: `border: 1px solid #d6cdb9` (rule color, not ink)
+- **No** border-left accents. No shadows on resting cards (unless active).
 
-- **Style:** No border, `background: #152030; border-radius: 6px; padding: 10px 14px; color: #e8dcc8`
-- **Focus:** Inherit global `:focus-visible` outline (gold, 2px)
-- **Placeholder:** Muted slate (`#5a6a7a`)
-- **Font size:** 14px body for text inputs; 24px for currency amount inputs (large for legibility while typing)
+### Stub Cards (Dashboard)
 
-### Navigation / App Shell
-The header is a single row: back arrow (left), city name centered in serif (display/headline size), calculator icon (right). Background is the page ground color, separated from content by a 1px border in dark-card color.
+Three-column grid on the city dashboard: Weather, FX rate, Next Up. Small format info cards.
 
-- **Back button:** Gold chevron/arrow, minimum 44×44px touch target
-- **City name:** Georgia serif, 18px, cream, letterSpacing 1px
-- **Calculator button:** Gold icon, minimum 44×44px touch target
-- **Bottom clearance:** 88px padding-bottom on scrollable content areas to clear fixed FABs
+- One uses the dark variant (inverted: ink background, paper text) — typically the FX rate as the most frequently consulted value.
+- Label row: JetBrains Mono, 9px, `0.18em` tracking, `opacity: 0.7`
+- Value: Inter Tight, 22px, 500 weight, `lineHeight: 1`, `-0.02em` tracking
+- Sub-label: 11px, `opacity: 0.7`
+
+### Postmark Component
+
+A circular stamp shape used on the city dashboard. Per-city accent color, slightly rotated (~-9deg), with a dashed inner ring.
+
+- `width: 62px; height: 62px; border-radius: 50%; border: 1.5px solid {cityColor}; transform: rotate(-9deg); opacity: 0.82`
+- Inner ring: `position: absolute; inset: 4px; border-radius: 50%; border: 1px dashed {cityColor}; opacity: 0.5`
+- City code (uppercase, JetBrains Mono, 8px, `0.18em` tracking) + thin divider + date (7px)
+
+### Map Doodle
+
+An inline SVG illustration used as the city map thumbnail on the dashboard. Elements:
+- Hatched paper-texture background pattern (`#dfd6c2` with `#c8bfa8` dots)
+- River path in city-specific blue-grey
+- Stylized street lines in `#a89e85`
+- Location pins using city accent colors
+- North arrow (compass rose, minimal)
+- "OPEN IN MAPS" button overlaid at bottom-left: white pill button, ink border, JetBrains Mono 10px
+
+### Plan Row (Itinerary)
+
+Each itinerary item is a horizontal row card.
+
+- Inactive: `border: 1px solid #d6cdb9; border-radius: 10px; padding: 12px 14px`
+- Active: `border: 1px solid #1d1c1a; box-shadow: 2px 3px 0 #1d1c1a; background: #fbf7ee`
+- Done: `opacity: 0.55` with line-through on title
+- Time column: JetBrains Mono, 12px, 600 weight; active time uses stamp red (`#c8442a`)
+- Title: Inter Tight, 15px, 500 weight
+- Location sub-label: 12px, ink-soft
+
+### Tab Pills (Navigation)
+
+Horizontal scrolling pill row used for section navigation (What to do / What to say / Itinerary / Memories).
+
+- `overflow-x: auto; -webkit-overflow-scrolling: touch`; no visible scrollbar
+- Gap: 6px between pills
+- Pill shape: `border-radius: 999px`
+- Active: ink fill. Inactive: transparent with ink border.
+- Font: Inter Tight, 13px, 500 weight
+
+### City Selector
+
+The home screen. Each city is a full-width card with the city name as a large display headline, a postmark, and a short italic tagline.
+
+- City name: Inter Tight, display size, with per-city emphasis
+- Postmark: rotated, city-accent color
+- Tagline: Inter Tight, 13px, italic, ink-soft
+- Navigation: JetBrains Mono, 10px, tracked uppercase for coordinate labels and city codes
 
 ### Sheet Overlays (Calculator, Add Memory)
-Bottom sheets slide up from the page bottom. They do not use the full screen; they stop where content ends, with a rounded top edge.
 
-- **Background:** Page ground (`#0f1923`), not a card color
+Bottom sheets slide up from the page bottom.
+
+- **Background:** Paper (`#f4ede1`), not white
 - **Border radius:** 16px top corners only (`border-radius: 16px 16px 0 0`)
-- **Backdrop:** `rgba(0,0,0,0.7)` full-screen scrim; tap outside to dismiss
-- **Accessibility:** `role="dialog"`, `aria-modal="true"`, `aria-labelledby` pointing at the sheet heading; focus trapped on open; focus returns to trigger on close
+- **Backdrop:** `rgba(0,0,0,0.6)` full-screen scrim; tap outside to dismiss
+- **Accessibility:** `role="dialog"`, `aria-modal="true"`, `aria-labelledby`; focus trapped on open; focus returns to trigger on close
 
-### Category Tabs (Phrases section)
-Horizontal scrolling pill row. "All" tab always first. Active tab uses gold fill; inactive uses dark-card fill.
+### Inputs / Fields
 
-- **Overflow:** `overflow-x: auto`; no scrollbar visible; `-webkit-overflow-scrolling: touch`
-- **Pill shape:** 20px border-radius
-- **Spacing:** 8px gap between pills
-
-### Signature Component: Day Group Header (Itinerary)
-Date labels above itinerary day groups are the clearest application of the gold label treatment. Small, tracked, uppercase, gold on navy.
-
-- `font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #a08060`
-- Margin bottom 8px before first card in the group
-- Margin bottom 24px after last card before next group
+- `background: #ebe2d2; border-radius: 6px; padding: 10px 14px; color: #1d1c1a; border: none`
+- Focus: global `:focus-visible` outline (stamp red, 2px)
+- Placeholder: ink-faint (`#9a9389`)
+- Currency amount input: 24px, for legibility while typing
 
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** use `border-radius: 10px` (`--radius-md`) on all cards and primary interactive containers.
-- **Do** use muted gold (`#a08060`) for date headers, active states, the FAB, and primary save actions — and nowhere else.
-- **Do** use Georgia serif for all city names, section headings, day labels, card titles, and phrase words.
-- **Do** use the system sans-serif for all notes, captions, timestamps, labels, tab text, and button text.
+- **Do** use `border: 1px solid #1d1c1a` on active cards and `border: 1px solid #d6cdb9` on resting cards.
+- **Do** use the hard offset shadow `box-shadow: 2px 3px 0 #1d1c1a` only for active, selected, or floating states.
+- **Do** use JetBrains Mono for all labels that reference time, coordinates, document structure, or quantities.
+- **Do** use Inter Tight for all prose, headings, card titles, and body copy.
+- **Do** use Caveat only for genuinely handwritten-feeling text: memory captions, personal annotations.
+- **Do** use per-city accent colors (stamp red, mustard, moss) only for that city's content: postmark, coordinate label, pins, active states within that city.
 - **Do** ensure every interactive element has a minimum 44×44px touch target on iPhone.
-- **Do** apply `outline: 2px solid #a08060; outline-offset: 2px` to `:focus-visible` on every interactive element.
-- **Do** add `paddingBottom: 88px` to any scrollable list that has a fixed FAB above it.
+- **Do** apply `outline: 2px solid #c8442a; outline-offset: 2px` to `:focus-visible` on every interactive element.
+- **Do** add `paddingBottom: 80px` to any scrollable list that has a fixed FAB above it.
 - **Do** respect `prefers-reduced-motion` by wrapping all transitions in a motion query.
 - **Do** use `role="dialog"`, `aria-modal="true"`, and a focus trap on every sheet overlay.
-- **Do** use tonal layering (page ground → card → input) instead of shadows to convey depth.
+- **Do** use warm paper (`#f4ede1`) as the page background and white (`#fbf7ee`) as the card surface.
 
 ### Don't:
-- **Don't** use `border-left` or `border-right` greater than 1px as a colored accent stripe on any card, list item, callout, or alert. This is the most common AI design tell in this palette; refuse it without exception.
-- **Don't** use gradient text (`background-clip: text` with a gradient). Use a single solid color. Emphasis via weight or size only.
+- **Don't** use `border-left` or `border-right` greater than 1px as a colored accent stripe on any card, list item, callout, or alert.
+- **Don't** use gradient text (`background-clip: text`). Emphasis via weight or size only.
 - **Don't** use glassmorphism, backdrop-blur, or semi-transparent card surfaces decoratively.
+- **Don't** use Gaussian blur-based shadows on cards. Hard offset or nothing.
+- **Don't** use stamp red (`#c8442a`) generically as an accent. It belongs to Prague and to primary actions only.
+- **Don't** use `opacity: 0.4` to de-emphasize disabled content. Use ink-faint (`#9a9389`) instead — opacity at that level fails WCAG AA contrast.
 - **Don't** design anything that could belong to any trip by any person. If a screen could be from TripAdvisor, it has failed.
-- **Don't** use box-shadows on cards at rest. The flat tonal system is the depth model; shadows signal floating elements only (FAB, modal backdrops).
-- **Don't** use `opacity: 0.4` to de-emphasize past or disabled content. Use `color: #5a6a7a` (muted slate) instead — opacity at that level fails WCAG AA contrast.
-- **Don't** use the Bitcoin symbol (`₿`) for the currency calculator button. Use a neutral exchange icon.
+- **Don't** make the interface dark. This is a light-mode-only system. The paper feel depends on warm off-white backgrounds.
+- **Don't** introduce new color tokens. Use existing ones from `src/styles/tokens.css`.
+- **Don't** use pure `#000` or `#fff`. The warmest dark is `#1d1c1a` (ink); the warmest white is `#fbf7ee` (white token).
 - **Don't** use index as a React key on filtered or reordering lists. Use stable content identifiers.
-- **Don't** make section headers (h2) the same size as the app shell city label (h1). Display (28px) is for city names; Headline (20px) is for section titles; they must be visually distinct.
-- **Don't** build anything that looks like a dark utility dashboard (Citymapper, Datadog, Grafana). Cold, dense, high-contrast. The opposite of this.

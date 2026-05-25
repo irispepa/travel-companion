@@ -1,79 +1,116 @@
 {
-  "version": 1,
+  "version": 2,
   "itinerary": {
     "philly-out": { "cityViewId": "philly-out", "days": [
-      { "date": "2026-06-13", "items": [
-        { "id": "phl-out-1", "name": "Depart Philadelphia", "time": "14:00", "duration": "1h", "location": "PHL Airport", "notes": "Check bags, get through security early", "links": [] },
-        { "id": "phl-out-2", "name": "Flight to Prague via Frankfurt", "time": "17:00", "duration": "9h", "location": "PHL → FRA → PRG", "notes": "Overnight flight, arrive PRG June 14 morning", "links": [] }
+      { "date": "2026-06-02", "items": [
+        { "id": "phl-out-1", "name": "Uber to PHL", "time": "17:00", "duration": "20m", "location": "Home → PHL Airport", "notes": "~20 min ride", "links": [] },
+        { "id": "phl-out-2", "name": "Depart PHL – UA965", "time": "17:40", "duration": "7h55m", "location": "Philadelphia International Airport", "notes": "UA965 to Frankfurt (FRA). Overnight flight.", "links": [] }
+      ]},
+      { "date": "2026-06-03", "items": [
+        { "id": "phl-out-3", "name": "Arrive Frankfurt – UA965", "time": "07:45", "duration": "2h5m", "location": "Frankfurt Airport (FRA)", "notes": "Layover. Clear customs, find gate for Prague connection.", "links": [] },
+        { "id": "phl-out-4", "name": "Depart FRA – UA9060", "time": "09:50", "duration": "1h", "location": "Frankfurt Airport (FRA)", "notes": "UA9060 to Prague (PRG).", "links": [] }
       ]}
     ]},
     "prague": { "cityViewId": "prague", "days": [
-      { "date": "2026-06-14", "items": [
-        { "id": "prg-1", "name": "Arrive Václav Havel Airport", "time": "10:00", "duration": "1h", "location": "PRG Airport", "notes": "Take bus or taxi to accommodation", "links": [] },
-        { "id": "prg-2", "name": "Check in and rest", "time": "12:00", "duration": "2h", "location": "Hotel", "notes": "Recover from overnight flight", "links": [] },
-        { "id": "prg-3", "name": "Old Town Square and Astronomical Clock", "time": "15:00", "duration": "2h", "location": "Stare Mesto", "notes": "Clock shows at top of each hour", "links": [] }
+      { "date": "2026-06-03", "items": [
+        { "id": "prg-1", "name": "Arrive Prague – UA9060", "time": "10:50", "duration": "1h10m", "location": "Václav Havel Airport (PRG)", "notes": "Collect bags, exchange some CZK, taxi or bus to hotel.", "links": [] },
+        { "id": "prg-2", "name": "Lunch", "time": "12:00", "duration": "1h", "location": "Prague", "notes": "", "links": [] },
+        { "id": "prg-3", "name": "Old Town Square", "time": "13:00", "duration": "1h", "location": "Staroměstské náměstí", "notes": "Astronomical Clock performs at the top of each hour.", "links": [] },
+        { "id": "prg-4", "name": "Havelské Tržiště Market", "time": "14:00", "duration": "1h", "location": "Havelská ulice", "notes": "Open-air market in the old town.", "links": [] },
+        { "id": "prg-5", "name": "Štefánik Observatory", "time": "17:00", "duration": "2h", "location": "Petřín Hill", "notes": "", "links": [] },
+        { "id": "prg-6", "name": "Architectural Sightseeing – Pařížská St", "time": "19:00", "duration": "1h", "location": "Pařížská ulice", "notes": "Art Nouveau and neo-Gothic facades.", "links": [] },
+        { "id": "prg-7", "name": "Charles Bridge to Hotel", "time": "20:00", "duration": "1h", "location": "Karlův most", "notes": "Walk back via Charles Bridge.", "links": [] }
       ]},
-      { "date": "2026-06-15", "items": [
-        { "id": "prg-4", "name": "Prague Castle", "time": "09:00", "duration": "3h", "location": "Hradcany", "notes": "Buy tickets online. St. Vitus Cathedral inside.", "links": [] },
-        { "id": "prg-5", "name": "Charles Bridge", "time": "13:00", "duration": "1h", "location": "Charles Bridge", "notes": "Busy midday, less crowded early morning or evening", "links": [] },
-        { "id": "prg-6", "name": "Josefov Jewish Quarter", "time": "15:00", "duration": "2h", "location": "Josefov", "notes": "6 synagogues and Old Jewish Cemetery", "links": [] }
+      { "date": "2026-06-04", "items": [
+        { "id": "prg-8", "name": "Charles Bridge at Dawn", "time": "05:00", "duration": "1h", "location": "Karlův most", "notes": "Virtually empty at this hour.", "links": [] },
+        { "id": "prg-9", "name": "Travel to Prague Castle", "time": "08:30", "duration": "30m", "location": "Prague", "notes": "", "links": [] },
+        { "id": "prg-10", "name": "Prague Castle", "time": "09:00", "duration": "2h", "location": "Pražský hrad", "notes": "St. Vitus Cathedral inside. Buy tickets online.", "links": [] },
+        { "id": "prg-11", "name": "Three Gardens", "time": "11:00", "duration": "2h", "location": "Vrtba · Waldstein · Vojan Gardens", "notes": "Baroque and Renaissance gardens below the castle.", "links": [] },
+        { "id": "prg-12", "name": "Lunch", "time": "13:00", "duration": "1h", "location": "Prague", "notes": "", "links": [] },
+        { "id": "prg-13", "name": "Průmyslový palác (Industrial Palace)", "time": "14:00", "duration": "1h", "location": "Výstaviště, Holešovice", "notes": "Stunning Art Nouveau exhibition hall.", "links": [] },
+        { "id": "prg-14", "name": "Prague Zoo", "time": "15:00", "duration": "2h", "location": "Troja", "notes": "One of the world's best zoos.", "links": [] },
+        { "id": "prg-15", "name": "Karlín – Church of Sts Cyril & Methodius", "time": "18:00", "duration": "1h", "location": "Karlín", "notes": "Beautiful neighborhood and historic church.", "links": [] }
       ]},
-      { "date": "2026-06-16", "items": [
-        { "id": "prg-7", "name": "Vinohrady neighborhood walk", "time": "10:00", "duration": "2h", "location": "Vinohrady", "notes": "Peaceful residential area, beautiful architecture", "links": [] },
-        { "id": "prg-8", "name": "Vltava River cruise", "time": "14:00", "duration": "1.5h", "location": "Vltava River", "notes": "Great views of the city", "links": [] }
+      { "date": "2026-06-05", "items": [
+        { "id": "prg-16", "name": "Kutná Hora day trip", "time": "09:00", "duration": "6h", "location": "Kutná Hora", "notes": "Sedlec Ossuary (Bone Church) — decorations from 40,000 human bones. Book train in advance.", "links": [] },
+        { "id": "prg-17", "name": "Franciscan Garden", "time": "17:00", "duration": "1h", "location": "Františkánská zahrada (near Kino Lucerna)", "notes": "Hidden garden behind Wenceslas Square.", "links": [] },
+        { "id": "prg-18", "name": "Kino Lucerna", "time": "18:00", "duration": "1h", "location": "Lucerna Passage, Štěpánská 61", "notes": "See the upside-down horse sculpture by David Černý.", "links": [] },
+        { "id": "prg-19", "name": "National Museum (exterior)", "time": "19:00", "duration": "30m", "location": "Václavské náměstí 68", "notes": "Neo-Renaissance facade at the top of Wenceslas Square.", "links": [] },
+        { "id": "prg-20", "name": "Vyšehrad Castle", "time": "21:00", "duration": "2h30m", "location": "Vyšehrad", "notes": "Atmospheric at night. Basilica of St. Peter and Paul, historic cemetery.", "links": [] }
       ]},
-      { "date": "2026-06-17", "items": [
-        { "id": "prg-9", "name": "Day trip: Kutna Hora Bone Church", "time": "08:30", "duration": "6h", "location": "Kutna Hora", "notes": "Sedlec Ossuary - decorations made from 40,000 human bones", "links": [] }
-      ]},
-      { "date": "2026-06-18", "items": [
-        { "id": "prg-10", "name": "Morning free", "time": "09:00", "duration": "3h", "location": "Prague", "notes": "Pick up souvenirs", "links": [] },
-        { "id": "prg-11", "name": "Train to Vienna (Railjet)", "time": "13:00", "duration": "4h", "location": "Praha hl.n. to Wien Hbf", "notes": "Book in advance. Scenic route.", "links": [] }
+      { "date": "2026-06-06", "items": [
+        { "id": "prg-21", "name": "Train to Vienna", "time": "08:00", "duration": "5h", "location": "Praha hl.n. → Wien Hbf", "notes": "Book Railjet in advance. Scenic route.", "links": [] }
       ]}
     ]},
     "vienna": { "cityViewId": "vienna", "days": [
-      { "date": "2026-06-18", "items": [
-        { "id": "vie-1", "name": "Arrive Vienna Hauptbahnhof", "time": "17:00", "duration": "1h", "location": "Wien Hbf", "notes": "U-Bahn to accommodation", "links": [] },
-        { "id": "vie-2", "name": "Evening walk along the Ringstrasse", "time": "19:00", "duration": "1.5h", "location": "Ringstrasse", "notes": "Opera House, Parliament, Burgtheater all on this boulevard", "links": [] }
+      { "date": "2026-06-06", "items": [
+        { "id": "vie-1", "name": "Arrive Vienna Hauptbahnhof", "time": "13:00", "duration": "1h", "location": "Wien Hbf", "notes": "Check in, drop bags.", "links": [] },
+        { "id": "vie-2", "name": "Lunch", "time": "13:00", "duration": "1h", "location": "Vienna", "notes": "", "links": [] },
+        { "id": "vie-3", "name": "Ringstrasse Circuit", "time": "14:15", "duration": "1h", "location": "Ringstrasse", "notes": "Opera House, Parliament, Burgtheater, Kunsthistorisches — all on this boulevard.", "links": [] },
+        { "id": "vie-4", "name": "Kunsthistorisches Museum (KHM)", "time": "15:15", "duration": "2h", "location": "Maria-Theresien-Platz", "notes": "Vermeer, Raphael, Velázquez. One of the world's great collections.", "links": [] },
+        { "id": "vie-5", "name": "Votivkirche", "time": "17:15", "duration": "1h", "location": "Rooseveltplatz 8", "notes": "Stunning neo-Gothic church.", "links": [] },
+        { "id": "vie-6", "name": "Music?", "time": "19:00", "duration": "2h", "location": "Vienna", "notes": "Check for evening concerts — State Opera, Musikverein, or street performance.", "links": [] },
+        { "id": "vie-7", "name": "Naschmarkt (evening)", "time": "20:15", "duration": "1h", "location": "Naschmarkt", "notes": "Vienna's famous open-air market. Some stalls open late.", "links": [] }
       ]},
-      { "date": "2026-06-19", "items": [
-        { "id": "vie-3", "name": "Schonbrunn Palace and Gardens", "time": "09:00", "duration": "3h", "location": "Schonbrunn", "notes": "Book Grand Tour tickets online", "links": [] },
-        { "id": "vie-4", "name": "Naschmarkt lunch", "time": "13:00", "duration": "1.5h", "location": "Naschmarkt", "notes": "Vienna's famous open-air market", "links": [] },
-        { "id": "vie-5", "name": "Kunsthistorisches Museum", "time": "15:00", "duration": "2.5h", "location": "Maria-Theresien-Platz", "notes": "One of the world's great art museums", "links": [] }
+      { "date": "2026-06-07", "items": [
+        { "id": "vie-8", "name": "Hofburg Palace", "time": "10:00", "duration": "4h", "location": "Michaelerplatz 1", "notes": "Imperial apartments, Sisi Museum, and Austrian National Library all within the Hofburg complex.", "links": [] },
+        { "id": "vie-9", "name": "Imperial Crypt (Kaisergruft)", "time": "13:00", "duration": "30m", "location": "Tegetthoffstraße 2", "notes": "Habsburg burial vault. Over 140 coffins.", "links": [] },
+        { "id": "vie-10", "name": "Lunch", "time": "13:30", "duration": "1h", "location": "Vienna", "notes": "", "links": [] },
+        { "id": "vie-11", "name": "Austrian Parliament", "time": "16:00", "duration": "30m", "location": "Dr.-Karl-Renner-Ring 3", "notes": "Greek Revival exterior. Pallas Athena fountain out front.", "links": [] },
+        { "id": "vie-12", "name": "Heldenplatz + Volksgarten", "time": "16:30", "duration": "30m", "location": "Heldenplatz", "notes": "Heroes' Square and the adjacent rose garden.", "links": [] },
+        { "id": "vie-13", "name": "Dinner", "time": "19:00", "duration": "1h", "location": "Vienna", "notes": "", "links": [] },
+        { "id": "vie-14", "name": "Gerstner K. u. K. Hofzuckerbäcker", "time": "20:00", "duration": "1h", "location": "Kärntner Straße 13–15", "notes": "Imperial confectioner across from the Opera. Watch the evening crowd.", "links": [] }
       ]},
-      { "date": "2026-06-20", "items": [
-        { "id": "vie-6", "name": "Belvedere Palace", "time": "10:00", "duration": "2.5h", "location": "Belvedere", "notes": "Klimt's The Kiss is here", "links": [] },
-        { "id": "vie-7", "name": "Coffee at Cafe Central", "time": "13:30", "duration": "1h", "location": "Herrengasse 14", "notes": "Classic Viennese coffeehouse, order Melange", "links": [] },
-        { "id": "vie-8", "name": "St. Stephen's Cathedral", "time": "15:00", "duration": "1h", "location": "Stephansplatz", "notes": "Climb the south tower for views", "links": [] }
+      { "date": "2026-06-08", "items": [
+        { "id": "vie-15", "name": "Belvedere Palace", "time": "10:00", "duration": "3h", "location": "Prinz-Eugen-Straße 27", "notes": "Klimt's The Kiss. Baroque gardens.", "links": [] },
+        { "id": "vie-16", "name": "Lunch", "time": "13:00", "duration": "1h", "location": "Vienna", "notes": "", "links": [] },
+        { "id": "vie-17", "name": "Karlskirche", "time": "16:00", "duration": "1h", "location": "Karlsplatz", "notes": "Baroque masterpiece. Panorama lift inside.", "links": [] },
+        { "id": "vie-18", "name": "Stephansplatz", "time": "18:00", "duration": "1h", "location": "Stephansplatz", "notes": "St. Stephen's Cathedral. Heart of Vienna.", "links": [] },
+        { "id": "vie-19", "name": "Peterskirche", "time": "19:00", "duration": "1h", "location": "Petersplatz 6", "notes": "Ornate Baroque church just off the Graben.", "links": [] },
+        { "id": "vie-20", "name": "Dinner", "time": "20:00", "duration": "1h", "location": "Vienna", "notes": "", "links": [] }
       ]},
-      { "date": "2026-06-21", "items": [
-        { "id": "vie-9", "name": "Prater and Giant Ferris Wheel", "time": "09:30", "duration": "2h", "location": "Prater", "notes": "Historic amusement park, famous Riesenrad", "links": [] },
-        { "id": "vie-10", "name": "Train to Budapest (Railjet)", "time": "13:30", "duration": "2.5h", "location": "Wien Hbf to Budapest-Keleti", "notes": "Book ahead. Scenic Danube views.", "links": [] }
+      { "date": "2026-06-09", "items": [
+        { "id": "vie-21", "name": "Train to Budapest", "time": "08:30", "duration": "3h", "location": "Wien Hbf → Budapest-Keleti", "notes": "Book Railjet in advance. Scenic Danube views.", "links": [] }
       ]}
     ]},
     "budapest": { "cityViewId": "budapest", "days": [
-      { "date": "2026-06-21", "items": [
-        { "id": "bud-1", "name": "Arrive Budapest-Keleti", "time": "16:00", "duration": "1h", "location": "Budapest-Keleti", "notes": "Metro or taxi to accommodation", "links": [] },
-        { "id": "bud-2", "name": "Szechenyi Chain Bridge at sunset", "time": "19:00", "duration": "1h", "location": "Chain Bridge", "notes": "Iconic view of Buda Castle across the Danube", "links": [] }
+      { "date": "2026-06-09", "items": [
+        { "id": "bud-1", "name": "Arrive Budapest-Keleti", "time": "11:30", "duration": "30m", "location": "Budapest-Keleti", "notes": "Drop bags at hotel.", "links": [] },
+        { "id": "bud-2", "name": "Lunch", "time": "12:00", "duration": "1h", "location": "Budapest", "notes": "", "links": [] },
+        { "id": "bud-3", "name": "Heroes' Square + Fine Arts Museum", "time": "13:30", "duration": "1h", "location": "Hősök tere", "notes": "Millennium Monument. Museum of Fine Arts alongside.", "links": [] },
+        { "id": "bud-4", "name": "Vajdahunyad Castle", "time": "14:30", "duration": "1h", "location": "City Park (Városliget)", "notes": "Fairy-tale castle built for the 1896 Millennium Exhibition.", "links": [] },
+        { "id": "bud-5", "name": "St. Stephen's Basilica", "time": "17:00", "duration": "1h", "location": "Szent István tér", "notes": "Largest church in Budapest. Holy right hand of St. Stephen on display.", "links": [] },
+        { "id": "bud-6", "name": "Dinner", "time": "19:00", "duration": "1h", "location": "Budapest", "notes": "", "links": [] },
+        { "id": "bud-7", "name": "Fisherman's Bastion", "time": "20:00", "duration": "1h", "location": "Szentháromság tér", "notes": "Fairy-tale towers. Best panoramic view of Pest at night.", "links": [] },
+        { "id": "bud-8", "name": "Parliament Viewpoint", "time": "21:00", "duration": "1h", "location": "Danube bank, Pest side", "notes": "Lit up beautifully after dark.", "links": [] }
       ]},
-      { "date": "2026-06-22", "items": [
-        { "id": "bud-3", "name": "Buda Castle and Castle Hill", "time": "09:00", "duration": "3h", "location": "Buda Castle", "notes": "Funicular up from Clark Adam ter. Hungarian National Gallery inside.", "links": [] },
-        { "id": "bud-4", "name": "Fisherman's Bastion", "time": "12:00", "duration": "1h", "location": "Fisherman's Bastion", "notes": "Fairy-tale towers with panoramic Pest views", "links": [] },
-        { "id": "bud-5", "name": "Szechenyi Thermal Bath", "time": "15:00", "duration": "3h", "location": "Szechenyi", "notes": "Bring swimsuit. Outdoor pools are iconic.", "links": [] }
+      { "date": "2026-06-10", "items": [
+        { "id": "bud-9", "name": "Parliament Building tour", "time": "10:00", "duration": "1h", "location": "Kossuth Lajos tér 1-3", "notes": "Must book online. Crown of St. Stephen on display.", "links": [] },
+        { "id": "bud-10", "name": "Buda Castle", "time": "11:00", "duration": "2h", "location": "Szent György tér 2", "notes": "Funicular from Clark Ádám tér. Hungarian National Gallery inside.", "links": [] },
+        { "id": "bud-11", "name": "Lunch", "time": "13:00", "duration": "1h", "location": "Budapest", "notes": "", "links": [] },
+        { "id": "bud-12", "name": "Hungarian National Museum", "time": "16:00", "duration": "30m", "location": "Múzeum körút 14-16", "notes": "", "links": [] },
+        { "id": "bud-13", "name": "Metropolitan Ervin Szabó Library", "time": "16:30", "duration": "30m", "location": "Szabó Ervin tér 1", "notes": "Stunning neo-Baroque interior. Worth a look even if not using the library.", "links": [] },
+        { "id": "bud-14", "name": "Central Market Hall", "time": "17:00", "duration": "1h", "location": "Fővám tér 1-3", "notes": "Paprika, salami, folk crafts. Lángos upstairs.", "links": [] },
+        { "id": "bud-15", "name": "Dinner", "time": "19:00", "duration": "1h", "location": "Budapest", "notes": "", "links": [] },
+        { "id": "bud-16", "name": "Ruin Bars", "time": "20:00", "duration": "1h", "location": "Jewish Quarter, VII. district", "notes": "Szimpla Kert is the original. Kazinczy utca 14.", "links": [] }
       ]},
-      { "date": "2026-06-23", "items": [
-        { "id": "bud-6", "name": "Hungarian Parliament Building tour", "time": "10:00", "duration": "1.5h", "location": "Kossuth Lajos ter", "notes": "Must book tickets online in advance", "links": [] },
-        { "id": "bud-7", "name": "Great Market Hall", "time": "12:00", "duration": "1.5h", "location": "Fovam ter", "notes": "Paprika, salami, folk embroidery. Get langos upstairs.", "links": [] },
-        { "id": "bud-8", "name": "Szimpla Kert ruin bar", "time": "20:00", "duration": "2h", "location": "Kazinczy utca 14", "notes": "Iconic ruin bar in the Jewish Quarter", "links": [] }
+      { "date": "2026-06-11", "items": [
+        { "id": "bud-17", "name": "Rudas Thermal Bath", "time": "10:00", "duration": "3h", "location": "Döbrentei tér 9", "notes": "Ottoman-era baths. Rooftop pool with Danube views.", "links": [] },
+        { "id": "bud-18", "name": "Lunch", "time": "13:00", "duration": "1h", "location": "Budapest", "notes": "", "links": [] },
+        { "id": "bud-19", "name": "Széchenyi Chain Bridge", "time": "15:00", "duration": "1h", "location": "Lánchíd", "notes": "Iconic suspension bridge linking Buda and Pest.", "links": [] },
+        { "id": "bud-20", "name": "Dinner", "time": "19:00", "duration": "1h", "location": "Budapest", "notes": "", "links": [] }
       ]},
-      { "date": "2026-06-24", "items": [
-        { "id": "bud-9", "name": "Hero's Square and City Park", "time": "09:00", "duration": "1.5h", "location": "Hosok tere", "notes": "Millennium Monument with statues of Hungarian leaders", "links": [] },
-        { "id": "bud-10", "name": "Pack and check out", "time": "11:00", "duration": "1h", "location": "Accommodation", "notes": "", "links": [] },
-        { "id": "bud-11", "name": "Airport and flight home", "time": "14:00", "duration": "12h", "location": "BUD to PHL", "notes": "Allow 3 hours for airport", "links": [] }
+      { "date": "2026-06-12", "items": [
+        { "id": "bud-21", "name": "Pack and check out", "time": "06:00", "duration": "1h", "location": "Hotel", "notes": "Early start for airport.", "links": [] },
+        { "id": "bud-22", "name": "Depart BUD", "time": "07:05", "duration": "2h55m", "location": "Budapest Ferenc Liszt Airport (BUD)", "notes": "Flight to London Heathrow (LHR). Allow 2+ hours before departure.", "links": [] }
       ]}
     ]},
     "philly-in": { "cityViewId": "philly-in", "days": [
-      { "date": "2026-06-25", "items": [
-        { "id": "phl-in-1", "name": "Arrive Philadelphia", "time": "18:00", "duration": "1h", "location": "PHL Airport", "notes": "Customs, baggage claim, Uber home", "links": [] }
+      { "date": "2026-06-12", "items": [
+        { "id": "phl-in-1", "name": "Arrive London Heathrow (LHR)", "time": "09:00", "duration": "3h30m", "location": "London Heathrow Airport (LHR)", "notes": "Layover. Clear security for connecting flight.", "links": [] },
+        { "id": "phl-in-2", "name": "Depart LHR", "time": "12:30", "duration": "7h55m", "location": "London Heathrow Airport (LHR)", "notes": "Flight to Philadelphia (PHL).", "links": [] },
+        { "id": "phl-in-3", "name": "Arrive PHL", "time": "15:25", "duration": "20m", "location": "Philadelphia International Airport", "notes": "Customs, baggage claim.", "links": [] },
+        { "id": "phl-in-4", "name": "Uber home", "time": "15:45", "duration": "20m", "location": "PHL Airport → Home", "notes": "~20 min ride.", "links": [] }
       ]}
     ]}
   },

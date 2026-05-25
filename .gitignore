@@ -35,6 +35,9 @@ coverage/
 # Tooling
 .claude/
 .superpowers/
+.impeccable/
+.playwright-mcp/
+.serena/
 
 # Git worktrees
 .worktrees/
