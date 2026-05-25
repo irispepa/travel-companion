@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { getCityView } from '../../config/cities'
 import { CityViewId } from '../../db/schema'
 import { useItinerary } from '../../hooks/useItinerary'
+import { useDayWeather } from '../../hooks/useDayWeather'
+import { useExchangeRate } from '../../hooks/useExchangeRate'
 import { CalculatorOverlay } from '../calculator/CalculatorOverlay'
 
 // ── City data ──────────────────────────────────────────────────────────────
@@ -14,9 +16,6 @@ const CITY_DATA: Record<string, {
   tag: string
   day: string
   today: string
-  weather: { value: string; sub: string }
-  fx: { value: string; sub: string }
-  next: { value: string; sub: string }
   pins: string
   riverColor: string
   riverShadow: string
@@ -31,9 +30,6 @@ const CITY_DATA: Record<string, {
     tag: 'Stone city, slow river, cheap pivo.',
     day: 'DAY 01 / 10',
     today: 'Tue · June 3',
-    weather: { value: '22°', sub: 'part. cloudy' },
-    fx: { value: '22.4', sub: 'CZK · live' },
-    next: { value: '15:00', sub: 'Old Town' },
     pins: '6 SAVED PINS',
     riverColor: '#9bbcd1',
     riverShadow: '#7aa3bd',
@@ -53,9 +49,6 @@ const CITY_DATA: Record<string, {
     tag: 'Imperial cake, late-night opera, perfect coffee.',
     day: 'DAY 04 / 10',
     today: 'Sat · June 6',
-    weather: { value: '24°', sub: 'sunny' },
-    fx: { value: '0.93', sub: 'EUR · live' },
-    next: { value: '16:30', sub: 'Belvedere' },
     pins: '8 SAVED PINS',
     riverColor: '#7fb6c8',
     riverShadow: '#5e94a6',
@@ -75,9 +68,6 @@ const CITY_DATA: Record<string, {
     tag: 'Two cities, one river, ruin-bar nights.',
     day: 'DAY 07 / 10',
     today: 'Tue · June 9',
-    weather: { value: '26°', sub: 'clear' },
-    fx: { value: '356', sub: 'HUF · live' },
-    next: { value: '20:00', sub: 'Széchenyi' },
     pins: '7 SAVED PINS',
     riverColor: '#9bbcd1',
     riverShadow: '#7aa3bd',
@@ -97,9 +87,6 @@ const CITY_DATA: Record<string, {
     tag: 'Home base.',
     day: 'TRAVEL',
     today: '',
-    weather: { value: '—', sub: '' },
-    fx: { value: '—', sub: '' },
-    next: { value: '—', sub: '' },
     pins: '',
     riverColor: '#9bbcd1',
     riverShadow: '#7aa3bd',
@@ -235,7 +222,24 @@ export function CityDashboard() {
   const [showCalc, setShowCalc] = useState(false)
   const { record } = useItinerary(cityViewId!)
 
-  const todayItems = record?.days[0]?.items ?? []
+  const { rate, isOffline } = useExchangeRate(config.defaultCurrencyFrom, config.defaultCurrencyTo)
+  const fxValue = rate === null ? '—' : rate >= 10 ? rate.toFixed(0) : rate >= 1 ? rate.toFixed(1) : rate.toFixed(2)
+  const fxSub = isOffline ? `${config.defaultCurrencyTo} · cached` : `${config.defaultCurrencyTo} · live`
+
+  const today = new Date().toISOString().slice(0, 10)
+  const { weather } = useDayWeather(config.cityId, today)
+  const weatherValue = weather ? `${weather.temp}°` : '—'
+  const weatherSub = weather
+    ? ({ sun: 'sunny', cloud: 'cloudy', partly: 'partly cloudy', rain: 'rainy' } as const)[weather.kind] ?? ''
+    : ''
+
+  const todayDay = record?.days.find(d => d.date === today)
+  const todayItems = todayDay?.items ?? []
+  const nowTime = new Date().toTimeString().slice(0, 5)
+  const undoneItems = todayItems.filter(i => !i.done)
+  const nextItem = undoneItems.find(i => i.time >= nowTime) ?? undoneItems[undoneItems.length - 1] ?? null
+  const nextValue = nextItem ? nextItem.time : '—'
+  const nextSub = nextItem ? (nextItem.name.length > 16 ? nextItem.name.slice(0, 16) + '…' : nextItem.name) : ''
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--color-paper)', overflowY: 'auto' }}>
@@ -347,9 +351,9 @@ export function CityDashboard() {
 
       {/* Stub cards: Weather / FX / Next up */}
       <div style={{ padding: '12px 18px 0', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
-        <StubCard label="WEATHER" value={city.weather.value} sub={city.weather.sub} />
-        <StubCard label="1 USD =" value={city.fx.value} sub={city.fx.sub} highlight />
-        <StubCard label="NEXT UP" value={city.next.value} sub={city.next.sub} />
+        <StubCard label="WEATHER" value={weatherValue} sub={weatherSub} />
+        <StubCard label={`1 ${config.defaultCurrencyFrom} =`} value={fxValue} sub={fxSub} highlight />
+        <StubCard label="NEXT UP" value={nextValue} sub={nextSub} />
       </div>
 
       {/* Today section */}
