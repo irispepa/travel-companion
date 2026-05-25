@@ -6,6 +6,7 @@ import { ActivitiesSection } from './components/sections/activities/ActivitiesSe
 import { PhrasesSection } from './components/sections/phrases/PhrasesSection'
 import { MemoriesSection } from './components/sections/memories/MemoriesSection'
 import { PageTransition } from './components/layout/PageTransition'
+import { PrimerPage } from './components/layout/PrimerPage'
 
 function Root() {
   return (
@@ -25,6 +26,7 @@ export const router = createHashRouter([
       { path: '/:cityViewId/activities', element: <ActivitiesSection /> },
       { path: '/:cityViewId/phrases', element: <PhrasesSection /> },
       { path: '/:cityViewId/memories', element: <MemoriesSection /> },
+      { path: '/:cityViewId/primer', element: <PrimerPage /> },
     ]
   }
 ])
