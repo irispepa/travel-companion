@@ -67,7 +67,9 @@ export function AppShell({ cityLabel, showBack, onCalculator, children }: Props)
               fontSize: 18,
             }}
           >
-            ⇄
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/>
+            </svg>
           </button>
         ) : (
           <span style={{ minWidth: 44 }} />

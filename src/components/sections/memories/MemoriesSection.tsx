@@ -121,29 +121,31 @@ function renderCard(entry: MemoryEntry, width: number): React.ReactNode {
 
 // ── Filter ────────────────────────────────────────────────────────────────────
 
-type FilterKey = 'both' | 'iris' | 'niko' | 'photos' | 'notes' | 'voice' | 'tickets'
+type AuthorFilter = 'both' | 'iris' | 'niko'
+type KindFilter = 'photos' | 'notes' | 'voice' | 'tickets'
 
-const FILTERS: { key: FilterKey; label: string }[] = [
-  { key: 'both',    label: 'Both of us' },
-  { key: 'iris',    label: 'Iris' },
-  { key: 'niko',    label: 'Niko' },
+const AUTHOR_STATES: { key: AuthorFilter; label: string }[] = [
+  { key: 'iris',  label: 'Iris' },
+  { key: 'niko',  label: 'Niko' },
+  { key: 'both',  label: 'Both' },
+]
+
+const KIND_FILTERS: { key: KindFilter; label: string }[] = [
   { key: 'photos',  label: 'Photos' },
   { key: 'notes',   label: 'Notes' },
   { key: 'voice',   label: 'Voice' },
   { key: 'tickets', label: 'Tickets' },
 ]
 
-function applyFilter(entries: MemoryEntry[], filter: FilterKey): MemoryEntry[] {
-  switch (filter) {
-    case 'both':    return entries
-    case 'iris':    return entries.filter(e => e.author === 'Iris')
-    case 'niko':    return entries.filter(e => e.author === 'Niko')
-    case 'photos':  return entries.filter(e => e.kind === 'photo')
-    case 'notes':   return entries.filter(e => e.kind === 'note')
-    case 'voice':   return entries.filter(e => e.kind === 'voice')
-    case 'tickets': return entries.filter(e => e.kind === 'ticket')
-    default:        return entries
-  }
+function applyFilters(entries: MemoryEntry[], author: AuthorFilter, kind: KindFilter | null): MemoryEntry[] {
+  let result = entries
+  if (author === 'iris') result = result.filter(e => e.author === 'Iris')
+  else if (author === 'niko') result = result.filter(e => e.author === 'Niko')
+  if (kind === 'photos')  result = result.filter(e => e.kind === 'photo')
+  else if (kind === 'notes')   result = result.filter(e => e.kind === 'note')
+  else if (kind === 'voice')   result = result.filter(e => e.kind === 'voice')
+  else if (kind === 'tickets') result = result.filter(e => e.kind === 'ticket')
+  return result
 }
 
 // ── DaySection ────────────────────────────────────────────────────────────────
@@ -198,11 +200,12 @@ export function MemoriesSection() {
   const { entries, addMemory, loading } = useMemories(config.cityId)
   const [showAdd, setShowAdd] = useState(false)
   const [showCalc, setShowCalc] = useState(false)
-  const [activeFilter, setActiveFilter] = useState<FilterKey>('both')
+  const [authorFilter, setAuthorFilter] = useState<AuthorFilter>('both')
+  const [kindFilter, setKindFilter] = useState<KindFilter | null>(null)
 
   const CONTAINER_WIDTH = Math.min(window.innerWidth, 390) - 36
 
-  const filtered = applyFilter(entries, activeFilter)
+  const filtered = applyFilters(entries, authorFilter, kindFilter)
   const days = groupByDate(filtered)
 
   return (
@@ -248,18 +251,43 @@ export function MemoriesSection() {
           paddingBottom: 4,
           WebkitOverflowScrolling: 'touch',
         }}>
-          {FILTERS.map(f => (
+          {/* Author pill — cycles Iris → Niko → Both */}
+          <button
+            onClick={() => {
+              const idx = AUTHOR_STATES.findIndex(s => s.key === authorFilter)
+              setAuthorFilter(AUTHOR_STATES[(idx + 1) % AUTHOR_STATES.length].key)
+            }}
+            style={{
+              flexShrink: 0,
+              padding: '5px 12px',
+              borderRadius: 20,
+              border: '1px solid var(--color-ink)',
+              background: authorFilter !== 'both' ? 'var(--color-ink)' : 'transparent',
+              color: authorFilter !== 'both' ? 'var(--color-paper)' : 'var(--color-ink)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 10,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              minHeight: 44,
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {AUTHOR_STATES.find(s => s.key === authorFilter)!.label}
+          </button>
+
+          {KIND_FILTERS.map(f => (
             <button
               key={f.key}
-              onClick={() => setActiveFilter(f.key)}
-              aria-pressed={activeFilter === f.key}
+              onClick={() => setKindFilter(kindFilter === f.key ? null : f.key)}
+              aria-pressed={kindFilter === f.key}
               style={{
                 flexShrink: 0,
                 padding: '5px 12px',
                 borderRadius: 20,
                 border: '1px solid var(--color-ink)',
-                background: activeFilter === f.key ? 'var(--color-ink)' : 'transparent',
-                color: activeFilter === f.key ? 'var(--color-paper)' : 'var(--color-ink)',
+                background: kindFilter === f.key ? 'var(--color-ink)' : 'transparent',
+                color: kindFilter === f.key ? 'var(--color-paper)' : 'var(--color-ink)',
                 fontFamily: 'var(--font-mono)',
                 fontSize: 10,
                 letterSpacing: '0.08em',
