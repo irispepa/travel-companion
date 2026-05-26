@@ -268,7 +268,7 @@ export function VoiceCard({ entry, width, state = 'recorded', onStartRecord, onS
           <Waveform bars={bars} state={state} playProgress={playing ? playProgress : undefined} />
         </div>
 
-        <div style={{ marginTop: 8, minHeight: 18 }}>
+        <div style={{ marginTop: 6 }}>
         {state === 'empty' && (
           <span style={{ fontFamily: 'var(--font-hand)', fontSize: 13, color: 'var(--color-ink-soft)' }}>
             tap mic to record a thought…
