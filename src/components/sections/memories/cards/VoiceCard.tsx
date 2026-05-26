@@ -155,7 +155,7 @@ export function VoiceCard({ entry, width, state = 'recorded', onStartRecord, onS
         // Wire Media Session
         if ('mediaSession' in navigator) {
           navigator.mediaSession.metadata = new MediaMetadata({
-            title: entry.caption ?? 'Voice memo',
+            title: 'Voice memo',
             artist: entry.author === 'both' ? 'Iris & Niko' : entry.author,
           })
           navigator.mediaSession.setActionHandler('play', () => audioRef.current?.play())
@@ -195,7 +195,7 @@ export function VoiceCard({ entry, width, state = 'recorded', onStartRecord, onS
 
   return (
     <div
-      aria-label={entry.caption ? `Voice memo: ${entry.caption}` : 'Voice memo'}
+      aria-label="Voice memo"
       style={{
         width,
         background: 'var(--color-white)',
@@ -278,11 +278,6 @@ export function VoiceCard({ entry, width, state = 'recorded', onStartRecord, onS
         {state === 'recording' && (
           <span style={{ fontFamily: 'var(--font-hand)', fontSize: 13, color: 'var(--color-stamp)' }}>
             listening…
-          </span>
-        )}
-        {state === 'recorded' && entry.caption && (
-          <span style={{ fontFamily: 'var(--font-hand)', fontSize: 13, color: 'var(--color-ink)' }}>
-            {entry.caption}
           </span>
         )}
         </div>
