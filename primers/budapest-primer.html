@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budapest Primer</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #f2ead8;
+    --ink: #1c1610;
+    --teal: #1a6b6b;
+    --amber: #c4720a;
+    --muted: #7a6e5f;
+    --pale: #e8dfc8;
+    --deep: #0f2e2e;
+    --warm: #d4c4a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--sand);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    line-height: 1.85;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* ─── HEADER ─── */
+  .masthead {
+    margin-bottom: 42px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--muted);
+  }
+
+  .stripe {
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--teal) 0px,
+      var(--teal) 24px,
+      var(--amber) 24px,
+      var(--amber) 48px
+    );
+    margin-bottom: 24px;
+  }
+
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(44px, 8.5vw, 76px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -1px;
+    color: var(--ink);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .standfirst {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 14px;
+    line-height: 1.55;
+  }
+
+  .meta {
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 14px;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid var(--pale);
+  }
+
+  .section:last-of-type { border-bottom: none; }
+
+  .tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--pale);
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  p {
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 700; }
+
+  .hl { color: var(--teal); font-weight: 700; }
+  .amber { color: var(--amber); font-weight: 700; }
+
+  /* ─── PULLQUOTE ─── */
+  .pull {
+    margin: 22px 0;
+    padding: 14px 0 14px 20px;
+    border-left: 4px solid var(--amber);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* ─── DARK BOX ─── */
+  .dark-box {
+    background: var(--deep);
+    color: #c0bba8;
+    padding: 22px 24px;
+    margin: 20px 0;
+  }
+
+  .dark-box h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    color: #7ecece;
+    margin-bottom: 10px;
+  }
+
+  .dark-box p {
+    font-size: 11.5px;
+    color: #b8b0a0;
+    margin-bottom: 10px;
+    line-height: 1.8;
+  }
+
+  .dark-box p:last-child { margin-bottom: 0; }
+
+  /* ─── RULES ─── */
+  .rules {
+    background: var(--pale);
+    border-left: 4px solid var(--teal);
+    padding: 20px 22px;
+    margin: 20px 0;
+  }
+
+  .rules h3 {
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .rule {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+
+  .rn {
+    color: var(--teal);
+    font-weight: 700;
+    flex-shrink: 0;
+    min-width: 20px;
+    font-size: 11px;
+  }
+
+  /* ─── WARNING BOX ─── */
+  .warning {
+    background: #fff8e8;
+    border: 1px solid var(--amber);
+    border-left: 4px solid var(--amber);
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+
+  .warning h3 {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  /* ─── VOCAB TABLE ─── */
+  .vocab {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    margin: 16px 0;
+  }
+
+  .vocab thead tr { border-bottom: 2px solid var(--teal); }
+
+  .vocab th {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    padding: 6px 12px 6px 0;
+    text-align: left;
+    font-weight: 700;
+  }
+
+  .vocab td {
+    padding: 8px 12px 8px 0;
+    border-bottom: 1px solid var(--pale);
+    vertical-align: top;
+  }
+
+  .vocab td:first-child { font-weight: 700; white-space: nowrap; }
+  .vocab td:nth-child(2) { color: var(--muted); font-size: 10.5px; white-space: nowrap; }
+  .vocab td:nth-child(3) { color: var(--muted); }
+
+  /* ─── TRANSIT/PRICE TABLE ─── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    margin: 14px 0;
+  }
+
+  .data-table thead tr {
+    background: var(--teal);
+    color: var(--sand);
+  }
+
+  .data-table th {
+    padding: 9px 12px;
+    text-align: left;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .data-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--pale);
+    vertical-align: top;
+  }
+
+  .data-table tr:nth-child(even) td { background: var(--pale); }
+
+  /* ─── TWO COL ─── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 520px) { .two-col { grid-template-columns: 1fr; } }
+
+  .col-block {
+    border-top: 2px solid var(--teal);
+    background: var(--pale);
+    padding: 14px;
+  }
+
+  .col-block h4 {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .col-block p { font-size: 11.5px; }
+
+  /* ─── HEAT BOX ─── */
+  .heat-box {
+    background: linear-gradient(135deg, #8b3a0a 0%, var(--amber) 100%);
+    color: #fff8e8;
+    padding: 22px 24px;
+    margin: 20px 0;
+  }
+
+  .heat-box h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 700;
+    color: #fff3cc;
+    margin-bottom: 10px;
+  }
+
+  .heat-box p {
+    color: #ffe8b8;
+    font-size: 11.5px;
+    margin-bottom: 10px;
+    line-height: 1.8;
+  }
+
+  .heat-box p:last-child { margin-bottom: 0; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px solid var(--muted);
+    font-size: 9.5px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-align: center;
+  }
+
+  .dingbat { color: var(--amber); margin: 0 4px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="masthead">
+    <div class="stripe"></div>
+    <div class="eyebrow">First-Time Visitor Briefing <span class="dingbat">◆</span> Budapest, Hungary — June</div>
+    <h1>You Are Now <em>Somewhere Else Entirely.</em></h1>
+    <p class="standfirst">Prague was Central European stoicism. Vienna was imperial formality. Budapest is different in kind — a city that speaks a language related to nothing around it, survived centuries of occupation by being ungovernable, and in June sits at 90°F (32°C) telling you that a hot thermal bath actually makes sense.</p>
+    <p class="meta">3 days <span class="dingbat">·</span> June heat <span class="dingbat">·</span> Unspoken rules only</p>
+  </div>
+
+  <!-- 1: SOUL -->
+  <div class="section">
+    <div class="tag">The Psychology</div>
+    <h2>A Nation That Has Survived By Remaining <em>Completely Itself</em></h2>
+
+    <p>Hungarians — Magyars — arrived in the Carpathian Basin around 895 CE, nomadic people from the Ural region who settled in the middle of Europe and never left. They are linguistically unrelated to any of their neighbors. German, Slovak, Romanian, Serbian, Croatian — none of these share so much as a grammatical root with Hungarian. The nearest linguistic cousins are Finnish and Estonian, neither of whom live nearby. This isolation is not incidental. It shapes a psychology.</p>
+
+    <p>Hungarians think of themselves as a <span class="hl">kompország</span> — a "ferry country" between East and West, belonging fully to neither — and there is a genuine, pervasive sense that the nation is fragile and must constantly struggle to survive. One in three ethnic Hungarians lives outside Hungary's borders, a direct consequence of the <strong>Treaty of Trianon in 1920</strong>, when Hungary lost two-thirds of its territory after World War I. This remains the defining wound of modern Hungarian national consciousness, not as ancient history but as a living grief. It shapes politics, it shapes everyday conversation, and it explains why Hungarians respond with particular warmth when foreigners show any knowledge of or interest in their country — because so few do.</p>
+
+    <div class="pull">
+      Knowing that Trianon happened, and that Hungarians still feel it, is worth more goodwill than speaking three words of Hungarian.
+    </div>
+
+    <p>The other key thread: Hungary had one of the most sophisticated intellectual and cultural scenes in early 20th-century Europe, centered on Budapest's Jewish bourgeoisie. Freud considered Budapest a serious rival to Vienna for the center of psychoanalysis. The Hungarian Jews who powered that scene were largely killed in the Holocaust — Hungary's Jews were among the last deported but in the most concentrated period, with around 437,000 sent to Auschwitz in just eight weeks in 1944, under Hungarian government cooperation with Nazi Germany. The city that walks you through its Dohány Street Synagogue and its Shoes on the Danube memorial is sitting with that history at all times.</p>
+
+    <p>Then forty years of Soviet-style communism, ending in 1989. Then the complicated present tense of Viktor Orbán's Hungary, which has strained EU relations consistently since 2010 and shows no particular signs of stopping. You'll form your own opinion fast enough — just go in knowing the outline so political conversations don't catch you flat-footed.</p>
+  </div>
+
+  <!-- 2: THE LANGUAGE -->
+  <div class="section">
+    <div class="tag">Language</div>
+    <h2>Hungarian Is Not Difficult. It Is <em>From Another Planet.</em></h2>
+
+    <p>Czech was hard but learnable. German was formal but navigable. Hungarian is genuinely unlike anything else. It belongs to the Finno-Ugric language family, not Indo-European, which means your brain has zero scaffolding to work with. No cognates, no recognizable roots, no grammar patterns that transfer from any other European language. The US Foreign Service Institute ranks it as one of only six languages requiring 1,100+ hours to reach professional proficiency (alongside Arabic, Mandarin, Japanese, Korean, and Cantonese).</p>
+
+    <p>You are there for three days. The goal is not competence — it is <strong>basic signal of respect</strong>, which Hungarians receive with disproportionate warmth precisely because so few visitors even try.</p>
+
+    <p>One pronunciation rule that will save you from a memorable mistake: the toast is <em>Egészségedre</em> (to your health). Correct pronunciation: <strong>egg-ee-SHAY-ged-reh</strong>. One small vowel error in the middle — dropping the accent — and you are toasting "to your whole ass." Hungarians will tell you this story with great delight. Know it before you land.</p>
+
+    <table class="vocab">
+      <thead>
+        <tr><th>Hungarian</th><th>Sounds like</th><th>When and why</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Jó napot</td>
+          <td>YOH nah-poht</td>
+          <td>Good day — use it entering shops, restaurants, anywhere. Formal default.</td>
+        </tr>
+        <tr>
+          <td>Köszönöm</td>
+          <td>KUH-suh-nuhm</td>
+          <td>Thank you. Worth mastering. Locals beam when foreigners nail this.</td>
+        </tr>
+        <tr>
+          <td>Kérem</td>
+          <td>KAY-rem</td>
+          <td>"Please" / "here you go." Multi-use like the Czech prosím.</td>
+        </tr>
+        <tr>
+          <td>Szia / Sziasztok</td>
+          <td>SEE-yah / SEE-yahs-tohk</td>
+          <td>Casual hi/bye (singular / plural). Warmer than jó napot — use once the ice is broken.</td>
+        </tr>
+        <tr>
+          <td>Elnézést</td>
+          <td>EL-nay-zaysht</td>
+          <td>Excuse me / sorry. Useful in crowds. Budapest gets hot and dense in June.</td>
+        </tr>
+        <tr>
+          <td>Egészségedre</td>
+          <td>egg-ee-SHAY-ged-reh</td>
+          <td>The toast. Eye contact required. Do NOT mispronounce (see above).</td>
+        </tr>
+        <tr>
+          <td>Fizetek</td>
+          <td>FEE-zeh-tek</td>
+          <td>"I'll pay" — signal that you want the bill. Or catch the waiter's eye and say "legyen [amount]" to include your tip.</td>
+        </tr>
+        <tr>
+          <td>Viszlát</td>
+          <td>VIS-laht</td>
+          <td>Casual goodbye. The full formal is viszontlátásra, which you'll never say in time.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>One critical note: the letter <strong>s</strong> in Hungarian is pronounced "sh." So Budapest is actually <em>Buda-pesht</em>. The city you're visiting is not pronounced the way it's spelled in English. Knowing this stops you looking confused when locals say it.</p>
+  </div>
+
+  <!-- 3: UNSPOKEN RULES -->
+  <div class="section">
+    <div class="tag">Unspoken Rules</div>
+    <h2>The Things Nobody Tells You <em>Until You Break Them</em></h2>
+
+    <div class="rules">
+      <h3>Social Layer — Read This First</h3>
+      <div class="rule"><span class="rn">01</span><span><strong>Don't smile at strangers in public.</strong> Hungarians consider unprompted smiling at strangers odd — and in the worst reading, suspicious. A tourist walking around beaming will get read as either naive or trying to sell something. Reserve smiles for actual interactions you're having.</span></div>
+      <div class="rule"><span class="rn">02</span><span><strong>Greet when you enter any shop or restaurant.</strong> Identical to Prague and Vienna: silent entry is rude. <em>Jó napot</em> on the way in. <em>Viszlát</em> on the way out. Small effort, large return.</span></div>
+      <div class="rule"><span class="rn">03</span><span><strong>Saying "thank you" while handing cash = keep the change.</strong> Identical to Prague and Vienna. Do not say köszönöm while paying unless you want to tip that amount. State the total you want to pay: "Legyen 3000" (make it 3000). That includes any tip.</span></div>
+      <div class="rule"><span class="rn">04</span><span><strong>Check the bill for szerviz (service charge) before tipping.</strong> Some restaurants add it, some don't. Ask or look. If it's on there, a small round-up is fine. If it's not there, 10% is standard. Don't double-tip.</span></div>
+      <div class="rule"><span class="rn">05</span><span><strong>Tip in cash, directly to the server</strong> — even if you pay by card. The service charge on the bill often does not reach front-of-house staff. Handing cash to the person who served you is the right move.</span></div>
+      <div class="rule"><span class="rn">06</span><span><strong>Don't pay with large bills in small shops.</strong> Hungarians try to pay close to the exact amount. Showing up at a small bakery with a 10,000 HUF note for a 400 HUF item will earn you a death stare. Get change early and keep coins — you'll need 200–300 HUF coins for public toilets anyway.</span></div>
+      <div class="rule"><span class="rn">07</span><span><strong>Name days are a real thing.</strong> Hungarians celebrate both birthdays and name days (based on the calendar of saints). If someone mentions their name day, it's a real occasion that warrants acknowledgment. You'll see name-day notes on café boards.</span></div>
+    </div>
+
+    <div class="rules">
+      <h3>At Someone's Home (If You're Lucky)</h3>
+      <div class="rule"><span class="rn">◆</span><span><strong>Bring wine, chocolates, or flowers</strong> (odd numbers only — even numbers are for funerals). Never arrive empty-handed.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>Remove shoes at the door</strong> without being asked. This is assumed.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>Accept the second serving of pálinka.</strong> The homemade fruit brandy will be offered twice. Refusing the first is understandable. Refusing the second is slightly rude. The third is negotiable.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>Wait for the host to start eating.</strong> Don't touch the food until the host invites it — usually with "jó étvágyat" (bon appétit).</span></div>
+    </div>
+  </div>
+
+  <!-- 4: TRANSIT + MONEY -->
+  <div class="section">
+    <div class="tag">Getting Around & Money</div>
+    <h2>Transit Is Easy. <em>The Ticket System Will Fine You If You're Not Paying Attention.</em></h2>
+
+    <p>Buy the <strong>72-hour BKK pass (~5,750 HUF)</strong> — covers all metro, tram, and bus, no per-trip validation needed, available at purple BKK machines or on the BudapestGO app. Don't buy single tickets: they're mode-specific once punched and the crossover rules catch tourists constantly. Tram 2 along the Pest riverbank is one of the more scenic rides in Europe; in June, in the evening, worth it just for the view.</p>
+
+    <div class="two-col">
+      <div class="col-block">
+        <h4>Currency: Always HUF</h4>
+        <p>Hungary is EU but not Eurozone. Pay in Hungarian Forint (HUF) — tourist areas accept Euros but at 15–20% worse rates. <strong>Tap-to-pay works almost everywhere</strong>, including BKK transit machines and most cafés and restaurants. Avoid yellow/blue Euronet ATMs (ubiquitous, predatory); use OTP, Erste, or Raiffeisen bank ATMs only. When prompted at any ATM or card terminal, always choose to be charged in HUF, never in your home currency.</p>
+      </div>
+      <div class="col-block">
+        <h4>Taxis & Rideshare</h4>
+        <p>Don't hail cabs from the street. Use the <strong>Bolt app</strong> (dominant local rideshare, priced transparently upfront) or legitimate yellow-plate companies like Főtaxi. "Freelancer" taxis (marked Egyéni Vállalkozó) run rigged meters. Airport to city center by official taxi ~11,000 HUF; by 100E express bus ~2,200 HUF with its own separate ticket.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5: THERMAL BATHS -->
+  <div class="section">
+    <div class="tag">The Thermal Baths</div>
+    <h2>Yes, You Sit in Hot Water When It Is 90°F Outside. <em>This Is Correct.</em></h2>
+
+    <p>Budapest sits atop 100+ thermal springs — a geological fact the Romans, then the Ottomans, then the Habsburgs all exploited enthusiastically. The baths are not a tourist attraction grafted onto the city; they are infrastructure. Locals use them weekly. The ritual predates Christianity in this territory. Going to the baths is, for a Budapester, what going to the hospoda is for a Czech: a social institution, not a spa day.</p>
+
+    <p>In June, the conventional wisdom says "skip the hot baths, too warm." The conventional wisdom is wrong. The pools run at 96–100°F (36–38°C), which feels extreme until you've been walking cobblestones in 90°F (32°C) heat, at which point mineral water immersion is exactly what your body needs. The evening session (after 7pm) is the move in summer: fewer crowds, the architecture lit beautifully, and the air-water temperature differential becomes pleasant rather than punishing.</p>
+
+    <div class="dark-box">
+      <h3>You're going to Rudas — here's what to know</h3>
+      <p><strong>Rudas</strong> sits on the Buda bank at the foot of Gellért Hill, built by the Ottomans in 1566. The centerpiece is a medieval domed chamber — the original Turkish pool — with star-shaped skylights that filter light down into the water. It's one of the most atmospheric spaces in Budapest. The dome pool runs hot (~102°F / 39°C); there are cooler pools alongside it.</p>
+      <p>The rooftop pool is a more recent addition: an infinity-edge pool on top of the building with direct views over the Danube and the bridges. In summer evening sessions this is genuinely stunning. Book the evening ticket specifically if you want the rooftop — it's included, but slots fill up. Check the Rudas website for the current session schedule before you go.</p>
+      <p>What Rudas is not: it's not Széchenyi's grand outdoor circus, and it's not a tourist show. It's a real working bath with regular local clientele. The changing areas are old and not luxurious — bring everything you need, don't expect hotel-grade facilities, and embrace the fact that it has been basically the same experience since 1566.</p>
+      <p><strong>Gellért Baths</strong> (nearby) — closed for renovation until approximately 2028. Don't attempt.</p>
+    </div>
+
+    <div class="rules">
+      <h3>Bath Etiquette — The Non-Negotiable Rules</h3>
+      <div class="rule"><span class="rn">01</span><span><strong>Shower before entering any pool.</strong> Mandatory, not optional. Staff will send you back to do it. Shower every time you move between pools.</span></div>
+      <div class="rule"><span class="rn">02</span><span><strong>Flip-flops mandatory in all wet areas.</strong> Wet stone floors, slippery. Bring your own — rentals are expensive and inadequate.</span></div>
+      <div class="rule"><span class="rn">03</span><span><strong>Swimwear required everywhere.</strong> Budapest baths are not nude-friendly. Bring your own — rental suits exist but you don't want to find out the hard way.</span></div>
+      <div class="rule"><span class="rn">04</span><span><strong>Bring your own towel.</strong> Not included. Rental towels are thin and cost extra.</span></div>
+      <div class="rule"><span class="rn">05</span><span><strong>Leave valuables at the hotel.</strong> The electronic wristband locker is fine for daily items; jewelry and expensive devices are not worth the risk.</span></div>
+      <div class="rule"><span class="rn">06</span><span><strong>Keep your voice down indoors.</strong> The dome pool especially is a quiet space — the acoustics amplify everything and the regulars are there to decompress. Match the energy.</span></div>
+      <div class="rule"><span class="rn">07</span><span><strong>Drink water constantly.</strong> June heat + thermal soaking = aggressive dehydration. Bring a refillable bottle. Rudas has a drinking hall (ivócsarnok) selling the mineral water for a small fee if you want to try it.</span></div>
+    </div>
+  </div>
+
+  <!-- 6: JUNE SPECIFICS -->
+  <div class="section">
+    <div class="tag">June in Budapest</div>
+    <h2>Hot, Long Days, and <em>Some Gifts You Don't Get in Any Other Month</em></h2>
+
+    <div class="heat-box">
+      <h3>The June heat situation</h3>
+      <p>Average June highs: 80–90°F (27–32°C), sometimes spiking to 95°F (35°C). The sun sets after 9pm. Budapest is built on both flat riverbank (Pest) and steep hills (Buda) — climbing Buda Castle in the afternoon is a bad call. Do Buda in the morning, Pest in the evening.</p>
+      <p>Hydration: the city doesn't have as many free drinking fountains as Paris or Vienna. Carry water. Many restaurants charge for tap water; bottled sparkling or still is the default. Baths aside, you will sweat through whatever you're wearing. Pack accordingly — light fabrics, not your nicest shirt.</p>
+      <p>Best June-specific experience: Liberty Bridge (Szabadság híd) in the evening. Locals bring drinks, speakers, and friends to sit on the bridge as an outdoor social space all summer. No fee, no official organization, just a city reclaiming its own infrastructure. Grab food from a nearby stall and join it.</p>
+    </div>
+
+    <p>June also brings the start of ruin bar season in full force. The <span class="hl">romkocsma</span> (ruin bar) is a Budapest invention: bars built inside the shells of abandoned buildings, courtyards, and factory spaces in the 7th district (the old Jewish Quarter). <strong>Szimpla Kert</strong> on Kazinczy Street is the original and most famous — worth seeing once, but overrun by tour groups on weekends. The smaller courtyards nearby (Ellátó, Instant, Fogas Ház) are more local in character.</p>
+
+    <p>In June the ruin bars spill into their outdoor courtyards. Unlike the cramped winter versions, the summer configurations are sprawling and social. <strong>Don't bring an open drink outside</strong> — public drinking is technically illegal in Budapest, with fines if you're cited. The ruin bar scene operates within licensed premises; the moment you step outside with a cup, you've crossed a line. Stay inside the courtyard perimeters.</p>
+  </div>
+
+  <!-- 7: PRACTICAL -->
+  <div class="section">
+    <div class="tag">Practical Layer</div>
+    <h2>The Specifics That Will <em>Protect Your Time and Your Wallet</em></h2>
+
+    <div class="two-col">
+      <div class="col-block">
+        <h4>Tobacco</h4>
+        <p>Cigarettes and tobacco products are sold <em>only</em> at official Nemzeti Dohánybolt (National Tobacco Shops) — distinct red-and-white branded kiosks. Not in supermarkets, not in gas stations. They are everywhere once you know what they look like.</p>
+      </div>
+      <div class="col-block">
+        <h4>Supermarkets</h4>
+        <p>Hungarian supermarkets are one-directional: enter through a turnstile, exit through the payment lane. This is universal and non-negotiable. Don't try to exit without buying something through the wrong direction — there are often security guards.</p>
+      </div>
+      <div class="col-block">
+        <h4>Public toilets</h4>
+        <p>200–300 HUF in coins required for most public facilities, including metro stations. Keep coins. The baths have free facilities for paying customers. Many restaurants will let you use theirs if you're a guest.</p>
+      </div>
+      <div class="col-block">
+        <h4>Pharmacies</h4>
+        <p>Marked with a green cross and called <em>Gyógyszertár</em> or <em>Patika</em>. Not all pharmacists speak English — have a photo of what you need or the generic name. Extended-hours pharmacies exist at major transit hubs.</p>
+      </div>
+      <div class="col-block">
+        <h4>Card vs. cash</h4>
+        <p>Card and tap-to-pay work almost everywhere in central Budapest. Keep 10,000–15,000 HUF in cash for street food, market stalls, public toilets, and anywhere that looks like it hasn't updated its card reader since 2009. Always pay in HUF — not Euros.</p>
+      </div>
+      <div class="col-block">
+        <h4>Emergency number</h4>
+        <p>112 works EU-wide. English speakers available. Budapest police are a separate concern — if someone without a BKK photo ID badge asks you to pay a fine in cash without issuing a receipt, this is a scam. Real BKK inspectors carry card terminals and issue official receipts.</p>
+      </div>
+    </div>
+
+    <div class="rules">
+      <h3>Scam Awareness — Specific to Budapest</h3>
+      <div class="rule"><span class="rn">◆</span><span><strong>Euronet ATMs</strong> (yellow/blue, found everywhere) are predatory. They charge massive fees and push Dynamic Currency Conversion, which adds a further 5–10% conversion hit. Walk past them. Find an OTP, Erste, or Raiffeisen branch ATM instead.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>Ticket machine change dispensers</strong> are sometimes taped over by opportunists who collect the trapped change later. If you're owed change from a BKK machine and nothing comes out, check for blockage before assuming the machine ate it.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>Unsolicited restaurant "gifts"</strong> — bread, small appetizers, or welcome drinks placed on your table without asking — are sometimes charged. If something appears you didn't order, ask before eating whether it's complimentary. If it isn't on the menu as included, you owe for it.</span></div>
+      <div class="rule"><span class="rn">◆</span><span><strong>Unlicensed taxis.</strong> Use Bolt, Főtaxi, or City Taxi. Any driver who approaches you offering a ride is a trap. The city is saturated with legitimate options — there's no reason to use an unmarked car.</span></div>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="section">
+    <div class="tag">The Frame</div>
+    <h2>What Makes Budapest Different <em>from the First Two Cities</em></h2>
+
+    <p>Prague asked you to be quiet and appreciate irony. Vienna asked you to dress properly and respect hierarchy. Budapest asks something different: it asks you to be present in a city that is simultaneously one of Europe's most beautiful and one of its most complicated — that has been occupied, partitioned, bombed, and collectivized, and has emerged from all of it with enough stubborn cultural identity to still be recognizably, irreducibly itself.</p>
+
+    <p>The language that sounds like nothing else in Europe. The baths that have been running since the Romans. The bridges blown up by the Nazis in 1944 and rebuilt. The ruin bars built in the skeleton of a neighborhood that lost most of its population to the Holocaust. The people who will watch you with reserve until you say <em>jó napot</em> and then ask where you're from with genuine curiosity.</p>
+
+    <div class="pull">
+      Learn the toast. Show up to Rudas with flip-flops and a towel. Buy the 72-hour transit pass. Everything else figures itself out.
+    </div>
+  </div>
+
+  <div class="footer">
+    Third in a three-city Central European series <span class="dingbat">◆</span> Prague → Vienna → Budapest <span class="dingbat">◆</span> Egészségedre
+  </div>
+
+</div>
+</body>
+</html>
