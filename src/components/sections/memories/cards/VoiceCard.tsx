@@ -66,26 +66,27 @@ function Waveform({
 const DEFAULT_BARS = Array.from({ length: 30 }, (_, i) => 0.3 + 0.5 * Math.sin(i * 0.7 + 1))
 
 export function VoiceCard({ entry, width, state = 'recorded', onStartRecord, onStopRecord }: Props) {
-  const avgAmplitude = entry.waveform.length > 0
-    ? entry.waveform.reduce((s, v) => s + v, 0) / entry.waveform.length
-    : 0
-  const bars = (entry.waveform.length > 0 && avgAmplitude > 0.02) ? entry.waveform : DEFAULT_BARS
+  const maxAmplitude = entry.waveform.length > 0 ? Math.max(...entry.waveform) : 0
+  // Normalise bars to fill the display range — avoids flat dots on quiet recordings
+  const bars = entry.waveform.length > 0 && maxAmplitude > 0.001
+    ? entry.waveform.map(v => v / maxAmplitude)
+    : DEFAULT_BARS
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [playing, setPlaying] = useState(false)
   const [playProgress, setPlayProgress] = useState(0)
 
-  // Tear down audio when unmounting or audioSrc changes
+  // Tear down and reset audio whenever the entry changes
   useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause()
-        audioRef.current = null
-      }
-      if ('mediaSession' in navigator) {
-        navigator.mediaSession.metadata = null
-      }
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current = null
     }
-  }, [entry.audioSrc])
+    setPlaying(false)
+    setPlayProgress(0)
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = null
+    }
+  }, [entry.id])
 
   function vibrate(pattern: number | number[]) {
     try { navigator.vibrate?.(pattern) } catch { /* not supported */ }
