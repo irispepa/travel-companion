@@ -16,11 +16,12 @@ export function VoiceRecordSheet({ onSave, onBack }: Props) {
   const [author, setAuthor] = useState<VoiceMemory['author']>('both')
 
   const handleDone = useCallback(
-    (result: { audioSrc: string; duration: number; waveform: number[] }) => {
+    (result: { audioSrc: string; audioBlob: Blob; duration: number; waveform: number[] }) => {
       const entry: SaveArg = {
         kind: 'voice',
         author,
         audioSrc: result.audioSrc,
+        audioBlob: result.audioBlob,
         duration: result.duration,
         waveform: result.waveform,
         timestamp: new Date().toISOString(),

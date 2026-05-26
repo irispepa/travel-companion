@@ -4,6 +4,7 @@ export type RecordState = 'idle' | 'recording' | 'done'
 
 export interface RecordResult {
   audioSrc: string
+  audioBlob: Blob
   duration: number
   waveform: number[]
 }
@@ -20,7 +21,7 @@ export function useVoiceRecorder(onDone: (result: RecordResult) => void) {
   const analyserRef = useRef<AnalyserNode | null>(null)
   const audioCtxRef = useRef<AudioContext | null>(null)
   const durationRef = useRef(0)
-  const waveformAccRef = useRef<number[]>([])
+  const waveformAccRef = useRef<number[][]>([])
 
   const clearIntervals = useCallback(() => {
     if (waveformIntervalRef.current !== null) {
@@ -46,11 +47,13 @@ export function useVoiceRecorder(onDone: (result: RecordResult) => void) {
       source.connect(analyser)
       analyserRef.current = analyser
 
-      const mediaRecorder = new MediaRecorder(stream)
+      const mimeType = ['audio/mp4', 'audio/aac', 'audio/webm;codecs=opus', 'audio/webm']
+        .find(t => MediaRecorder.isTypeSupported(t)) ?? ''
+      const mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : {})
       mediaRecorderRef.current = mediaRecorder
       chunksRef.current = []
       durationRef.current = 0
-      waveformAccRef.current = []
+      waveformAccRef.current = [] as number[][]
 
       setDuration(0)
       setWaveform(Array(30).fill(0))
@@ -61,12 +64,14 @@ export function useVoiceRecorder(onDone: (result: RecordResult) => void) {
       }
 
       mediaRecorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: 'audio/webm' })
+        const mimeType = mediaRecorder.mimeType || 'audio/webm'
+        const blob = new Blob(chunksRef.current, { type: mimeType })
         const audioSrc = URL.createObjectURL(blob)
 
-        // Average waveform across all samples, or use last snapshot
-        const finalWaveform = waveformAccRef.current.length > 0
-          ? waveformAccRef.current
+        // Average all collected samples into a single waveform
+        const samples = waveformAccRef.current
+        const finalWaveform = samples.length > 0
+          ? samples[0].map((_, i) => samples.reduce((sum, s) => sum + s[i], 0) / samples.length)
           : Array(30).fill(0.3)
 
         // Stop all tracks
@@ -74,31 +79,32 @@ export function useVoiceRecorder(onDone: (result: RecordResult) => void) {
         audioCtx.close().catch(() => {})
 
         setState('done')
-        onDone({ audioSrc, duration: durationRef.current, waveform: finalWaveform })
+        onDone({ audioSrc, audioBlob: blob, duration: durationRef.current, waveform: finalWaveform })
       }
 
       mediaRecorder.start()
 
-      // Sample analyser at ~10fps for waveform
+      // Sample analyser at ~10fps — use time-domain data for even amplitude distribution
       waveformIntervalRef.current = setInterval(() => {
         const analyserNode = analyserRef.current
         if (!analyserNode) return
-        const bufferLength = analyserNode.frequencyBinCount
+        const bufferLength = analyserNode.fftSize
         const dataArray = new Uint8Array(bufferLength)
-        analyserNode.getByteFrequencyData(dataArray)
+        analyserNode.getByteTimeDomainData(dataArray)
 
-        // Downsample to 30 bars
+        // Downsample to 30 bars by computing RMS amplitude in each segment
         const bars = 30
         const step = Math.floor(bufferLength / bars)
         const result: number[] = []
         for (let i = 0; i < bars; i++) {
           let sum = 0
           for (let j = 0; j < step; j++) {
-            sum += dataArray[i * step + j] ?? 0
+            const v = (dataArray[i * step + j] - 128) / 128 // centre around 0
+            sum += v * v
           }
-          result.push(sum / step / 255) // normalise to [0,1]
+          result.push(Math.sqrt(sum / step)) // RMS, normalised to [0,1]
         }
-        waveformAccRef.current = result
+        waveformAccRef.current.push(result)
         setWaveform(result)
       }, 100)
 

@@ -28,7 +28,7 @@ interface BaseMemory {
 export interface PhotoMemory extends BaseMemory  { kind: 'photo';  photoSrc: string; caption?: string }
 export interface NoteMemory extends BaseMemory   { kind: 'note';   body: string; tone?: 'cream' | 'white' }
 export interface FoodMemory extends BaseMemory   { kind: 'food';   dish: string; note: string }
-export interface VoiceMemory extends BaseMemory  { kind: 'voice';  audioSrc: string; duration: number; caption?: string; waveform: number[] }
+export interface VoiceMemory extends BaseMemory  { kind: 'voice';  audioSrc: string; audioBlob?: Blob; duration: number; caption?: string; waveform: number[] }
 export interface TicketMemory extends BaseMemory { kind: 'ticket'; from: string; to: string; date: string; time: string; line?: string; caption?: string }
 
 export type MemoryEntry = PhotoMemory | NoteMemory | FoodMemory | VoiceMemory | TicketMemory
