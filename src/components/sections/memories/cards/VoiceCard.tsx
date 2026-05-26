@@ -233,7 +233,7 @@ export function VoiceCard({ entry, width, state = 'recorded', onStartRecord, onS
       </div>
 
       <div style={{ borderTop: '1px dashed var(--color-rule)', paddingTop: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, minHeight: 36 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, minHeight: 44 }}>
           <button
             onClick={handleControlClick}
             aria-label={
@@ -279,9 +279,9 @@ export function VoiceCard({ entry, width, state = 'recorded', onStartRecord, onS
             listening…
           </span>
         )}
-        {state === 'recorded' && entry.caption && (
-          <span style={{ fontFamily: 'var(--font-hand)', fontSize: 13, color: 'var(--color-ink)' }}>
-            {entry.caption}
+        {state === 'recorded' && (
+          <span style={{ fontFamily: 'var(--font-hand)', fontSize: 13, color: entry.caption ? 'var(--color-ink)' : 'var(--color-ink-faint)', opacity: entry.caption ? 1 : 0.45 }}>
+            {entry.caption ?? 'no caption'}
           </span>
         )}
         </div>
