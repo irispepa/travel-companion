@@ -196,7 +196,7 @@ export function AddPickerSheet({ onSelect, onClose, onPhotoSelected }: Props) {
         Pick a kind, or just drag a photo onto the day.
       </p>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 20, padding: '0 4px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', rowGap: 24, columnGap: 8, justifyItems: 'center' }}>
         {TILES.map(t => (
           <button
             key={t.step}
@@ -224,9 +224,10 @@ export function AddPickerSheet({ onSelect, onClose, onPhotoSelected }: Props) {
 
       <button
         onClick={onClose}
-        style={{ marginTop: 'var(--space-lg)', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-ink-faint)', letterSpacing: '0.08em', background: 'transparent', border: 'none', cursor: 'pointer', minHeight: 44, display: 'block' }}
+        aria-label="Back"
+        style={{ marginTop: 'var(--space-lg)', background: 'transparent', border: 'none', cursor: 'pointer', minHeight: 44, display: 'flex', alignItems: 'center', padding: 0 }}
       >
-        ← back
+        <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-faint)" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><path d="M14 6l-6 6 6 6"/></svg>
       </button>
     </div>
   )

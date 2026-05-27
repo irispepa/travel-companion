@@ -89,8 +89,8 @@ export function VoiceRecordSheet({ onSave, onBack }: Props) {
   return (
     <div style={containerStyle}>
       <div style={headerStyle}>
-        <button onClick={onBack} style={backButtonStyle} aria-label="Go back">
-          ← back
+        <button onClick={onBack} aria-label="Back" style={{ ...backButtonStyle, display: 'flex', alignItems: 'center', padding: 0 }}>
+          <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-faint)" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><path d="M14 6l-6 6 6 6"/></svg>
         </button>
         <span
           style={{

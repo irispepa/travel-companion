@@ -61,6 +61,11 @@ button {
   to   { transform: translateY(0); }
 }
 
+@keyframes sheetSlideDown {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100%); }
+}
+
 @keyframes backdropFadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }

@@ -20,6 +20,12 @@ interface Props {
 export function AddMemorySheet({ cityId, date, onSave, onClose }: Props) {
   const [step, setStep] = useState<Step>('picker')
   const [photoSrc, setPhotoSrc] = useState<string>('')
+  const [dismissing, setDismissing] = useState(false)
+
+  function handleClose() {
+    setDismissing(true)
+    setTimeout(onClose, 320)
+  }
 
   const sheetStyle: React.CSSProperties = {
     position: 'absolute',
@@ -32,7 +38,9 @@ export function AddMemorySheet({ cityId, date, onSave, onClose }: Props) {
     maxHeight: '92vh',
     overflowY: 'auto',
     WebkitOverflowScrolling: 'touch',
-    animation: 'sheetSlideUp var(--duration-sheet) var(--ease-out-expo) both',
+    animation: dismissing
+      ? 'sheetSlideDown 320ms var(--ease-out-expo) both'
+      : 'sheetSlideUp var(--duration-sheet) var(--ease-out-expo) both',
   }
 
   return (
@@ -42,9 +50,11 @@ export function AddMemorySheet({ cityId, date, onSave, onClose }: Props) {
         inset: 0,
         background: 'rgba(0,0,0,0.6)',
         zIndex: 'var(--z-sheet)',
-        animation: 'backdropFadeIn var(--duration-base) var(--ease-out-expo) both',
+        animation: dismissing
+          ? 'backdropFadeIn 320ms var(--ease-out-expo) reverse both'
+          : 'backdropFadeIn var(--duration-base) var(--ease-out-expo) both',
       }}
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
         role="dialog"
@@ -60,16 +70,16 @@ export function AddMemorySheet({ cityId, date, onSave, onClose }: Props) {
         {step === 'picker' && (
           <AddPickerSheet
             onSelect={setStep}
-            onClose={onClose}
+            onClose={handleClose}
             onPhotoSelected={(src) => { setPhotoSrc(src); setStep('photo') }}
           />
         )}
-        {step === 'note'   && <AddNoteSheet   onSave={onSave} onClose={onClose} onBack={() => setStep('picker')} />}
-        {step === 'food'   && <AddFoodSheet   onSave={onSave} onClose={onClose} onBack={() => setStep('picker')} />}
-        {step === 'quote'  && <AddQuoteSheet  date={date} cityId={cityId} onClose={onClose} onBack={() => setStep('picker')} />}
-        {step === 'ticket' && <AddTicketSheet onSave={onSave} onClose={onClose} onBack={() => setStep('picker')} />}
-        {step === 'photo'  && <AddPhotoSheet  src={photoSrc} onSave={onSave} onClose={onClose} onBack={() => setStep('picker')} />}
-        {step === 'voice'  && <VoiceRecordSheet onSave={entry => { onSave(entry); onClose() }} onBack={() => setStep('picker')} />}
+        {step === 'note'   && <AddNoteSheet   onSave={onSave} onClose={handleClose} onBack={() => setStep('picker')} />}
+        {step === 'food'   && <AddFoodSheet   onSave={onSave} onClose={handleClose} onBack={() => setStep('picker')} />}
+        {step === 'quote'  && <AddQuoteSheet  date={date} cityId={cityId} onClose={handleClose} onBack={() => setStep('picker')} />}
+        {step === 'ticket' && <AddTicketSheet onSave={onSave} onClose={handleClose} onBack={() => setStep('picker')} />}
+        {step === 'photo'  && <AddPhotoSheet  src={photoSrc} onSave={onSave} onClose={handleClose} onBack={() => setStep('picker')} />}
+        {step === 'voice'  && <VoiceRecordSheet onSave={entry => { onSave(entry); handleClose() }} onBack={() => setStep('picker')} />}
       </div>
     </div>
   )

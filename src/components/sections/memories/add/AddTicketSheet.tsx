@@ -189,8 +189,8 @@ export function AddTicketSheet({ onSave, onClose, onBack }: Props) {
         {captured ? '✓ CAPTURED' : 'CAPTURE'}
       </button>
 
-      <button onClick={onBack} style={{ marginTop: 'var(--space-md)', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-ink-faint)', letterSpacing: '0.08em', background: 'transparent', border: 'none', cursor: 'pointer', minHeight: 44, display: 'block' }}>
-        ← back
+      <button onClick={onBack} aria-label="Back" style={{ marginTop: 'var(--space-md)', background: 'transparent', border: 'none', cursor: 'pointer', minHeight: 44, display: 'flex', alignItems: 'center', padding: 0 }}>
+        <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-faint)" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round"><path d="M14 6l-6 6 6 6"/></svg>
       </button>
     </div>
   )
