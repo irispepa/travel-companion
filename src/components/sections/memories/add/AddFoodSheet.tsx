@@ -67,7 +67,7 @@ export function AddFoodSheet({ onSave, onBack }: Props) {
   return (
     <div style={{ padding: '0 var(--space-lg) var(--space-lg)' }}>
       <p style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--color-stamp)', letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: 4 }}>
-        BEST THING WE ATE
+        WHAT WE ATE
       </p>
 
       <div style={{ display: 'flex', gap: 6, marginBottom: 'var(--space-md)' }}>

@@ -9,11 +9,54 @@ interface Props {
   onPhotoSelected: (src: string) => void
 }
 
+const TILE_SHADOW = '1.5px 2px 0 var(--color-ink)'
+const TILE_BORDER = '1px solid var(--color-ink)'
+
+function CameraGlyph() {
+  return (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="var(--color-ink)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 8h4l2-3h6l2 3h4v11H3z"/>
+      <circle cx="12" cy="13.5" r="3.5"/>
+    </svg>
+  )
+}
+
+function ForkKnifeGlyph() {
+  return (
+    <svg width={9} height={9} viewBox="0 0 16 16" fill="none" stroke="var(--color-stamp)" strokeWidth="1.3" strokeLinecap="round">
+      <path d="M5 1v4c0 1 1 2 2 2v7"/>
+      <path d="M7 1v3"/>
+      <path d="M5 1v3"/>
+      <path d="M11 1v14"/>
+      <path d="M11 1c1.5 0 3 1 3 3s-1.5 3-3 3"/>
+    </svg>
+  )
+}
+
+function MicGlyph() {
+  return (
+    <svg width={9} height={9} viewBox="0 0 16 16" fill="none" stroke="var(--color-ink)" strokeWidth="1.3" strokeLinecap="round">
+      <rect x="6" y="1.5" width="4" height="8" rx="2"/>
+      <path d="M3.5 7.5a4.5 4.5 0 009 0"/>
+      <path d="M8 12v2.5"/>
+      <path d="M6 14.5h4"/>
+    </svg>
+  )
+}
+
 function PhotoTile() {
   return (
-    <div style={{ width: 56, height: 56, background: 'var(--color-paper-deep)', border: '1px solid var(--color-ink)', padding: 4 }}>
-      <div style={{ width: '100%', height: '100%', background: 'var(--color-rule)', display: 'grid', placeItems: 'center' }}>
-        <span style={{ fontSize: 18 }}>📷</span>
+    <div style={{
+      width: 80, padding: 5, paddingBottom: 14,
+      background: 'var(--color-white)', border: TILE_BORDER, borderRadius: 3, boxShadow: TILE_SHADOW,
+    }}>
+      <div style={{
+        width: '100%', height: 56,
+        background: 'repeating-linear-gradient(45deg, var(--color-paper-deep), var(--color-paper-deep) 4px, #d0c8b8 4px, #d0c8b8 5px)',
+        border: '1px dashed var(--color-ink-faint)',
+        display: 'grid', placeItems: 'center',
+      }}>
+        <CameraGlyph />
       </div>
     </div>
   )
@@ -21,9 +64,12 @@ function PhotoTile() {
 
 function NoteTile() {
   return (
-    <div style={{ width: 60, padding: '6px 8px', background: 'var(--color-white)', border: '1px solid var(--color-ink)', borderRadius: 4 }}>
-      {[80, 60, 40].map((w, i) => (
-        <div key={i} style={{ height: 4, borderRadius: 2, background: 'var(--color-ink-faint)', opacity: 0.5, width: `${w}%`, marginBottom: 4 }} />
+    <div style={{
+      width: 84, padding: '8px 8px 10px',
+      background: 'var(--color-white)', border: TILE_BORDER, borderRadius: 3, boxShadow: TILE_SHADOW,
+    }}>
+      {[90, 75, 50].map((w, i) => (
+        <div key={i} style={{ height: 3, borderRadius: 1.5, background: 'var(--color-ink-faint)', opacity: 0.6, width: `${w}%`, marginBottom: 4 }} />
       ))}
     </div>
   )
@@ -31,34 +77,77 @@ function NoteTile() {
 
 function FoodTile() {
   return (
-    <div style={{ width: 60, padding: '6px 8px', background: 'var(--color-white)', border: '1px solid var(--color-ink)', borderRadius: 4 }}>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 7, color: 'var(--color-stamp)', letterSpacing: '0.12em' }}>🍴 BEST ATE</div>
+    <div style={{
+      width: 88, padding: '6px 8px 8px',
+      background: 'var(--color-white)', border: TILE_BORDER, borderRadius: 3, boxShadow: TILE_SHADOW,
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 3, marginBottom: 3 }}>
+        <ForkKnifeGlyph />
+        <div style={{ height: 3, background: 'var(--color-stamp)', opacity: 0.6, width: 38, borderRadius: 1 }} />
+      </div>
+      <div style={{ borderTop: '1px dashed var(--color-rule)', margin: '5px 0' }} />
+      <div style={{ fontFamily: 'var(--font-hand)', fontSize: 12, color: 'var(--color-ink)', lineHeight: 1 }}>dish</div>
     </div>
   )
 }
 
 function VoiceTile() {
+  const bars = [4, 7, 11, 5, 9, 13, 8, 11, 6, 4, 8, 11, 5]
   return (
-    <div style={{ width: 60, padding: '6px 8px', background: 'var(--color-white)', border: '1px solid var(--color-ink)', borderRadius: 4 }}>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 7, color: 'var(--color-ink-soft)', letterSpacing: '0.10em' }}>🎙 VOICE</div>
+    <div style={{
+      width: 86, padding: '6px 8px 8px',
+      background: 'var(--color-white)', border: TILE_BORDER, borderRadius: 3, boxShadow: TILE_SHADOW,
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 3, marginBottom: 3 }}>
+        <MicGlyph />
+        <div style={{ height: 3, background: 'var(--color-ink-faint)', opacity: 0.6, width: 34, borderRadius: 1 }} />
+      </div>
+      <div style={{ borderTop: '1px dashed var(--color-rule)', margin: '5px 0' }} />
+      <div style={{ display: 'flex', gap: 1.5, height: 14, alignItems: 'center' }}>
+        {bars.map((h, i) => (
+          <div key={i} style={{ width: 2, height: h, background: 'var(--color-ink)', opacity: 0.45, borderRadius: 1 }} />
+        ))}
+      </div>
     </div>
   )
 }
 
 function TicketTile() {
   return (
-    <div style={{ width: 60, padding: '6px 8px', background: 'var(--color-paper-deep)', border: '1px solid var(--color-ink)', borderRadius: 4 }}>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, fontWeight: 700 }}>
+    <div style={{
+      width: 88, padding: '6px 8px 8px',
+      background: 'var(--color-paper-deep)', border: TILE_BORDER, borderRadius: 3, boxShadow: TILE_SHADOW,
+    }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 6, letterSpacing: '0.16em', color: 'var(--color-ink-soft)', textTransform: 'uppercase' as const, marginBottom: 2 }}>Ticket</div>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, color: 'var(--color-ink)' }}>
         PRG<span style={{ color: 'var(--color-stamp)' }}>→</span>VIE
       </div>
+      <div style={{ borderTop: '1px dashed var(--color-rule)', marginTop: 4 }} />
     </div>
   )
 }
 
 function QuoteTile() {
   return (
-    <div style={{ width: 72, padding: '4px 6px' }}>
-      <span style={{ fontFamily: 'var(--font-hand)', fontSize: 14, color: 'var(--color-ink)' }}>"We got lost."</span>
+    <div style={{
+      width: 90, height: 60,
+      background: 'transparent',
+      display: 'grid', placeItems: 'center',
+      position: 'relative',
+    }}>
+      <div style={{
+        position: 'absolute', inset: '4px 0',
+        borderTop: '1px dashed var(--color-rule)',
+        borderBottom: '1px dashed var(--color-rule)',
+        opacity: 0.7,
+      }} />
+      <div style={{
+        fontFamily: 'var(--font-hand)', fontSize: 14, color: 'var(--color-ink)',
+        lineHeight: 1.1, transform: 'rotate(-2deg)',
+        padding: '0 4px', textAlign: 'center' as const, position: 'relative',
+      }}>
+        &#8220;line of<br/>the day&#8221;
+      </div>
     </div>
   )
 }
@@ -66,12 +155,12 @@ function QuoteTile() {
 type TileConfig = { step: Step; label: string; rotation: number; preview: React.ReactNode }
 
 const TILES: TileConfig[] = [
-  { step: 'photo',  label: 'Photo',           rotation: -2, preview: <PhotoTile /> },
-  { step: 'note',   label: 'Note',            rotation:  3, preview: <NoteTile /> },
-  { step: 'food',   label: 'Best thing ate',  rotation: -3, preview: <FoodTile /> },
-  { step: 'voice',  label: 'Voice memo',      rotation:  2, preview: <VoiceTile /> },
-  { step: 'ticket', label: 'Ticket',          rotation: -2, preview: <TicketTile /> },
-  { step: 'quote',  label: 'Line of the day', rotation:  3, preview: <QuoteTile /> },
+  { step: 'photo',  label: 'Photo',        rotation: -3, preview: <PhotoTile /> },
+  { step: 'note',   label: 'Note',         rotation:  2, preview: <NoteTile /> },
+  { step: 'food',   label: 'What we ate',  rotation: -2, preview: <FoodTile /> },
+  { step: 'voice',  label: 'Voice note',   rotation:  3, preview: <VoiceTile /> },
+  { step: 'quote',  label: 'QOTD',         rotation:  3, preview: <QuoteTile /> },
+  { step: 'ticket', label: 'Ticket',       rotation: -2, preview: <TicketTile /> },
 ]
 
 export function AddPickerSheet({ onSelect, onClose, onPhotoSelected }: Props) {
@@ -107,7 +196,7 @@ export function AddPickerSheet({ onSelect, onClose, onPhotoSelected }: Props) {
         Pick a kind, or just drag a photo onto the day.
       </p>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 20, padding: '0 4px' }}>
         {TILES.map(t => (
           <button
             key={t.step}
@@ -117,17 +206,16 @@ export function AddPickerSheet({ onSelect, onClose, onPhotoSelected }: Props) {
               flexDirection: 'column',
               alignItems: 'center',
               gap: 6,
-              padding: 'var(--space-sm)',
+              padding: 0,
               background: 'transparent',
               border: 'none',
               cursor: 'pointer',
               transform: `rotate(${t.rotation}deg)`,
-              minWidth: 80,
               minHeight: 44,
             }}
           >
             {t.preview}
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--color-ink-soft)', letterSpacing: '0.10em', textTransform: 'uppercase' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--color-ink)', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
               {t.label}
             </span>
           </button>

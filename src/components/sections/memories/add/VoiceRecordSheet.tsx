@@ -101,7 +101,7 @@ export function VoiceRecordSheet({ onSave, onBack }: Props) {
             textTransform: 'uppercase',
           }}
         >
-          voice memo
+          voice note
         </span>
         <div style={{ width: 40 }} />
       </div>

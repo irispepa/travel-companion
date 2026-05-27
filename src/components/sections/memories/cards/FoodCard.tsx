@@ -36,7 +36,7 @@ export function FoodCard({ entry, width }: Props) {
           letterSpacing: '0.16em',
           textTransform: 'uppercase',
         }}>
-          BEST THING WE ATE
+          WHAT WE ATE
         </span>
       </div>
 
