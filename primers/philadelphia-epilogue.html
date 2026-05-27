@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Philadelphia Epilogue</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5efe2;
+    --ink: #1a1209;
+    --green: #1e4d2b;
+    --terra: #b5400a;
+    --gold: #c8920a;
+    --faded: #8a7d6a;
+    --pale: #ede6d5;
+    --eagles: #004C54;
+    --eagles-mid: #0a6b5e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ─── MASTHEAD ─── */
+  .masthead {
+    border-top: 4px solid var(--green);
+    border-bottom: 1px solid var(--faded);
+    padding: 28px 0 20px;
+    margin-bottom: 36px;
+  }
+
+  .masthead::after {
+    content: '';
+    display: block;
+    border-top: 1px solid var(--faded);
+    margin-top: 20px;
+  }
+
+  .kicker {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 8vw, 72px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--ink);
+  }
+
+  h1 em { font-style: italic; color: var(--green); }
+
+  .subhead {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--faded);
+    margin-top: 10px;
+  }
+
+  .meta {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--faded);
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    margin-bottom: 44px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid var(--pale);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--pale);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  h2 em { font-style: italic; color: var(--green); }
+  h2 .t { font-style: italic; color: var(--terra); }
+
+  p { margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 500; }
+  .hl { color: var(--green); font-weight: 500; }
+  .t { color: var(--terra); font-weight: 500; }
+  .dingbat { color: var(--green); margin: 0 4px; }
+
+  /* ─── PULLQUOTE ─── */
+  .pullquote {
+    border-left: 3px solid var(--green);
+    padding: 4px 0 4px 18px;
+    margin: 20px 0;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* ─── DARK ASIDE ─── */
+  .aside {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+
+  .aside h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .aside p { color: #c8bfae; font-size: 12px; margin-bottom: 10px; }
+  .aside p:last-child { margin-bottom: 0; }
+
+  /* ─── RULES BOX ─── */
+  .rules-box {
+    background: var(--pale);
+    border: 1px solid #d4c8b0;
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+
+  .rules-box h3 {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+
+  .rule {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 9px;
+    align-items: flex-start;
+  }
+
+  .rule-num {
+    font-weight: 500;
+    color: var(--green);
+    flex-shrink: 0;
+    min-width: 18px;
+  }
+
+  /* ─── TWO COL ─── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+
+  .col-block {
+    background: var(--pale);
+    border-top: 2px solid var(--green);
+    padding: 14px;
+  }
+
+  .col-block h4 {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .col-block p { font-size: 12px; }
+
+  /* ─── PET BLOCKS ─── */
+  .pets-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 18px 0;
+    background: var(--pale);
+  }
+
+  .pet-block {
+    background: var(--ink);
+    padding: 18px;
+    text-align: center;
+  }
+
+  .pet-emoji { font-size: 30px; display: block; margin-bottom: 8px; }
+
+  .pet-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .pet-desc { font-size: 11.5px; color: #9a8e78; line-height: 1.6; }
+
+  /* ─── EAGLES FOOTER ─── */
+  .footer {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px solid var(--faded);
+    font-size: 10px;
+    color: var(--faded);
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 1.9;
+  }
+
+  .go-birds {
+    display: inline-block;
+    margin-top: 14px;
+    background: var(--eagles);
+    color: #ffffff;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 700;
+    padding: 10px 28px;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="kicker">Philadelphia, Pennsylvania — Epilogue</div>
+    <h1>You Already <em>Live Here.</em></h1>
+    <p class="subhead">Prague, Vienna, Budapest — and now the city that gave the world the cheesesteak, booed Santa Claus, and put Crisco on its own light poles to win a championship. You're home. Keep your eyes open.</p>
+    <p class="meta">3 days → forever <span class="dingbat">·</span> Rittenhouse / Sansom St <span class="dingbat">·</span> Carry the attention with you</p>
+  </div>
+
+  <!-- SECTION 1: PHILLY AS DESTINATION -->
+  <div class="section">
+    <div class="section-label">The Soul of the Place</div>
+    <h2>Philadelphia Is Also a City <em>Worth Noticing</em></h2>
+
+    <p>You just spent nine days in full tourist mode — reading architecture, clocking street life, paying attention in a way that daily life doesn't usually demand. The Czech stoicism, the Viennese imperial weight, the Hungarian linguistic isolation — you went in with context and it made everything land differently. Here's the thing: you can do the exact same thing on Sansom Street.</p>
+
+    <p>Philadelphia is the city that hosted the Constitutional Convention in 1787, invented its own food culture (the cheesesteak is not ironic, the pretzel cart is not a novelty), sits on a grid designed by William Penn that is literally older than the American republic, and contains more intact colonial-era architecture than any other city in the country. It also has an attitude problem in the best possible way — the kind of chip-on-the-shoulder civic pride that comes from being perpetually underestimated by cities that aren't as interesting. You know this. You live here. But you're arriving with tourist eyes for the next week or two, and <strong>that is a resource worth spending</strong>.</p>
+
+    <div class="pullquote">
+      Prague survived by being ungovernable. Vienna survived by being the thing everyone answered to. Philadelphia survived by simply refusing to care what anyone else thought. This is a different kind of resilience and it absolutely counts.
+    </div>
+
+    <p>The grid underfoot is Penn's original. The neighborhood you live in — Rittenhouse, Center City — is one of the genuinely livable urban squares in America, a city park that functions the way a European city square is supposed to function: people actually use it, at all hours, for actual living. You walk past it constantly. For the next week, walk through it instead. The version of Rittenhouse Square that exists at 7am on a Tuesday is a completely different city than the one at noon on a Saturday. You live near both. See them.</p>
+
+    <div class="aside">
+      <h3>The Philadelphia version of what you just did</h3>
+      <p><strong>The hospoda move:</strong> Find a bar you actually like and sit at the bar — not a table, the bar. Talk to the bartender. Stay longer than feels efficient. The thing that made pub culture work in Prague is the same thing that makes it work anywhere: long enough for the place to start feeling like yours.</p>
+      <p><strong>The Kaffeehaus move:</strong> La Colombe on 19th. Sit there for two hours with a cortado and don't look at your phone for the first thirty minutes. Vienna didn't invent slow coffee. It just formalized it. You can do this on a Tuesday four blocks from your apartment.</p>
+      <p><strong>The thermal bath move:</strong> Kelly Drive at golden hour. Not a 16th-century Ottoman dome. But as a decompression ritual for a tired brain after a long stretch, it holds up. Bring Castor. Walk further than you think you need to.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 2: ANIMALS -->
+  <div class="section">
+    <div class="section-label">The Residents Who Stayed Behind</div>
+    <h2>Cairo Has <em>Opinions.</em> Cleveland Has <em>Treats.</em></h2>
+
+    <div class="pets-bar">
+      <div class="pet-block">
+        <span class="pet-emoji">🐈</span>
+        <span class="pet-name">Cairo</span>
+        <span class="pet-desc">Boy cat. Has been fine — deeply, demonstrably fine — and resents the implication that he needed you. Will scream at you within 30 seconds of arrival. Not in greeting. In directions. He is leading you to his bowl. The bowl has been in the same place for years. Follow him anyway. It is the rule.</span>
+      </div>
+      <div class="pet-block">
+        <span class="pet-emoji">🐕</span>
+        <span class="pet-name">Castor</span>
+        <span class="pet-desc">Pit bull. Pickup tomorrow. Cleveland has been holding the treats and has presumably been waiting for exactly this moment. Castor will perform the full return-from-war experience. Cleveland will enable this. It's going to be genuinely wonderful.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: KITCHEN -->
+  <div class="section">
+    <div class="section-label">From the Trip to Your Kitchen</div>
+    <h2>You Have Reference Points Now. <em>Use Them.</em></h2>
+
+    <p>One of the quiet gifts of a food-forward trip is what it does to your home cooking. You've had goulash that wasn't from a packet. You've had schnitzel prepared properly. You've had paprika used as a primary flavor rather than a dusty garnish. You've had lager maintained like a religion. That calibration is in you now and it doesn't go away.</p>
+
+    <div class="two-col">
+      <div class="col-block">
+        <h4>Paprika, properly</h4>
+        <p>Hungarian sweet paprika as a primary flavor, not a color agent. Chicken paprikash made right is deeply achievable and genuinely impressive. You have the reference point now. Use it.</p>
+      </div>
+      <div class="col-block">
+        <h4>Wiener Schnitzel</h4>
+        <p>You've had it before from Aldi's German Week and it's perfectly fine. You've now also had it in Vienna. The gap is real and you know it. Aldi's German Week remains, somehow, undeterred. Welcome home.</p>
+      </div>
+      <div class="col-block">
+        <h4>The mystery cheese situation</h4>
+        <p>Di Bruno Bros is two blocks away. Get a loaf of their rye — dense, real, seeded — and pick a mystery cheese to go with it. You know the drill. You live here.</p>
+      </div>
+      <div class="col-block">
+        <h4>The slow coffee</h4>
+        <p>The Melange is a cappuccino you sit with for an hour. The ritual is the point, not the caffeine. You have a couch. You know how to make coffee. The Kaffeehaus was just a couch with marble tables and a newspaper rack.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: CARRY THE ENERGY -->
+  <div class="section">
+    <div class="section-label">The Return</div>
+    <h2>The Trip Doesn't End <em>When You Unpack</em></h2>
+
+    <p>The attention you brought to Prague and Vienna and Budapest — the noticing, the reading of places, the willingness to sit somewhere for two hours and just be in it — that's not a travel skill. It's a skill you used while traveling because the context made it obvious. You can keep using it here. The tourist brain you came home with is going to stick around for a week or two before it fades back to default. Don't waste it.</p>
+
+    <p>The trip is a layer now. Those three cities are in the archive, and they'll keep surfacing — in a recipe, a piece of music, a news story about Hungarian politics, a Kafka sentence that hits differently after you've walked the Old Town. That's the long tail and it runs for years. You went in with context and came back with more. That's the whole point.</p>
+
+    <div class="rules-box">
+      <h3>How to carry it forward</h3>
+      <div class="rule"><span class="rule-num">◆</span><span><strong>Walk through Rittenhouse Square instead of past it</strong> for the next couple of weeks. Different hours, different city. You live adjacent to one of the few genuinely functional urban squares in America. Use it like you used the hospoda — stay longer than feels necessary.</span></div>
+      <div class="rule"><span class="rule-num">◆</span><span><strong>Cook one thing from the trip.</strong> The paprikash or the schnitzel or the rye-and-mystery-cheese. The act of making it extends the trip by another evening. Food memory is long.</span></div>
+      <div class="rule"><span class="rule-num">◆</span><span><strong>Plan something small to look forward to.</strong> A reservation, a properly-blocked day, a thing on the calendar. The anticipation reflex that made this trip feel so alive works on smaller things too. Feed it something. Philadelphia has plenty of material.</span></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>Final entry in a four-city series <span class="dingbat">◆</span> Prague → Vienna → Budapest → Philadelphia</div>
+    <div class="go-birds">🦅 Go Birds. 🦅</div>
+  </div>
+
+</div>
+</body>
+</html>
