@@ -6,13 +6,14 @@ const PRIMER_FILES: Record<string, string> = {
   prague: `${import.meta.env.BASE_URL}primers/prague-primer.html`,
   vienna: `${import.meta.env.BASE_URL}primers/vienna-primer.html`,
   budapest: `${import.meta.env.BASE_URL}primers/budapest-primer.html`,
+  'philly-in': `${import.meta.env.BASE_URL}primers/philadelphia-epilogue.html`,
 }
 
 export function PrimerPage() {
   const { cityViewId } = useParams<{ cityViewId: CityViewId }>()
   const navigate = useNavigate()
   const config = getCityView(cityViewId!)
-  const primerUrl = PRIMER_FILES[config.cityId]
+  const primerUrl = PRIMER_FILES[cityViewId!] ?? PRIMER_FILES[config.cityId]
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--color-paper)' }}>

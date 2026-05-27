@@ -13,6 +13,7 @@ const CITY_DATA: Record<string, {
   stampLabel: string
   stampDate: string
   morseCode: Array<'dot' | 'dash'> | null
+  tapCount?: number
   coords: string
   tag: string
   pins: string
@@ -80,6 +81,7 @@ const CITY_DATA: Record<string, {
     stampLabel: 'PHL',
     stampDate: 'JUN · 2026',
     morseCode: null,
+    tapCount: 5,
     coords: '39.9526° N · 75.1652° W',
     tag: 'Home base.',
     pins: '',
@@ -118,91 +120,135 @@ function MorseDivider({ symbols, color }: { symbols: Array<'dot' | 'dash'>; colo
   )
 }
 
+// morse mode: stamp=dot, title=dash — tap/dash pattern must match code
+// count mode: stamp only, N taps unlocks
 function useMorseGesture(
   code: Array<'dot' | 'dash'> | null,
+  tapCount: number | undefined,
   onSuccess: () => void,
-  onPress: () => void
 ) {
   const sequenceRef = React.useRef<Array<'dot' | 'dash'>>([])
-  const pressStartRef = React.useRef<number>(0)
+  const tapCountRef = React.useRef(0)
   const resetTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const stampRef = React.useRef<HTMLDivElement>(null)
+  const titleRef = React.useRef<HTMLHeadingElement>(null)
+  const [stampPressed, setStampPressed] = React.useState(false)
+  const [titlePressed, setTitlePressed] = React.useState(false)
 
-  if (!code) return {}
+  const codeRef = React.useRef(code)
+  const tapCountGoalRef = React.useRef(tapCount)
+  const onSuccessRef = React.useRef(onSuccess)
+  codeRef.current = code
+  tapCountGoalRef.current = tapCount
+  onSuccessRef.current = onSuccess
 
-  const resetSequence = () => {
-    sequenceRef.current = []
-    if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
-  }
+  const isActive = code !== null || tapCount !== undefined
 
-  const scheduleReset = () => {
-    if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
-    resetTimerRef.current = setTimeout(resetSequence, 2000)
-  }
+  React.useEffect(() => {
+    const stamp = stampRef.current
+    const title = titleRef.current
+    if (!stamp || !isActive) return
 
-  const handlePointerDown = (e: React.PointerEvent) => {
-    e.preventDefault()
-    pressStartRef.current = Date.now()
-    onPress()
-    scheduleReset()
-  }
-
-  const handlePointerUp = () => {
-    const duration = Date.now() - pressStartRef.current
-    const symbol: 'dot' | 'dash' = duration >= 500 ? 'dash' : 'dot'
-    sequenceRef.current = [...sequenceRef.current, symbol]
-    scheduleReset()
-
-    const seq = sequenceRef.current
-    if (seq.length === code.length) {
-      if (seq.every((s, i) => s === code[i])) {
-        resetSequence()
-        onSuccess()
-      } else {
-        resetSequence()
-      }
-    } else if (seq.length > code.length) {
-      resetSequence()
+    const scheduleReset = () => {
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+      resetTimerRef.current = setTimeout(() => {
+        sequenceRef.current = []
+        tapCountRef.current = 0
+      }, 2000)
     }
-  }
 
-  return { onPointerDown: handlePointerDown, onPointerUp: handlePointerUp }
+    const flash = (set: React.Dispatch<React.SetStateAction<boolean>>) => {
+      set(true)
+      setTimeout(() => set(false), 120)
+    }
+
+    const onStampTap = (e: TouchEvent) => {
+      e.preventDefault()
+      flash(setStampPressed)
+      scheduleReset()
+
+      if (tapCountGoalRef.current !== undefined) {
+        tapCountRef.current += 1
+        if (tapCountRef.current >= tapCountGoalRef.current) {
+          tapCountRef.current = 0
+          if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+          onSuccessRef.current()
+        }
+        return
+      }
+
+      const code = codeRef.current
+      if (!code) return
+      sequenceRef.current = [...sequenceRef.current, 'dot']
+      const seq = sequenceRef.current
+      if (seq.length === code.length) {
+        if (seq.every((s, i) => s === code[i])) {
+          sequenceRef.current = []
+          if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+          onSuccessRef.current()
+        } else {
+          sequenceRef.current = []
+        }
+      } else if (seq.length > code.length) {
+        sequenceRef.current = []
+      }
+    }
+
+    const onTitleTap = (e: TouchEvent) => {
+      e.preventDefault()
+      const code = codeRef.current
+      if (!code) return
+      flash(setTitlePressed)
+      scheduleReset()
+      sequenceRef.current = [...sequenceRef.current, 'dash']
+      const seq = sequenceRef.current
+      if (seq.length === code.length) {
+        if (seq.every((s, i) => s === code[i])) {
+          sequenceRef.current = []
+          if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
+          onSuccessRef.current()
+        } else {
+          sequenceRef.current = []
+        }
+      } else if (seq.length > code.length) {
+        sequenceRef.current = []
+      }
+    }
+
+    stamp.addEventListener('touchstart', onStampTap, { passive: false })
+    if (title && code) title.addEventListener('touchstart', onTitleTap, { passive: false })
+    return () => {
+      stamp.removeEventListener('touchstart', onStampTap)
+      if (title && code) title.removeEventListener('touchstart', onTitleTap)
+    }
+  }, [isActive])
+
+  return { stampRef, titleRef, stampPressed, titlePressed }
 }
 
-function Postmark({ color, label, date, morseCode, onPrimerUnlock }: {
+function Postmark({ color, label, date, morseCode, stampRef, pressed }: {
   color: string
   label: string
   date: string
   morseCode: Array<'dot' | 'dash'> | null
-  onPrimerUnlock?: () => void
+  stampRef: React.RefObject<HTMLDivElement | null>
+  pressed: boolean
 }) {
-  const [pressed, setPressed] = React.useState(false)
-
-  const handlePress = () => {
-    setPressed(true)
-    setTimeout(() => setPressed(false), 120)
-  }
-
-  const gesture = useMorseGesture(
-    morseCode,
-    () => onPrimerUnlock?.(),
-    handlePress
-  )
-
   return (
     <div
-      {...gesture}
+      ref={stampRef}
+      className="postmark"
       style={{
         width: 62, height: 62, borderRadius: '50%',
         border: `1.5px solid ${color}`, color,
         display: 'grid', placeItems: 'center',
-        transform: `rotate(-9deg) scale(${pressed ? 0.88 : 1})`,
-        transition: pressed ? 'none' : 'transform 180ms ease-out',
         fontFamily: 'var(--font-mono)', textAlign: 'center',
         position: 'relative', flexShrink: 0,
-        opacity: 0.82,
+        opacity: pressed ? 1 : 0.82,
+        transform: `rotate(-9deg) scale(${pressed ? 0.88 : 1})`,
+        transition: pressed ? 'none' : 'transform 180ms ease-out, opacity 180ms ease-out',
         touchAction: 'none',
         cursor: morseCode ? 'pointer' : 'default',
-        userSelect: 'none',
       }}
     >
       <div style={{ position: 'absolute', inset: 4, borderRadius: '50%', border: `1px dashed ${color}`, opacity: 0.5 }} />
@@ -325,6 +371,11 @@ export function CityDashboard() {
   const [showCalc, setShowCalc] = useState(false)
   const [fxFlipped, setFxFlipped] = useState(false)
   const { record } = useItinerary(cityViewId!)
+  const { stampRef, titleRef, stampPressed, titlePressed } = useMorseGesture(
+    city.morseCode,
+    city.tapCount,
+    () => navigate(`/${cityViewId}/primer`),
+  )
 
   const fxFrom = fxFlipped ? config.defaultCurrencyTo : config.defaultCurrencyFrom
   const fxTo   = fxFlipped ? config.defaultCurrencyFrom : config.defaultCurrencyTo
@@ -400,10 +451,17 @@ export function CityDashboard() {
         </div>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 4 }}>
           <div>
-            <h1 style={{
-              fontWeight: 500, fontSize: 56, lineHeight: 0.95,
-              letterSpacing: '-0.03em', color: 'var(--color-ink)',
-            }}>
+            <h1
+              ref={titleRef}
+              className="postmark"
+              style={{
+                fontWeight: 500, fontSize: 56, lineHeight: 0.95,
+                letterSpacing: '-0.03em', color: 'var(--color-ink)',
+                touchAction: city.morseCode ? 'none' : 'auto', cursor: city.morseCode ? 'pointer' : 'default',
+                opacity: titlePressed ? 0.4 : 1,
+                transition: titlePressed ? 'none' : 'opacity 180ms ease-out',
+              }}
+            >
               {config.label}.
             </h1>
             <div style={{ fontSize: 13, color: 'var(--color-ink-soft)', fontStyle: 'italic', marginTop: 8 }}>
@@ -415,7 +473,8 @@ export function CityDashboard() {
             label={city.stampLabel}
             date={city.stampDate}
             morseCode={city.morseCode}
-            onPrimerUnlock={() => navigate(`/${cityViewId}/primer`)}
+            stampRef={stampRef}
+            pressed={stampPressed}
           />
         </div>
       </div>
