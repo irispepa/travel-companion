@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { NoteMemory } from '../../../../db/schema'
+import { useCaptured } from '../../../../hooks/useCaptured'
 
 type SaveArg = Omit<NoteMemory, 'id' | 'cityId'>
 
 interface Props {
   onSave: (entry: SaveArg) => void
+  onClose: () => void
   onBack: () => void
 }
 
@@ -20,14 +22,15 @@ const STAMP_BUTTON: React.CSSProperties = {
   cursor: 'pointer', marginTop: 'var(--space-md)', minHeight: 48,
 }
 
-export function AddNoteSheet({ onSave, onBack }: Props) {
+export function AddNoteSheet({ onSave, onClose, onBack }: Props) {
   const [body, setBody] = useState('')
   const [author, setAuthor] = useState<NoteMemory['author']>('Iris')
   const [tone, setTone] = useState<NoteMemory['tone']>('white')
+  const { captured, trigger } = useCaptured(onClose)
 
   function handleSave() {
     if (!body.trim()) return
-    onSave({ kind: 'note', author, body: body.trim(), tone, timestamp: new Date().toISOString() })
+    trigger(() => onSave({ kind: 'note', author, body: body.trim(), tone, timestamp: new Date().toISOString() }))
   }
 
   return (
@@ -99,8 +102,8 @@ export function AddNoteSheet({ onSave, onBack }: Props) {
         }}
       />
 
-      <button onClick={handleSave} disabled={!body.trim()} style={{ ...STAMP_BUTTON, opacity: body.trim() ? 1 : 0.5 }}>
-        PASTE IT IN
+      <button onClick={handleSave} disabled={!body.trim()} style={{ ...STAMP_BUTTON, opacity: body.trim() ? 1 : 0.5, ...(captured ? { background: 'var(--color-ink)', color: 'var(--color-white)', boxShadow: 'none', transform: 'rotate(0deg) scale(0.97)' } : {}) }}>
+        {captured ? '✓ CAPTURED' : 'CAPTURE'}
       </button>
 
       <button onClick={onBack} style={{ marginTop: 'var(--space-md)', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-ink-faint)', letterSpacing: '0.08em', background: 'transparent', border: 'none', cursor: 'pointer', minHeight: 44, display: 'block' }}>

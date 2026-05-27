@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { TicketMemory } from '../../../../db/schema'
+import { useCaptured } from '../../../../hooks/useCaptured'
 
 type SaveArg = Omit<TicketMemory, 'id' | 'cityId'>
 
 interface Props {
   onSave: (entry: SaveArg) => void
+  onClose: () => void
   onBack: () => void
 }
 
@@ -56,7 +58,7 @@ const HAND_INPUT: React.CSSProperties = {
   lineHeight: 1.4,
 }
 
-export function AddTicketSheet({ onSave, onBack }: Props) {
+export function AddTicketSheet({ onSave, onClose, onBack }: Props) {
   const [from, setFrom] = useState('')
   const [to, setTo] = useState('')
   const [date, setDate] = useState('')
@@ -66,6 +68,7 @@ export function AddTicketSheet({ onSave, onBack }: Props) {
   const [author, setAuthor] = useState<TicketMemory['author']>('Iris')
 
   const canSave = from.trim() && to.trim()
+  const { captured, trigger } = useCaptured(onClose)
 
   function handleSave() {
     if (!canSave) return
@@ -80,7 +83,7 @@ export function AddTicketSheet({ onSave, onBack }: Props) {
     }
     if (line.trim()) entry.line = line.trim()
     if (caption.trim()) entry.caption = caption.trim()
-    onSave(entry)
+    trigger(() => onSave(entry))
   }
 
   return (
@@ -182,8 +185,8 @@ export function AddTicketSheet({ onSave, onBack }: Props) {
         />
       </div>
 
-      <button onClick={handleSave} disabled={!canSave} style={{ ...STAMP_BUTTON, opacity: canSave ? 1 : 0.5 }}>
-        PASTE IT IN
+      <button onClick={handleSave} disabled={!canSave} style={{ ...STAMP_BUTTON, opacity: canSave ? 1 : 0.5, ...(captured ? { background: 'var(--color-ink)', color: 'var(--color-white)', boxShadow: 'none', transform: 'rotate(0deg) scale(0.97)' } : {}) }}>
+        {captured ? '✓ CAPTURED' : 'CAPTURE'}
       </button>
 
       <button onClick={onBack} style={{ marginTop: 'var(--space-md)', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-ink-faint)', letterSpacing: '0.08em', background: 'transparent', border: 'none', cursor: 'pointer', minHeight: 44, display: 'block' }}>

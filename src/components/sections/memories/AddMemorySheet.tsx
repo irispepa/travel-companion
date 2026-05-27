@@ -64,11 +64,11 @@ export function AddMemorySheet({ cityId, date, onSave, onClose }: Props) {
             onPhotoSelected={(src) => { setPhotoSrc(src); setStep('photo') }}
           />
         )}
-        {step === 'note'   && <AddNoteSheet   onSave={onSave} onBack={() => setStep('picker')} />}
-        {step === 'food'   && <AddFoodSheet   onSave={onSave} onBack={() => setStep('picker')} />}
+        {step === 'note'   && <AddNoteSheet   onSave={onSave} onClose={onClose} onBack={() => setStep('picker')} />}
+        {step === 'food'   && <AddFoodSheet   onSave={onSave} onClose={onClose} onBack={() => setStep('picker')} />}
         {step === 'quote'  && <AddQuoteSheet  date={date} cityId={cityId} onClose={onClose} onBack={() => setStep('picker')} />}
-        {step === 'ticket' && <AddTicketSheet onSave={onSave} onBack={() => setStep('picker')} />}
-        {step === 'photo'  && <AddPhotoSheet  src={photoSrc} onSave={onSave} onBack={() => setStep('picker')} />}
+        {step === 'ticket' && <AddTicketSheet onSave={onSave} onClose={onClose} onBack={() => setStep('picker')} />}
+        {step === 'photo'  && <AddPhotoSheet  src={photoSrc} onSave={onSave} onClose={onClose} onBack={() => setStep('picker')} />}
         {step === 'voice'  && <VoiceRecordSheet onSave={entry => { onSave(entry); onClose() }} onBack={() => setStep('picker')} />}
       </div>
     </div>

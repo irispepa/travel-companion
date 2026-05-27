@@ -5,6 +5,7 @@ import { AddFoodSheet } from '../../../src/components/sections/memories/add/AddF
 
 const defaultProps = {
   onSave: vi.fn(),
+  onClose: vi.fn(),
   onBack: vi.fn(),
 }
 

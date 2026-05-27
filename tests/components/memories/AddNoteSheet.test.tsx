@@ -5,6 +5,7 @@ import { AddNoteSheet } from '../../../src/components/sections/memories/add/AddN
 
 const defaultProps = {
   onSave: vi.fn(),
+  onClose: vi.fn(),
   onBack: vi.fn(),
 }
 

@@ -8,6 +8,7 @@ const SRC = 'data:image/png;base64,abc123'
 const defaultProps = {
   src: SRC,
   onSave: vi.fn(),
+  onClose: vi.fn(),
   onBack: vi.fn(),
 }
 

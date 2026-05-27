@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { CityId } from '../../../../db/schema'
 import { useLineOfDay } from '../../../../hooks/useLineOfDay'
+import { useCaptured } from '../../../../hooks/useCaptured'
 
 interface Props {
   cityId: CityId
@@ -24,15 +25,15 @@ const STAMP_BUTTON: React.CSSProperties = {
 export function AddQuoteSheet({ cityId, date, onClose, onBack }: Props) {
   const { setLine } = useLineOfDay(cityId, date)
   const [text, setText] = useState('')
+  const { captured, trigger } = useCaptured(onClose)
 
   const trimmed = text.trim()
   const remaining = MAX_CHARS - text.length
   const overLimit = remaining < 0
 
-  async function handleSave() {
+  function handleSave() {
     if (!trimmed || overLimit) return
-    await setLine(trimmed)
-    onClose()
+    trigger(() => { setLine(trimmed) })
   }
 
   // Format date as e.g. "Thu 22 May 2026"
@@ -98,9 +99,9 @@ export function AddQuoteSheet({ cityId, date, onClose, onBack }: Props) {
       <button
         onClick={handleSave}
         disabled={!trimmed || overLimit}
-        style={{ ...STAMP_BUTTON, opacity: trimmed && !overLimit ? 1 : 0.5 }}
+        style={{ ...STAMP_BUTTON, opacity: trimmed && !overLimit ? 1 : 0.5, ...(captured ? { background: 'var(--color-ink)', color: 'var(--color-white)', boxShadow: 'none', transform: 'rotate(0deg) scale(0.97)' } : {}) }}
       >
-        PASTE IT IN
+        {captured ? '✓ CAPTURED' : 'CAPTURE'}
       </button>
 
       <button

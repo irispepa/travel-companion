@@ -5,6 +5,7 @@ import { AddTicketSheet } from '../../../src/components/sections/memories/add/Ad
 
 const defaultProps = {
   onSave: vi.fn(),
+  onClose: vi.fn(),
   onBack: vi.fn(),
 }
 

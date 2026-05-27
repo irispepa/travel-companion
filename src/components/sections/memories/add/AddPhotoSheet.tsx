@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { PhotoMemory } from '../../../../db/schema'
+import { useCaptured } from '../../../../hooks/useCaptured'
 
 type SaveArg = Omit<PhotoMemory, 'id' | 'cityId'>
 
 interface Props {
   src: string
   onSave: (entry: SaveArg) => void
+  onClose: () => void
   onBack: () => void
 }
 
@@ -21,18 +23,19 @@ const STAMP_BUTTON: React.CSSProperties = {
   cursor: 'pointer', marginTop: 'var(--space-md)', minHeight: 48,
 }
 
-export function AddPhotoSheet({ src, onSave, onBack }: Props) {
+export function AddPhotoSheet({ src, onSave, onClose, onBack }: Props) {
   const [caption, setCaption] = useState('')
   const [author, setAuthor] = useState<PhotoMemory['author']>('Iris')
+  const { captured, trigger } = useCaptured(onClose)
 
   function handleSave() {
-    onSave({
+    trigger(() => onSave({
       kind: 'photo',
       author,
       photoSrc: src,
       caption: caption.trim() || undefined,
       timestamp: new Date().toISOString(),
-    })
+    }))
   }
 
   return (
@@ -95,8 +98,8 @@ export function AddPhotoSheet({ src, onSave, onBack }: Props) {
         }}
       />
 
-      <button onClick={handleSave} style={STAMP_BUTTON}>
-        PASTE IT IN
+      <button onClick={handleSave} style={{ ...STAMP_BUTTON, ...(captured ? { background: 'var(--color-ink)', color: 'var(--color-white)', boxShadow: 'none', transform: 'rotate(0deg) scale(0.97)' } : {}) }}>
+        {captured ? '✓ CAPTURED' : 'CAPTURE'}
       </button>
 
       <button

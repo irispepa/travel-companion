@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { FoodMemory } from '../../../../db/schema'
 import { FoodCard } from '../cards/FoodCard'
+import { useCaptured } from '../../../../hooks/useCaptured'
 
 type SaveArg = Omit<FoodMemory, 'id' | 'cityId'>
 
 interface Props {
   onSave: (entry: SaveArg) => void
+  onClose: () => void
   onBack: () => void
 }
 
@@ -44,10 +46,11 @@ const LABEL_STYLE: React.CSSProperties = {
   marginBottom: 4,
 }
 
-export function AddFoodSheet({ onSave, onBack }: Props) {
+export function AddFoodSheet({ onSave, onClose, onBack }: Props) {
   const [dish, setDish] = useState('')
   const [note, setNote] = useState('')
   const [author, setAuthor] = useState<FoodMemory['author']>('Iris')
+  const { captured, trigger } = useCaptured(onClose)
 
   const previewEntry: FoodMemory = {
     id: 'preview',
@@ -61,7 +64,7 @@ export function AddFoodSheet({ onSave, onBack }: Props) {
 
   function handleSave() {
     if (!dish.trim()) return
-    onSave({ kind: 'food', author, dish: dish.trim(), note: note.trim(), timestamp: new Date().toISOString() })
+    trigger(() => onSave({ kind: 'food', author, dish: dish.trim(), note: note.trim(), timestamp: new Date().toISOString() }))
   }
 
   return (
@@ -122,8 +125,8 @@ export function AddFoodSheet({ onSave, onBack }: Props) {
         <FoodCard entry={previewEntry} width={240} />
       </div>
 
-      <button onClick={handleSave} disabled={!dish.trim()} style={{ ...STAMP_BUTTON, opacity: dish.trim() ? 1 : 0.5 }}>
-        PASTE IT IN
+      <button onClick={handleSave} disabled={!dish.trim()} style={{ ...STAMP_BUTTON, opacity: dish.trim() ? 1 : 0.5, ...(captured ? { background: 'var(--color-ink)', color: 'var(--color-white)', boxShadow: 'none', transform: 'rotate(0deg) scale(0.97)' } : {}) }}>
+        {captured ? '✓ CAPTURED' : 'CAPTURE'}
       </button>
 
       <button onClick={onBack} style={{ marginTop: 'var(--space-md)', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-ink-faint)', letterSpacing: '0.08em', background: 'transparent', border: 'none', cursor: 'pointer', minHeight: 44, display: 'block' }}>
